@@ -3,40 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#120b0b">
-  <title>XA Road Meter</title>
+  <meta name="theme-color" content="#090a0c">
+  <title>XA Road Meter V2</title>
 
   <style>
     :root{
-      --bg:#0b0b0d;
-      --panel:#151519;
-      --line:#34343d;
-      --text:#f4efe8;
-      --muted:#aaa5a0;
-      --accent:#8f2530;
-      --accent2:#d7a35a;
-      --green:#55d69e;
-      --shadow:0 18px 48px rgba(0,0,0,.35);
+      --bg:#07080a;
+      --panel:#111318;
+      --panel-2:#181b21;
+      --steel:#262a31;
+      --line:#383e48;
+      --text:#f6f1e8;
+      --muted:#9ba2ad;
+      --amber:#ffb347;
+      --amber-2:#ffcf73;
+      --red:#d43a35;
+      --red-dark:#6b1518;
+      --green:#4fd39a;
+      --blue:#5ab6ff;
+      --shadow:0 22px 55px rgba(0,0,0,.48);
+      --needle-speed:-132deg;
+      --needle-cost:-132deg;
     }
 
     *{
       box-sizing:border-box;
     }
 
-    html,body{
+    html,
+    body{
       margin:0;
       min-height:100%;
-      background:
-        radial-gradient(circle at top,#241419 0,#0b0b0d 38%,#08080a 100%);
+      background:#050608;
       color:var(--text);
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
     }
 
     body{
-      padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(133,22,24,.25),
+          transparent 34%
+        ),
+        linear-gradient(
+          180deg,
+          #0d0f13 0,
+          #07080a 44%,
+          #050608 100%
+        );
+
+      padding:
+        env(safe-area-inset-top)
+        0
+        env(safe-area-inset-bottom);
     }
 
-    button,input{
+    button,
+    input{
       font:inherit;
     }
 
@@ -45,10 +69,10 @@
     }
 
     .app{
-      max-width:760px;
+      max-width:820px;
       margin:auto;
       min-height:100vh;
-      padding:14px 14px 92px;
+      padding:12px 12px 98px;
     }
 
     .topbar{
@@ -56,56 +80,101 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      padding:10px 2px 16px;
+      padding:7px 2px 14px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:11px;
+      gap:12px;
+      min-width:0;
     }
 
     .logo{
-      width:48px;
-      height:48px;
-      border-radius:15px;
+      width:58px;
+      height:58px;
       display:grid;
       place-items:center;
-      background:linear-gradient(145deg,#a63843,#5d111b);
-      box-shadow:var(--shadow);
-      border:1px solid rgba(255,255,255,.08);
-      font-family:Georgia,serif;
-      font-size:23px;
-      font-weight:800;
+      border-radius:17px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.18),
+          transparent 25%
+        ),
+        linear-gradient(
+          145deg,
+          #bb2f3b,
+          #63151e 72%
+        );
+
+      border:1px solid #d0525c;
+
+      box-shadow:
+        inset 0 0 0 3px rgba(0,0,0,.22),
+        var(--shadow);
+
+      font:800 27px Georgia,serif;
       letter-spacing:-2px;
+      color:#fff4ea;
     }
 
     .brand h1{
-      font-size:17px;
-      line-height:1.1;
       margin:0;
-      letter-spacing:.08em;
+      font-size:20px;
+      letter-spacing:.12em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
     .brand p{
-      font-size:11px;
       margin:4px 0 0;
-      color:var(--muted);
-      letter-spacing:.12em;
-    }
-
-    .status-pill{
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:7px 10px;
-      color:var(--muted);
+      color:#b0a8a2;
       font-size:11px;
-      background:rgba(255,255,255,.025);
+      letter-spacing:.16em;
     }
 
-    .status-pill.live{
-      color:var(--green);
-      border-color:rgba(85,214,158,.45);
+    .top-status{
+      display:flex;
+      gap:7px;
+      align-items:center;
+    }
+
+    .lamp{
+      display:flex;
+      align-items:center;
+      gap:6px;
+
+      border:1px solid #363b44;
+      background:#111318;
+      color:#9aa1ab;
+
+      border-radius:999px;
+      padding:8px 10px;
+
+      font-size:10px;
+      letter-spacing:.08em;
+      white-space:nowrap;
+    }
+
+    .lamp i{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#4e545d;
+      box-shadow:0 0 0 3px rgba(255,255,255,.03);
+    }
+
+    .lamp.on{
+      color:#d9ffe9;
+      border-color:rgba(79,211,154,.35);
+    }
+
+    .lamp.on i{
+      background:var(--green);
+      box-shadow:0 0 12px rgba(79,211,154,.8);
     }
 
     .page{
@@ -116,229 +185,646 @@
       display:block;
     }
 
-    .meter{
-      background:
-        linear-gradient(180deg,rgba(255,255,255,.035),transparent 35%),
-        linear-gradient(145deg,#17171b,#101014);
-      border:1px solid var(--line);
-      border-radius:28px;
-      padding:24px 18px 18px;
-      box-shadow:var(--shadow);
+    .dash-shell{
       position:relative;
       overflow:hidden;
+      border-radius:30px;
+      padding:16px;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.055),
+          transparent 10%
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,.018) 0 1px,
+          transparent 1px 4px
+        ),
+        linear-gradient(
+          145deg,
+          #1b1e24,
+          #0e1014 62%,
+          #090a0d
+        );
+
+      border:1px solid #414752;
+
+      box-shadow:
+        var(--shadow),
+        inset 0 0 0 2px rgba(255,255,255,.025);
     }
 
-    .meter:before{
+    .dash-shell:before{
       content:"";
       position:absolute;
-      inset:0 0 auto 0;
-      height:4px;
-      background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));
+      inset:0 0 auto;
+      height:5px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #6b1518,
+          #d43a35 24%,
+          #ffb347 50%,
+          #d43a35 76%,
+          #6b1518
+        );
+
+      box-shadow:
+        0 0 16px rgba(255,179,71,.35);
     }
 
-    .eyebrow{
-      text-align:center;
-      color:var(--muted);
-      font-size:11px;
-      letter-spacing:.18em;
-    }
-
-    .price{
-      text-align:center;
-      font-variant-numeric:tabular-nums;
-      font-size:clamp(48px,15vw,88px);
-      font-weight:850;
-      letter-spacing:-.06em;
-      margin:10px 0 0;
-      line-height:1;
-    }
-
-    .price small{
-      font-size:.33em;
-      color:var(--accent2);
-      letter-spacing:0;
-    }
-
-    .subline{
-      text-align:center;
-      margin-top:9px;
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    .live-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:9px;
-      margin-top:22px;
-    }
-
-    .live-cell{
-      background:rgba(255,255,255,.035);
-      border:1px solid rgba(255,255,255,.055);
-      border-radius:16px;
-      padding:12px 8px;
-      text-align:center;
-    }
-
-    .live-cell b{
-      display:block;
-      font-size:17px;
-      font-variant-numeric:tabular-nums;
-    }
-
-    .live-cell span{
-      display:block;
-      margin-top:4px;
-      font-size:10px;
-      color:var(--muted);
-      letter-spacing:.1em;
-    }
-
-    .controls{
-      display:grid;
-      grid-template-columns:1.2fr 1fr 1fr;
-      gap:10px;
-      margin-top:14px;
-    }
-
-    .btn{
-      border:none;
-      border-radius:16px;
-      padding:15px 12px;
-      font-weight:800;
-      letter-spacing:.06em;
-      color:white;
-      background:#2b2b31;
-      border:1px solid #3a3a43;
-    }
-
-    .btn.primary{
-      background:linear-gradient(145deg,#a83844,#6e1721);
-      border-color:#b04853;
-    }
-
-    .btn.warn{
-      background:#36261c;
-      border-color:#60442e;
-      color:#ffd29b;
-    }
-
-    .btn.danger{
-      background:#351a1e;
-      border-color:#68303a;
-      color:#ffb1b7;
-    }
-
-    .btn:disabled{
-      opacity:.42;
-      cursor:not-allowed;
-    }
-
-    .section-title{
+    .dash-label{
       display:flex;
       justify-content:space-between;
       align-items:center;
-      margin:22px 2px 10px;
+      gap:12px;
+
+      margin:3px 4px 12px;
+      color:#aeb5bf;
+
+      font-size:10px;
+      letter-spacing:.18em;
     }
 
-    .section-title h2{
-      font-size:14px;
-      margin:0;
-      letter-spacing:.08em;
+    .dash-label b{
+      color:var(--amber);
+      font-weight:800;
     }
 
-    .section-title span{
-      font-size:11px;
-      color:var(--muted);
-    }
-
-    .breakdown{
+    .instrument-grid{
       display:grid;
-      gap:9px;
-    }
-
-    .cost-row{
-      display:grid;
-      grid-template-columns:1fr auto;
+      grid-template-columns:1fr 1.16fr 1fr;
       gap:12px;
       align-items:center;
-      padding:13px 14px;
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:16px;
     }
 
-    .cost-row .name{
-      font-size:13px;
+    .gauge{
+      aspect-ratio:1/1;
+      border-radius:50%;
+      position:relative;
+
+      display:grid;
+      place-items:center;
+
+      background:
+        radial-gradient(
+          circle,
+          #090a0d 0 46%,
+          transparent 47%
+        ),
+        conic-gradient(
+          from 224deg,
+          #d43a35 0 16deg,
+          #ffb347 16deg 204deg,
+          #313640 204deg 272deg,
+          #15181d 272deg 360deg
+        );
+
+      border:1px solid #525965;
+
+      box-shadow:
+        inset 0 0 0 9px #0b0c0f,
+        inset 0 0 0 11px #3a3f48,
+        inset 0 0 30px rgba(0,0,0,.9),
+        0 10px 30px rgba(0,0,0,.45);
     }
 
-    .cost-row .name small{
-      display:block;
-      color:var(--muted);
-      font-size:10px;
-      margin-top:3px;
+    .gauge:before{
+      content:"";
+      position:absolute;
+      inset:14%;
+      border-radius:50%;
+
+      background:
+        radial-gradient(
+          circle at 50% 42%,
+          rgba(255,179,71,.09),
+          transparent 34%
+        ),
+        repeating-conic-gradient(
+          from 224deg,
+          rgba(255,255,255,.85) 0 1deg,
+          transparent 1deg 12deg
+        );
+
+      -webkit-mask:
+        radial-gradient(
+          circle,
+          transparent 0 73%,
+          #000 74% 100%
+        );
+
+      mask:
+        radial-gradient(
+          circle,
+          transparent 0 73%,
+          #000 74% 100%
+        );
+
+      opacity:.78;
     }
 
-    .cost-row .amount{
-      font-size:16px;
-      font-weight:800;
+    .gauge-center{
+      position:absolute;
+      inset:22%;
+      border-radius:50%;
+
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+
+      background:
+        radial-gradient(
+          circle at 50% 38%,
+          #171a20,
+          #08090b 68%
+        );
+
+      border:1px solid #353a43;
+
+      box-shadow:
+        inset 0 0 25px rgba(0,0,0,.85);
+
+      text-align:center;
+    }
+
+    .gauge-center b{
+      font-size:clamp(22px,6vw,38px);
+      line-height:1;
       font-variant-numeric:tabular-nums;
     }
 
-    .summary-card{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:10px;
+    .gauge-center span{
+      font-size:9px;
+      letter-spacing:.14em;
+      color:#a7aeb7;
+      margin-top:5px;
     }
 
-    .summary-box{
-      padding:15px;
-      background:linear-gradient(145deg,#1c1c21,#131317);
-      border:1px solid var(--line);
-      border-radius:18px;
-    }
-
-    .summary-box span{
+    .gauge-center small{
       font-size:10px;
-      color:var(--muted);
+      color:var(--amber);
+      margin-top:4px;
+    }
+
+    .needle{
+      position:absolute;
+      width:42%;
+      height:3px;
+      left:50%;
+      top:50%;
+
+      transform-origin:0 50%;
+
+      background:
+        linear-gradient(
+          90deg,
+          #fff4d2,
+          #ffb347 65%,
+          #d43a35
+        );
+
+      border-radius:999px;
+
+      box-shadow:
+        0 0 10px rgba(255,179,71,.7);
+
+      transition:
+        transform .45s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .needle.speed{
+      transform:rotate(var(--needle-speed));
+    }
+
+    .needle.cost{
+      transform:rotate(var(--needle-cost));
+    }
+
+    .hub{
+      position:absolute;
+      width:17px;
+      height:17px;
+      border-radius:50%;
+
+      background:
+        radial-gradient(
+          circle at 35% 35%,
+          #d7dbe0,
+          #5c626c 35%,
+          #14171b 72%
+        );
+
+      border:1px solid #8b929c;
+      box-shadow:0 2px 8px #000;
+    }
+
+    .g-title{
+      position:absolute;
+      top:18%;
+      font-size:9px;
+      letter-spacing:.12em;
+      color:#d2d7dd;
+    }
+
+    .mark{
+      position:absolute;
+      font-size:8px;
+      color:#c5cad0;
+      font-variant-numeric:tabular-nums;
+    }
+
+    .m1{
+      left:14%;
+      bottom:24%;
+    }
+
+    .m2{
+      left:14%;
+      top:28%;
+    }
+
+    .m3{
+      left:46%;
+      top:10%;
+    }
+
+    .m4{
+      right:14%;
+      top:28%;
+    }
+
+    .m5{
+      right:12%;
+      bottom:24%;
+    }
+
+    .fare-module{
+      min-height:270px;
+      border-radius:24px;
+      padding:16px;
+
+      position:relative;
+      overflow:hidden;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.04),
+          transparent 20%
+        ),
+        linear-gradient(
+          145deg,
+          #101216,
+          #08090c
+        );
+
+      border:1px solid #3a404a;
+
+      box-shadow:
+        inset 0 0 38px rgba(0,0,0,.72);
+
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .fare-module:before{
+      content:"";
+      position:absolute;
+      inset:8px;
+      border-radius:18px;
+      border:1px solid rgba(255,179,71,.12);
+      pointer-events:none;
+    }
+
+    .fare-caption{
+      font-size:10px;
+      letter-spacing:.22em;
+      color:#9fa6b0;
+    }
+
+    .fare{
+      display:flex;
+      align-items:flex-end;
+      gap:7px;
+      margin:12px 0 3px;
+
+      font-weight:900;
+      font-variant-numeric:tabular-nums;
+      line-height:.9;
+    }
+
+    .fare .currency{
+      font-size:26px;
+      color:var(--amber);
+      margin-bottom:7px;
+    }
+
+    .fare .number{
+      font-size:clamp(52px,12vw,84px);
+      letter-spacing:-.055em;
+
+      text-shadow:
+        0 0 22px rgba(255,179,71,.08);
+    }
+
+    .trip-state{
+      font-size:13px;
+      color:#d2d6dc;
+      margin-top:7px;
+    }
+
+    .trip-state.live{
+      color:#dcffe9;
+    }
+
+    .odometer{
+      margin-top:17px;
+      width:100%;
+
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+    }
+
+    .odo-cell{
+      border-radius:12px;
+      padding:10px 6px;
+
+      background:#111318;
+      border:1px solid #2e333b;
+
+      text-align:center;
+
+      box-shadow:
+        inset 0 0 15px rgba(0,0,0,.55);
+    }
+
+    .odo-cell b{
+      display:block;
+      font-size:16px;
+      font-variant-numeric:tabular-nums;
+      color:#fff6e8;
+    }
+
+    .odo-cell span{
+      display:block;
+      margin-top:4px;
+      color:#7f8792;
+      font-size:8px;
+      letter-spacing:.13em;
+    }
+
+    .switch-row{
+      display:grid;
+      grid-template-columns:1.15fr 1fr 1fr;
+      gap:10px;
+      margin-top:13px;
+    }
+
+    .control{
+      min-height:68px;
+      border-radius:18px;
+      border:1px solid #383d46;
+
+      color:#fff;
+      font-weight:900;
+      letter-spacing:.08em;
+
+      background:
+        linear-gradient(
+          180deg,
+          #2b3037,
+          #15181d
+        );
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 8px 18px rgba(0,0,0,.32);
+    }
+
+    .control.primary{
+      background:
+        linear-gradient(
+          180deg,
+          #d33a43,
+          #7b161f
+        );
+
+      border-color:#e2525b;
+    }
+
+    .control.pause{
+      background:
+        linear-gradient(
+          180deg,
+          #4b3520,
+          #251a12
+        );
+
+      color:#ffd394;
+      border-color:#684a2f;
+    }
+
+    .control.stop{
+      background:
+        linear-gradient(
+          180deg,
+          #3f191e,
+          #201014
+        );
+
+      color:#ffadb1;
+      border-color:#633039;
+    }
+
+    .control:disabled{
+      opacity:.34;
+      filter:saturate(.5);
+      cursor:not-allowed;
+    }
+
+    .telemetry{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      margin-top:12px;
+    }
+
+    .tele-box{
+      padding:10px 8px;
+      border-radius:14px;
+
+      background:#0f1115;
+      border:1px solid #2f343c;
+
+      text-align:center;
+    }
+
+    .tele-box b{
+      display:block;
+      font-size:15px;
+      color:var(--amber-2);
+      font-variant-numeric:tabular-nums;
+    }
+
+    .tele-box span{
+      display:block;
+      margin-top:4px;
+      font-size:8px;
+      color:#7f8791;
       letter-spacing:.1em;
     }
 
-    .summary-box b{
-      display:block;
-      margin-top:7px;
-      font-size:20px;
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin:20px 3px 10px;
     }
 
-    .quick-expenses{
+    .section-head h2{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.12em;
+    }
+
+    .section-head span{
+      font-size:11px;
+      color:#9da4ae;
+    }
+
+    .cost-board{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .cost-card{
+      background:
+        linear-gradient(
+          145deg,
+          #171a20,
+          #0d0f13
+        );
+
+      border:1px solid #343a44;
+      border-radius:18px;
+      padding:14px;
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.035);
+    }
+
+    .cost-top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+    }
+
+    .cost-name{
+      font-size:13px;
+      font-weight:750;
+    }
+
+    .cost-name small{
+      display:block;
+      margin-top:4px;
+      color:#858d98;
+      font-size:9px;
+      font-weight:500;
+      line-height:1.35;
+    }
+
+    .cost-value{
+      font-size:18px;
+      font-weight:900;
+      color:#fff5e3;
+      white-space:nowrap;
+      font-variant-numeric:tabular-nums;
+    }
+
+    .bar{
+      height:5px;
+      background:#262b32;
+      border-radius:999px;
+      margin-top:12px;
+      overflow:hidden;
+    }
+
+    .bar i{
+      display:block;
+      height:100%;
+      width:0;
+
+      background:
+        linear-gradient(
+          90deg,
+          #d43a35,
+          #ffb347
+        );
+
+      border-radius:999px;
+
+      transition:
+        width .35s;
+    }
+
+    .quick-grid{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:9px;
     }
 
-    .chip{
-      border-radius:14px;
-      padding:12px 8px;
-      background:var(--panel);
-      border:1px solid var(--line);
-      color:var(--text);
-      font-size:12px;
+    .quick{
+      border-radius:15px;
+      padding:13px 8px;
+
+      border:1px solid #3b414b;
+
+      background:
+        linear-gradient(
+          180deg,
+          #1c2026,
+          #111318
+        );
+
+      color:#f6f1e8;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.04em;
     }
 
-    .card{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:20px;
+    .panel{
+      background:
+        linear-gradient(
+          145deg,
+          #171a20,
+          #0d0f13
+        );
+
+      border:1px solid #343a44;
+      border-radius:22px;
       padding:16px;
       margin-bottom:12px;
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.035);
     }
 
-    .card h3{
-      margin:0 0 13px;
+    .panel h3{
+      margin:0 0 14px;
       font-size:14px;
-      letter-spacing:.06em;
+      letter-spacing:.1em;
+      color:#fff4e5;
     }
 
     .field-grid{
@@ -358,41 +844,84 @@
     }
 
     label{
-      font-size:11px;
-      color:var(--muted);
+      font-size:10px;
+      color:#949ca7;
+      letter-spacing:.04em;
     }
 
     input{
       width:100%;
-      border:1px solid var(--line);
-      background:#0f0f13;
-      color:var(--text);
+
+      border:1px solid #343a44;
+      background:#090b0e;
+      color:#fff4e7;
+
       border-radius:13px;
       padding:12px;
       outline:none;
+
+      box-shadow:
+        inset 0 0 14px rgba(0,0,0,.45);
     }
 
     input:focus{
-      border-color:var(--accent2);
+      border-color:#c97d39;
+
+      box-shadow:
+        0 0 0 3px rgba(255,179,71,.08),
+        inset 0 0 14px rgba(0,0,0,.45);
     }
 
     .note{
-      font-size:11px;
-      line-height:1.45;
-      color:var(--muted);
+      font-size:10px;
+      color:#89919b;
+      line-height:1.5;
       margin:10px 0 0;
     }
 
-    .savebar{
+    .save-row{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:10px;
       margin-top:12px;
     }
 
+    .mini-summary{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .mini-box{
+      border-radius:16px;
+      padding:14px;
+
+      background:#0e1014;
+      border:1px solid #2d323a;
+    }
+
+    .mini-box span{
+      font-size:9px;
+      color:#858d97;
+      letter-spacing:.12em;
+    }
+
+    .mini-box b{
+      display:block;
+      margin-top:7px;
+      font-size:20px;
+      color:var(--amber-2);
+    }
+
     .trip{
-      background:var(--panel);
-      border:1px solid var(--line);
+      background:
+        linear-gradient(
+          145deg,
+          #171a20,
+          #0d0f13
+        );
+
+      border:1px solid #343a44;
       border-radius:18px;
       padding:14px;
       margin-bottom:10px;
@@ -405,24 +934,25 @@
     }
 
     .trip-head b{
-      font-size:14px;
+      font-size:13px;
     }
 
     .trip-head span{
-      font-weight:800;
-      color:var(--accent2);
+      font-weight:900;
+      color:var(--amber-2);
     }
 
     .trip-meta{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:7px;
-      margin-top:12px;
+      margin-top:11px;
     }
 
     .trip-meta div{
-      background:#101014;
-      border-radius:12px;
+      background:#0b0d10;
+      border:1px solid #252a31;
+      border-radius:11px;
       padding:9px;
       text-align:center;
     }
@@ -433,16 +963,17 @@
     }
 
     .trip-meta small{
-      color:var(--muted);
-      font-size:9px;
+      color:#7f8791;
+      font-size:8px;
     }
 
     .empty{
       text-align:center;
       padding:34px 18px;
-      color:var(--muted);
-      background:var(--panel);
-      border:1px dashed var(--line);
+      color:#838b96;
+
+      background:#101216;
+      border:1px dashed #353b44;
       border-radius:20px;
     }
 
@@ -451,60 +982,60 @@
       left:50%;
       transform:translateX(-50%);
       bottom:0;
-      width:min(760px,100%);
+
+      width:min(820px,100%);
+
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:4px;
-      background:rgba(12,12,15,.94);
+      gap:6px;
+
+      background:rgba(7,8,10,.96);
       backdrop-filter:blur(18px);
-      border-top:1px solid var(--line);
-      padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+
+      border-top:1px solid #30353d;
+
+      padding:
+        8px
+        12px
+        calc(8px + env(safe-area-inset-bottom));
+
       z-index:20;
     }
 
     .nav-btn{
-      border:0;
+      border:1px solid transparent;
       background:transparent;
-      color:var(--muted);
-      padding:9px 5px;
-      border-radius:13px;
-      font-size:11px;
-      font-weight:700;
+      color:#8b939e;
+
+      padding:11px 5px;
+      border-radius:14px;
+
+      font-size:10px;
+      font-weight:850;
+      letter-spacing:.05em;
     }
 
     .nav-btn.active{
-      background:#24242a;
-      color:var(--text);
-    }
+      background:
+        linear-gradient(
+          180deg,
+          #292e35,
+          #171a20
+        );
 
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:88px;
-      transform:translate(-50%,20px);
-      background:#f4efe8;
-      color:#111;
-      padding:11px 15px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:700;
-      opacity:0;
-      pointer-events:none;
-      transition:.25s;
-      z-index:40;
-    }
-
-    .toast.show{
-      opacity:1;
-      transform:translate(-50%,0);
+      border-color:#3b414a;
+      color:#fff4e5;
     }
 
     .modal{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,.72);
+
+      background:rgba(0,0,0,.75);
+
       display:none;
       place-items:end center;
+
       z-index:50;
       padding:16px;
     }
@@ -514,10 +1045,12 @@
     }
 
     .modal-box{
-      width:min(760px,100%);
-      background:#17171c;
-      border:1px solid var(--line);
+      width:min(820px,100%);
+
+      background:#15181e;
+      border:1px solid #3d434d;
       border-radius:24px;
+
       padding:18px;
       box-shadow:var(--shadow);
     }
@@ -526,7 +1059,100 @@
       margin:0 0 14px;
     }
 
-    @media(max-width:520px){
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:92px;
+
+      transform:translate(-50%,20px);
+      opacity:0;
+
+      pointer-events:none;
+      z-index:60;
+
+      background:#f6efe3;
+      color:#111;
+
+      padding:11px 15px;
+      border-radius:999px;
+
+      font-size:12px;
+      font-weight:850;
+
+      transition:.25s;
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translate(-50%,0);
+    }
+
+    @media(max-width:680px){
+
+      .instrument-grid{
+        grid-template-columns:1fr 1.18fr 1fr;
+        gap:7px;
+      }
+
+      .dash-shell{
+        padding:12px;
+      }
+
+      .fare-module{
+        min-height:230px;
+        padding:12px;
+      }
+
+      .gauge-center b{
+        font-size:24px;
+      }
+
+      .g-title{
+        font-size:7px;
+      }
+
+      .mark{
+        font-size:6px;
+      }
+
+      .telemetry{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media(max-width:540px){
+
+      .brand h1{
+        font-size:17px;
+      }
+
+      .logo{
+        width:52px;
+        height:52px;
+      }
+
+      .lamp.obd{
+        display:none;
+      }
+
+      .instrument-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .fare-module{
+        grid-column:1/-1;
+        grid-row:1;
+        min-height:225px;
+      }
+
+      .gauge{
+        grid-row:2;
+      }
+
+      .cost-board{
+        grid-template-columns:1fr;
+      }
+
       .field-grid{
         grid-template-columns:1fr;
       }
@@ -540,1740 +1166,2731 @@
 
 <body>
 
-<div class="app">
+  <div class="app">
 
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">XA</div>
+    <header class="topbar">
 
-      <div>
-        <h1>ROAD METER</h1>
-        <p>FORD EDGE ST-LINE 238 CV</p>
-      </div>
-    </div>
+      <div class="brand">
 
-    <div id="gpsStatus" class="status-pill">GPS pronto</div>
-  </header>
-
-  <main>
-
-    <section id="page-drive" class="page active">
-
-      <div class="meter">
-
-        <div class="eyebrow">
-          COSTO REALE DEL VIAGGIO
+        <div class="logo">
+          XA
         </div>
 
-        <div class="price">
-          <small>€</small>
-          <span id="totalCost">0,00</span>
-        </div>
+        <div>
 
-        <div id="meterState" class="subline">
-          Premi START per iniziare
-        </div>
+          <h1>
+            ROAD COMMAND
+          </h1>
 
-        <div class="live-grid">
-
-          <div class="live-cell">
-            <b id="distance">0,00</b>
-            <span>KM</span>
-          </div>
-
-          <div class="live-cell">
-            <b id="duration">00:00:00</b>
-            <span>TEMPO</span>
-          </div>
-
-          <div class="live-cell">
-            <b id="speed">0</b>
-            <span>KM/H</span>
-          </div>
-
-        </div>
-
-        <div class="controls">
-          <button id="startBtn" class="btn primary">START</button>
-          <button id="pauseBtn" class="btn warn" disabled>PAUSA</button>
-          <button id="stopBtn" class="btn danger" disabled>STOP</button>
-        </div>
-
-      </div>
-
-      <div class="section-title">
-        <h2>CONTA COSTI LIVE</h2>
-        <span id="costPerKm">0,000 €/km</span>
-      </div>
-
-      <div class="breakdown">
-
-        <div class="cost-row">
-          <div class="name">
-            Carburante
-            <small id="fuelDetail">0,00 L consumati</small>
-          </div>
-          <div id="fuelCost" class="amount">€ 0,00</div>
-        </div>
-
-        <div class="cost-row">
-          <div class="name">
-            Gomme
-            <small>Usura progressiva per chilometro</small>
-          </div>
-          <div id="tiresCost" class="amount">€ 0,00</div>
-        </div>
-
-        <div class="cost-row">
-          <div class="name">
-            Manutenzione
-            <small>Tagliandi, freni, olio e AdBlue</small>
-          </div>
-          <div id="maintenanceCost" class="amount">€ 0,00</div>
-        </div>
-
-        <div class="cost-row">
-          <div class="name">
-            Costi fissi
-            <small>Assicurazione, bollo, revisione e garage</small>
-          </div>
-          <div id="fixedCost" class="amount">€ 0,00</div>
-        </div>
-
-        <div class="cost-row">
-          <div class="name">
-            Svalutazione
-            <small>Perdita di valore stimata</small>
-          </div>
-          <div id="depreciationCost" class="amount">€ 0,00</div>
-        </div>
-
-        <div class="cost-row">
-          <div class="name">
-            Spese viaggio
-            <small>Autostrada, parcheggi e altre spese</small>
-          </div>
-          <div id="extrasCost" class="amount">€ 0,00</div>
-        </div>
-
-      </div>
-
-      <div class="summary-card">
-
-        <div class="summary-box">
-          <span>CONSUMO STIMATO</span>
-          <b id="liveConsumption">8,5 L/100</b>
-        </div>
-
-        <div class="summary-box">
-          <span>COSTO AL MINUTO</span>
-          <b id="costPerMinute">€ 0,00</b>
-        </div>
-
-      </div>
-
-      <div class="section-title">
-        <h2>AGGIUNGI SPESA</h2>
-        <span>durante il viaggio</span>
-      </div>
-
-      <div class="quick-expenses">
-        <button class="chip" data-expense="Autostrada">
-          🛣️ Autostrada
-        </button>
-
-        <button class="chip" data-expense="Parcheggio">
-          🅿️ Parcheggio
-        </button>
-
-        <button class="chip" data-expense="Altro">
-          ＋ Altro
-        </button>
-      </div>
-
-    </section>
-
-    <section id="page-edge" class="page">
-
-      <div class="card">
-
-        <h3>PROFILO AUTO</h3>
-
-        <div class="field-grid">
-
-          <div class="field full">
-            <label>Veicolo</label>
-            <input
-              id="vehicleName"
-              value="Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD"
-            >
-          </div>
-
-          <div class="field">
-            <label>Prezzo di acquisto (€)</label>
-            <input
-              id="purchasePrice"
-              type="number"
-              min="0"
-              step="100"
-            >
-          </div>
-
-          <div class="field">
-            <label>Valore futuro stimato (€)</label>
-            <input
-              id="residualValue"
-              type="number"
-              min="0"
-              step="100"
-            >
-          </div>
-
-          <div class="field">
-            <label>Km previsti di possesso</label>
-            <input
-              id="ownershipKm"
-              type="number"
-              min="1"
-              step="1000"
-            >
-          </div>
-
-          <div class="field">
-            <label>Km annuali previsti</label>
-            <input
-              id="annualKm"
-              type="number"
-              min="1"
-              step="1000"
-            >
-          </div>
+          <p>
+            FORD EDGE ST-LINE 238 CV
+          </p>
 
         </div>
 
       </div>
 
-      <div class="card">
+      <div class="top-status">
 
-        <h3>CARBURANTE</h3>
-
-        <div class="field-grid">
-
-          <div class="field">
-            <label>Prezzo gasolio €/L</label>
-            <input
-              id="fuelPrice"
-              type="number"
-              min="0"
-              step="0.001"
-            >
-          </div>
-
-          <div class="field">
-            <label>Consumo medio L/100 km</label>
-            <input
-              id="consumption"
-              type="number"
-              min="0"
-              step="0.1"
-            >
-          </div>
-
+        <div id="gpsLamp" class="lamp">
+          <i></i>
+          <span>GPS</span>
         </div>
 
-        <p class="note">
-          Il consumo iniziale è una stima. Inserisci quello reale
-          mostrato dal computer di bordo della Ford Edge.
-        </p>
-
-      </div>
-
-      <div class="card">
-
-        <h3>GOMME E MANUTENZIONE</h3>
-
-        <div class="field-grid">
-
-          <div class="field">
-            <label>Costo quattro gomme (€)</label>
-            <input
-              id="tiresPrice"
-              type="number"
-              min="0"
-              step="10"
-            >
-          </div>
-
-          <div class="field">
-            <label>Durata gomme (km)</label>
-            <input
-              id="tiresLife"
-              type="number"
-              min="1"
-              step="1000"
-            >
-          </div>
-
-          <div class="field full">
-            <label>Manutenzione stimata €/km</label>
-            <input
-              id="maintenancePerKm"
-              type="number"
-              min="0"
-              step="0.001"
-            >
-          </div>
-
+        <div class="lamp obd">
+          <i></i>
+          <span>OBD READY</span>
         </div>
 
       </div>
 
-      <div class="card">
+    </header>
 
-        <h3>COSTI FISSI ANNUALI</h3>
+    <main>
 
-        <div class="field-grid">
+      <section id="page-drive" class="page active">
 
-          <div class="field">
-            <label>Assicurazione (€)</label>
-            <input
-              id="insurance"
-              type="number"
-              min="0"
-              step="10"
-            >
+        <div class="dash-shell">
+
+          <div class="dash-label">
+
+            <span>
+              AMERICAN ROAD INSTRUMENTATION
+            </span>
+
+            <b>
+              LIVE COST METER
+            </b>
+
           </div>
 
-          <div class="field">
-            <label>Bollo (€)</label>
-            <input
-              id="tax"
-              type="number"
-              min="0"
-              step="10"
-            >
+          <div class="instrument-grid">
+
+            <div class="gauge">
+
+              <span class="g-title">
+                ROAD SPEED
+              </span>
+
+              <span class="mark m1">0</span>
+              <span class="mark m2">60</span>
+              <span class="mark m3">120</span>
+              <span class="mark m4">180</span>
+              <span class="mark m5">240</span>
+
+              <div class="needle speed"></div>
+              <div class="hub"></div>
+
+              <div class="gauge-center">
+
+                <b id="speed">
+                  0
+                </b>
+
+                <span>
+                  KM/H
+                </span>
+
+                <small id="gpsAccuracy">
+                  GPS READY
+                </small>
+
+              </div>
+
+            </div>
+
+            <div class="fare-module">
+
+              <div class="fare-caption">
+                REAL TRIP COST
+              </div>
+
+              <div class="fare">
+
+                <span class="currency">
+                  €
+                </span>
+
+                <span id="totalCost" class="number">
+                  0,00
+                </span>
+
+              </div>
+
+              <div id="meterState" class="trip-state">
+                Premi START per iniziare
+              </div>
+
+              <div class="odometer">
+
+                <div class="odo-cell">
+
+                  <b id="distance">
+                    0,00
+                  </b>
+
+                  <span>
+                    TRIP KM
+                  </span>
+
+                </div>
+
+                <div class="odo-cell">
+
+                  <b id="duration">
+                    00:00:00
+                  </b>
+
+                  <span>
+                    DRIVE TIME
+                  </span>
+
+                </div>
+
+                <div class="odo-cell">
+
+                  <b id="fuelLitersTop">
+                    0,00
+                  </b>
+
+                  <span>
+                    FUEL L
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="gauge">
+
+              <span class="g-title">
+                COST RATE
+              </span>
+
+              <span class="mark m1">0</span>
+              <span class="mark m2">0,3</span>
+              <span class="mark m3">0,6</span>
+              <span class="mark m4">0,9</span>
+              <span class="mark m5">1,2</span>
+
+              <div class="needle cost"></div>
+              <div class="hub"></div>
+
+              <div class="gauge-center">
+
+                <b id="costPerKmGauge">
+                  0,000
+                </b>
+
+                <span>
+                  EURO / KM
+                </span>
+
+                <small id="costLevel">
+                  NORMAL
+                </small>
+
+              </div>
+
+            </div>
+
           </div>
 
-          <div class="field">
-            <label>Revisione, media annua (€)</label>
-            <input
-              id="inspection"
-              type="number"
-              min="0"
-              step="10"
-            >
+          <div class="switch-row">
+
+            <button id="startBtn" class="control primary">
+              START ENGINE
+            </button>
+
+            <button id="pauseBtn" class="control pause" disabled>
+              PAUSA
+            </button>
+
+            <button id="stopBtn" class="control stop" disabled>
+              STOP & SAVE
+            </button>
+
           </div>
 
-          <div class="field">
-            <label>Garage e altri costi (€)</label>
-            <input
-              id="garage"
-              type="number"
-              min="0"
-              step="10"
-            >
+          <div class="telemetry">
+
+            <div class="tele-box">
+
+              <b id="liveConsumption">
+                8,5
+              </b>
+
+              <span>
+                L/100 KM
+              </span>
+
+            </div>
+
+            <div class="tele-box">
+
+              <b id="costPerMinute">
+                € 0,00
+              </b>
+
+              <span>
+                COSTO/MIN
+              </span>
+
+            </div>
+
+            <div class="tele-box">
+
+              <b id="idleTime">
+                00:00
+              </b>
+
+              <span>
+                IDLE TIME
+              </span>
+
+            </div>
+
+            <div class="tele-box">
+
+              <b id="fixedRate">
+                0,000
+              </b>
+
+              <span>
+                FISSI €/KM
+              </span>
+
+            </div>
+
           </div>
 
         </div>
 
-        <div class="savebar">
-          <button id="saveSettings" class="btn primary">
-            SALVA DATI
+        <div class="section-head">
+
+          <h2>
+            COST BREAKDOWN
+          </h2>
+
+          <span id="costPerKm">
+            0,000 €/km
+          </span>
+
+        </div>
+
+        <div class="cost-board">
+
+          <div class="cost-card">
+
+            <div class="cost-top">
+
+              <div class="cost-name">
+
+                Carburante
+
+                <small id="fuelDetail">
+                  0,00 L consumati
+                </small>
+
+              </div>
+
+              <div id="fuelCost" class="cost-value">
+                € 0,00
+              </div>
+
+            </div>
+
+            <div class="bar">
+              <i id="fuelBar"></i>
+            </div>
+
+          </div>
+
+          <div class="cost-card">
+
+            <div class="cost-top">
+
+              <div class="cost-name">
+
+                Gomme
+
+                <small>
+                  Usura progressiva del treno gomme
+                </small>
+
+              </div>
+
+              <div id="tiresCost" class="cost-value">
+                € 0,00
+              </div>
+
+            </div>
+
+            <div class="bar">
+              <i id="tiresBar"></i>
+            </div>
+
+          </div>
+
+          <div class="cost-card">
+
+            <div class="cost-top">
+
+              <div class="cost-name">
+
+                Manutenzione
+
+                <small>
+                  Tagliandi, freni, olio, filtri e AdBlue
+                </small>
+
+              </div>
+
+              <div id="maintenanceCost" class="cost-value">
+                € 0,00
+              </div>
+
+            </div>
+
+            <div class="bar">
+              <i id="maintenanceBar"></i>
+            </div>
+
+          </div>
+
+          <div class="cost-card">
+
+            <div class="cost-top">
+
+              <div class="cost-name">
+
+                Costi fissi
+
+                <small>
+                  Assicurazione, bollo, revisione e garage
+                </small>
+
+              </div>
+
+              <div id="fixedCost" class="cost-value">
+                € 0,00
+              </div>
+
+            </div>
+
+            <div class="bar">
+              <i id="fixedBar"></i>
+            </div>
+
+          </div>
+
+          <div class="cost-card">
+
+            <div class="cost-top">
+
+              <div class="cost-name">
+
+                Svalutazione
+
+                <small>
+                  Quota di perdita del valore del veicolo
+                </small>
+
+              </div>
+
+              <div id="depreciationCost" class="cost-value">
+                € 0,00
+              </div>
+
+            </div>
+
+            <div class="bar">
+              <i id="depreciationBar"></i>
+            </div>
+
+          </div>
+
+          <div class="cost-card">
+
+            <div class="cost-top">
+
+              <div class="cost-name">
+
+                Spese viaggio
+
+                <small>
+                  Autostrada, parcheggio e altre spese
+                </small>
+
+              </div>
+
+              <div id="extrasCost" class="cost-value">
+                € 0,00
+              </div>
+
+            </div>
+
+            <div class="bar">
+              <i id="extrasBar"></i>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="section-head">
+
+          <h2>
+            QUICK EXPENSE
+          </h2>
+
+          <span>
+            Aggiunta immediata
+          </span>
+
+        </div>
+
+        <div class="quick-grid">
+
+          <button class="quick" data-expense="Autostrada">
+            AUTOSTRADA
           </button>
 
-          <button id="resetSettings" class="btn">
-            VALORI BASE
+          <button class="quick" data-expense="Parcheggio">
+            PARCHEGGIO
           </button>
+
+          <button class="quick" data-expense="Altro">
+            ALTRA SPESA
+          </button>
+
+        </div>
+
+      </section>
+
+      <section id="page-edge" class="page">
+
+        <div class="panel">
+
+          <h3>
+            VEHICLE PROFILE
+          </h3>
+
+          <div class="field-grid">
+
+            <div class="field full">
+
+              <label>
+                Veicolo
+              </label>
+
+              <input
+                id="vehicleName"
+                value="Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Prezzo di acquisto (€)
+              </label>
+
+              <input
+                id="purchasePrice"
+                type="number"
+                min="0"
+                step="100"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Valore futuro stimato (€)
+              </label>
+
+              <input
+                id="residualValue"
+                type="number"
+                min="0"
+                step="100"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Km previsti di possesso
+              </label>
+
+              <input
+                id="ownershipKm"
+                type="number"
+                min="1"
+                step="1000"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Km annuali previsti
+              </label>
+
+              <input
+                id="annualKm"
+                type="number"
+                min="1"
+                step="1000"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="panel">
+
+          <h3>
+            FUEL SYSTEM
+          </h3>
+
+          <div class="field-grid">
+
+            <div class="field">
+
+              <label>
+                Prezzo gasolio €/L
+              </label>
+
+              <input
+                id="fuelPrice"
+                type="number"
+                min="0"
+                step="0.001"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Consumo medio L/100 km
+              </label>
+
+              <input
+                id="consumption"
+                type="number"
+                min="0"
+                step="0.1"
+              >
+
+            </div>
+
+            <div class="field full">
+
+              <label>
+                Consumo stimato al minimo L/ora
+              </label>
+
+              <input
+                id="idleLitersHour"
+                type="number"
+                min="0"
+                step="0.1"
+              >
+
+            </div>
+
+          </div>
+
+          <p class="note">
+            Il consumo durante la marcia usa i chilometri GPS.
+            Quando il veicolo resta fermo durante un viaggio,
+            l'app aggiunge il consumo al minimo impostato.
+          </p>
+
+        </div>
+
+        <div class="panel">
+
+          <h3>
+            TIRES & MAINTENANCE
+          </h3>
+
+          <div class="field-grid">
+
+            <div class="field">
+
+              <label>
+                Costo quattro gomme (€)
+              </label>
+
+              <input
+                id="tiresPrice"
+                type="number"
+                min="0"
+                step="10"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Durata gomme (km)
+              </label>
+
+              <input
+                id="tiresLife"
+                type="number"
+                min="1"
+                step="1000"
+              >
+
+            </div>
+
+            <div class="field full">
+
+              <label>
+                Manutenzione stimata €/km
+              </label>
+
+              <input
+                id="maintenancePerKm"
+                type="number"
+                min="0"
+                step="0.001"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="panel">
+
+          <h3>
+            ANNUAL FIXED COSTS
+          </h3>
+
+          <div class="field-grid">
+
+            <div class="field">
+
+              <label>
+                Assicurazione (€)
+              </label>
+
+              <input
+                id="insurance"
+                type="number"
+                min="0"
+                step="10"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Bollo (€)
+              </label>
+
+              <input
+                id="tax"
+                type="number"
+                min="0"
+                step="10"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Revisione, media annua (€)
+              </label>
+
+              <input
+                id="inspection"
+                type="number"
+                min="0"
+                step="10"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label>
+                Garage e altri costi (€)
+              </label>
+
+              <input
+                id="garage"
+                type="number"
+                min="0"
+                step="10"
+              >
+
+            </div>
+
+          </div>
+
+          <div class="save-row">
+
+            <button id="saveSettings" class="control primary">
+              SALVA DATI
+            </button>
+
+            <button id="resetSettings" class="control">
+              VALORI BASE
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="panel">
+
+          <h3>
+            COST ANALYSIS
+          </h3>
+
+          <div class="mini-summary">
+
+            <div class="mini-box">
+
+              <span>
+                COSTO VIVO
+              </span>
+
+              <b id="baseLiveCost">
+                € 0,00/km
+              </b>
+
+            </div>
+
+            <div class="mini-box">
+
+              <span>
+                COSTO TOTALE
+              </span>
+
+              <b id="baseTotalCost">
+                € 0,00/km
+              </b>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section id="page-trips" class="page">
+
+        <div class="section-head">
+
+          <h2>
+            TRIP LOG
+          </h2>
+
+          <span id="tripCount">
+            0 viaggi
+          </span>
+
+        </div>
+
+        <div id="tripsList"></div>
+
+        <div class="save-row">
+
+          <button id="exportCsv" class="control">
+            ESPORTA CSV
+          </button>
+
+          <button id="clearTrips" class="control stop">
+            CANCELLA STORICO
+          </button>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <nav class="bottom-nav">
+
+    <button class="nav-btn active" data-page="drive">
+      ROAD METER
+    </button>
+
+    <button class="nav-btn" data-page="edge">
+      FORD EDGE
+    </button>
+
+    <button class="nav-btn" data-page="trips">
+      TRIP LOG
+    </button>
+
+  </nav>
+
+  <div id="expenseModal" class="modal">
+
+    <div class="modal-box">
+
+      <h3 id="expenseTitle">
+        Aggiungi spesa
+      </h3>
+
+      <div class="field-grid">
+
+        <div class="field full">
+
+          <label>
+            Importo (€)
+          </label>
+
+          <input
+            id="expenseAmount"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0,00"
+          >
+
+        </div>
+
+        <div class="field full">
+
+          <label>
+            Nota facoltativa
+          </label>
+
+          <input
+            id="expenseNote"
+            placeholder="Esempio: casello Firenze Nord"
+          >
+
         </div>
 
       </div>
 
-      <div class="card">
+      <div class="save-row">
 
-        <h3>COSTO TEORICO ATTUALE</h3>
-
-        <div class="summary-card">
-
-          <div class="summary-box">
-            <span>COSTO VIVO</span>
-            <b id="baseLiveCost">€ 0,00/km</b>
-          </div>
-
-          <div class="summary-box">
-            <span>COSTO TOTALE</span>
-            <b id="baseTotalCost">€ 0,00/km</b>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <section id="page-trips" class="page">
-
-      <div class="section-title">
-        <h2>STORICO VIAGGI</h2>
-        <span id="tripCount">0 viaggi</span>
-      </div>
-
-      <div id="tripsList"></div>
-
-      <div class="savebar">
-
-        <button id="exportCsv" class="btn">
-          ESPORTA CSV
+        <button id="confirmExpense" class="control primary">
+          AGGIUNGI
         </button>
 
-        <button id="clearTrips" class="btn danger">
-          CANCELLA STORICO
+        <button id="cancelExpense" class="control">
+          ANNULLA
         </button>
 
       </div>
-
-    </section>
-
-  </main>
-
-</div>
-
-<nav class="bottom-nav">
-
-  <button class="nav-btn active" data-page="drive">
-    TASSIMETRO
-  </button>
-
-  <button class="nav-btn" data-page="edge">
-    FORD EDGE
-  </button>
-
-  <button class="nav-btn" data-page="trips">
-    VIAGGI
-  </button>
-
-</nav>
-
-<div id="expenseModal" class="modal">
-
-  <div class="modal-box">
-
-    <h3 id="expenseTitle">Aggiungi spesa</h3>
-
-    <div class="field-grid">
-
-      <div class="field full">
-        <label>Importo (€)</label>
-        <input
-          id="expenseAmount"
-          type="number"
-          min="0"
-          step="0.01"
-          placeholder="0,00"
-        >
-      </div>
-
-      <div class="field full">
-        <label>Nota facoltativa</label>
-        <input
-          id="expenseNote"
-          placeholder="Esempio: casello Firenze Nord"
-        >
-      </div>
-
-    </div>
-
-    <div class="savebar">
-
-      <button id="confirmExpense" class="btn primary">
-        AGGIUNGI
-      </button>
-
-      <button id="cancelExpense" class="btn">
-        ANNULLA
-      </button>
 
     </div>
 
   </div>
 
-</div>
+  <div id="toast" class="toast">
+    Salvato
+  </div>
 
-<div id="toast" class="toast">
-  Salvato
-</div>
+  <script>
+    (function(){
 
-<script>
-(function(){
+      const $ = function(id){
+        return document.getElementById(id);
+      };
 
-  const $ = function(id){
-    return document.getElementById(id);
-  };
+      const euro = function(numero){
 
-  const euro = function(value){
-    return new Intl.NumberFormat(
-      "it-IT",
-      {
-        style:"currency",
-        currency:"EUR"
-      }
-    ).format(Number(value || 0));
-  };
+        return new Intl.NumberFormat(
+          "it-IT",
+          {
+            style:"currency",
+            currency:"EUR"
+          }
+        ).format(Number(numero || 0));
 
-  const numero = function(value, decimali){
-    const d = typeof decimali === "number" ? decimali : 2;
+      };
 
-    return Number(value || 0).toLocaleString(
-      "it-IT",
-      {
-        minimumFractionDigits:d,
-        maximumFractionDigits:d
-      }
-    );
-  };
+      const num = function(numero,decimali){
 
-  const limita = function(value,minimo,massimo){
-    return Math.min(
-      massimo,
-      Math.max(minimo,value)
-    );
-  };
+        const cifre =
+          typeof decimali === "number"
+            ? decimali
+            : 2;
 
-  const valoriBase = {
-    vehicleName:"Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD",
-    purchasePrice:23000,
-    residualValue:12000,
-    ownershipKm:100000,
-    annualKm:15000,
-    fuelPrice:1.75,
-    consumption:8.5,
-    tiresPrice:900,
-    tiresLife:45000,
-    maintenancePerKm:0.045,
-    insurance:900,
-    tax:620,
-    inspection:40,
-    garage:0
-  };
-
-  function carica(nome,valorePredefinito){
-
-    try{
-
-      const salvato = localStorage.getItem(nome);
-
-      if(salvato){
-
-        return Object.assign(
-          {},
-          valorePredefinito,
-          JSON.parse(salvato)
+        return Number(numero || 0).toLocaleString(
+          "it-IT",
+          {
+            minimumFractionDigits:cifre,
+            maximumFractionDigits:cifre
+          }
         );
 
-      }
+      };
 
-      return JSON.parse(
-        JSON.stringify(valorePredefinito)
-      );
+      const clamp = function(numero,minimo,massimo){
 
-    }catch(errore){
-
-      return JSON.parse(
-        JSON.stringify(valorePredefinito)
-      );
-
-    }
-
-  }
-
-  function salva(nome,dati){
-
-    localStorage.setItem(
-      nome,
-      JSON.stringify(dati)
-    );
-
-  }
-
-  let impostazioni = carica(
-    "xaRoadSettings",
-    valoriBase
-  );
-
-  let viaggi = carica(
-    "xaRoadTrips",
-    []
-  );
-
-  let stato = {
-    running:false,
-    paused:false,
-    startTime:null,
-    elapsedBeforePause:0,
-    timer:null,
-    watchId:null,
-    lastPosition:null,
-    distanceKm:0,
-    speedKmh:0,
-    extras:[],
-    expenseType:"Altro"
-  };
-
-  function mostraMessaggio(testo){
-
-    $("toast").textContent = testo;
-    $("toast").classList.add("show");
-
-    setTimeout(
-      function(){
-        $("toast").classList.remove("show");
-      },
-      1700
-    );
-
-  }
-
-  function compilaImpostazioni(){
-
-    Object.keys(valoriBase).forEach(
-      function(nome){
-
-        if($(nome)){
-          $(nome).value = impostazioni[nome];
-        }
-
-      }
-    );
-
-    aggiornaCostiTeorici();
-
-  }
-
-  function leggiImpostazioni(){
-
-    Object.keys(valoriBase).forEach(
-      function(nome){
-
-        if(!$(nome)){
-          return;
-        }
-
-        if(nome === "vehicleName"){
-
-          impostazioni[nome] =
-            $(nome).value.trim();
-
-        }else{
-
-          impostazioni[nome] =
-            Number($(nome).value || 0);
-
-        }
-
-      }
-    );
-
-  }
-
-  function costiPerKm(){
-
-    const carburante =
-      (impostazioni.consumption / 100) *
-      impostazioni.fuelPrice;
-
-    const gomme =
-      impostazioni.tiresLife > 0
-        ? impostazioni.tiresPrice /
-          impostazioni.tiresLife
-        : 0;
-
-    const manutenzione =
-      impostazioni.maintenancePerKm;
-
-    const costiFissiAnnui =
-      impostazioni.insurance +
-      impostazioni.tax +
-      impostazioni.inspection +
-      impostazioni.garage;
-
-    const costiFissi =
-      impostazioni.annualKm > 0
-        ? costiFissiAnnui /
-          impostazioni.annualKm
-        : 0;
-
-    const svalutazione =
-      impostazioni.ownershipKm > 0
-        ? Math.max(
-            0,
-            impostazioni.purchasePrice -
-            impostazioni.residualValue
-          ) /
-          impostazioni.ownershipKm
-        : 0;
-
-    return {
-      fuel:carburante,
-      tires:gomme,
-      maintenance:manutenzione,
-      fixed:costiFissi,
-      depreciation:svalutazione,
-      total:
-        carburante +
-        gomme +
-        manutenzione +
-        costiFissi +
-        svalutazione
-    };
-
-  }
-
-  function calcolaViaggio(){
-
-    const costi = costiPerKm();
-    const distanza = stato.distanceKm;
-
-    const litri =
-      distanza *
-      impostazioni.consumption /
-      100;
-
-    const speseExtra =
-      stato.extras.reduce(
-        function(totale,spesa){
-          return totale + spesa.amount;
-        },
-        0
-      );
-
-    const risultato = {
-      fuelLiters:litri,
-      fuel:
-        litri *
-        impostazioni.fuelPrice,
-      tires:
-        distanza *
-        costi.tires,
-      maintenance:
-        distanza *
-        costi.maintenance,
-      fixed:
-        distanza *
-        costi.fixed,
-      depreciation:
-        distanza *
-        costi.depreciation,
-      extras:speseExtra
-    };
-
-    risultato.total =
-      risultato.fuel +
-      risultato.tires +
-      risultato.maintenance +
-      risultato.fixed +
-      risultato.depreciation +
-      risultato.extras;
-
-    return risultato;
-
-  }
-
-  function tempoTrascorso(){
-
-    if(!stato.startTime){
-      return stato.elapsedBeforePause;
-    }
-
-    if(stato.running && !stato.paused){
-
-      return (
-        stato.elapsedBeforePause +
-        (Date.now() - stato.startTime)
-      );
-
-    }
-
-    return stato.elapsedBeforePause;
-
-  }
-
-  function formatoTempo(millisecondi){
-
-    const secondiTotali =
-      Math.floor(millisecondi / 1000);
-
-    const ore =
-      String(
-        Math.floor(secondiTotali / 3600)
-      ).padStart(2,"0");
-
-    const minuti =
-      String(
-        Math.floor(
-          (secondiTotali % 3600) / 60
-        )
-      ).padStart(2,"0");
-
-    const secondi =
-      String(
-        secondiTotali % 60
-      ).padStart(2,"0");
-
-    return (
-      ore +
-      ":" +
-      minuti +
-      ":" +
-      secondi
-    );
-
-  }
-
-  function aggiornaTassimetro(){
-
-    const risultato = calcolaViaggio();
-    const minuti = tempoTrascorso() / 60000;
-
-    $("totalCost").textContent =
-      numero(risultato.total,2);
-
-    $("distance").textContent =
-      numero(stato.distanceKm,2);
-
-    $("duration").textContent =
-      formatoTempo(tempoTrascorso());
-
-    $("speed").textContent =
-      Math.round(stato.speedKmh);
-
-    $("fuelDetail").textContent =
-      numero(risultato.fuelLiters,2) +
-      " L consumati";
-
-    $("fuelCost").textContent =
-      euro(risultato.fuel);
-
-    $("tiresCost").textContent =
-      euro(risultato.tires);
-
-    $("maintenanceCost").textContent =
-      euro(risultato.maintenance);
-
-    $("fixedCost").textContent =
-      euro(risultato.fixed);
-
-    $("depreciationCost").textContent =
-      euro(risultato.depreciation);
-
-    $("extrasCost").textContent =
-      euro(risultato.extras);
-
-    $("liveConsumption").textContent =
-      numero(impostazioni.consumption,1) +
-      " L/100";
-
-    if(stato.distanceKm > 0){
-
-      $("costPerKm").textContent =
-        numero(
-          risultato.total /
-          stato.distanceKm,
-          3
-        ) +
-        " €/km";
-
-    }else{
-
-      $("costPerKm").textContent =
-        numero(
-          costiPerKm().total,
-          3
-        ) +
-        " €/km";
-
-    }
-
-    $("costPerMinute").textContent =
-      minuti > 0
-        ? euro(risultato.total / minuti)
-        : euro(0);
-
-  }
-
-  function aggiornaCostiTeorici(){
-
-    const costi = costiPerKm();
-
-    $("baseLiveCost").textContent =
-      euro(
-        costi.fuel +
-        costi.tires +
-        costi.maintenance
-      ) +
-      "/km";
-
-    $("baseTotalCost").textContent =
-      euro(costi.total) +
-      "/km";
-
-  }
-
-  function distanzaGps(posizioneUno,posizioneDue){
-
-    const raggioTerra = 6371;
-
-    const radianti = function(valore){
-      return valore * Math.PI / 180;
-    };
-
-    const differenzaLatitudine =
-      radianti(
-        posizioneDue.latitude -
-        posizioneUno.latitude
-      );
-
-    const differenzaLongitudine =
-      radianti(
-        posizioneDue.longitude -
-        posizioneUno.longitude
-      );
-
-    const latitudineUno =
-      radianti(posizioneUno.latitude);
-
-    const latitudineDue =
-      radianti(posizioneDue.latitude);
-
-    const calcolo =
-      Math.sin(
-        differenzaLatitudine / 2
-      ) ** 2 +
-      Math.sin(
-        differenzaLongitudine / 2
-      ) ** 2 *
-      Math.cos(latitudineUno) *
-      Math.cos(latitudineDue);
-
-    return (
-      2 *
-      raggioTerra *
-      Math.asin(Math.sqrt(calcolo))
-    );
-
-  }
-
-  function posizioneRicevuta(posizione){
-
-    const coordinate = posizione.coords;
-
-    $("gpsStatus").textContent =
-      "GPS ±" +
-      Math.round(coordinate.accuracy) +
-      " m";
-
-    $("gpsStatus").classList.add("live");
-
-    if(stato.lastPosition){
-
-      const chilometri =
-        distanzaGps(
-          stato.lastPosition,
-          coordinate
+        return Math.min(
+          massimo,
+          Math.max(minimo,numero)
         );
 
-      const distanzaPossibile =
-        chilometri >= 0.003 &&
-        chilometri < 1;
+      };
 
-      const precisioneBuona =
-        coordinate.accuracy <= 80;
+      const defaults = {
 
-      if(
-        distanzaPossibile &&
-        precisioneBuona
-      ){
+        vehicleName:
+          "Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD",
 
-        stato.distanceKm += chilometri;
+        purchasePrice:23000,
+        residualValue:12000,
+        ownershipKm:100000,
+        annualKm:15000,
+
+        fuelPrice:1.75,
+        consumption:8.5,
+        idleLitersHour:1.1,
+
+        tiresPrice:900,
+        tiresLife:45000,
+
+        maintenancePerKm:0.045,
+
+        insurance:900,
+        tax:620,
+        inspection:40,
+        garage:0
+
+      };
+
+      let settings =
+        load(
+          "xaRoadSettings",
+          defaults
+        );
+
+      let trips =
+        loadArray(
+          "xaRoadTrips"
+        );
+
+      let state =
+        freshState();
+
+      function freshState(){
+
+        return {
+
+          running:false,
+          paused:false,
+
+          startTime:null,
+          elapsedBeforePause:0,
+
+          timer:null,
+          watchId:null,
+
+          lastPosition:null,
+
+          distanceKm:0,
+          speedKmh:0,
+
+          extras:[],
+          expenseType:"Altro",
+
+          idleMs:0,
+          lastTick:Date.now()
+
+        };
 
       }
 
-    }
+      function load(nome,valoriBase){
 
-    stato.lastPosition = {
-      latitude:coordinate.latitude,
-      longitude:coordinate.longitude
-    };
+        try{
 
-    if(
-      Number.isFinite(coordinate.speed) &&
-      coordinate.speed >= 0
-    ){
+          const salvato =
+            localStorage.getItem(nome);
 
-      stato.speedKmh =
-        limita(
-          coordinate.speed * 3.6,
-          0,
-          260
-        );
+          if(salvato){
 
-    }else{
-
-      stato.speedKmh = 0;
-
-    }
-
-    aggiornaTassimetro();
-
-  }
-
-  function erroreGps(errore){
-
-    $("gpsStatus").textContent =
-      "GPS non disponibile";
-
-    $("gpsStatus").classList.remove("live");
-
-    if(errore.code === 1){
-
-      $("meterState").textContent =
-        "Consenti la posizione nelle impostazioni del browser";
-
-    }else{
-
-      $("meterState").textContent =
-        "Segnale GPS debole o non disponibile";
-
-    }
-
-  }
-
-  function avviaGps(){
-
-    if(!navigator.geolocation){
-
-      erroreGps({code:0});
-      return;
-
-    }
-
-    stato.watchId =
-      navigator.geolocation.watchPosition(
-        posizioneRicevuta,
-        erroreGps,
-        {
-          enableHighAccuracy:true,
-          maximumAge:1000,
-          timeout:12000
-        }
-      );
-
-  }
-
-  function fermaGps(){
-
-    if(
-      stato.watchId !== null &&
-      navigator.geolocation
-    ){
-
-      navigator.geolocation.clearWatch(
-        stato.watchId
-      );
-
-      stato.watchId = null;
-
-    }
-
-  }
-
-  function avviaViaggio(){
-
-    if(stato.running && stato.paused){
-
-      stato.paused = false;
-      stato.startTime = Date.now();
-
-      avviaGps();
-
-      $("meterState").textContent =
-        "Viaggio in corso";
-
-      $("pauseBtn").textContent =
-        "PAUSA";
-
-      $("gpsStatus").classList.add("live");
-
-      aggiornaPulsanti();
-      return;
-
-    }
-
-    stato = {
-      running:true,
-      paused:false,
-      startTime:Date.now(),
-      elapsedBeforePause:0,
-      timer:null,
-      watchId:null,
-      lastPosition:null,
-      distanceKm:0,
-      speedKmh:0,
-      extras:[],
-      expenseType:"Altro"
-    };
-
-    avviaGps();
-
-    stato.timer =
-      setInterval(
-        aggiornaTassimetro,
-        1000
-      );
-
-    $("meterState").textContent =
-      "Viaggio in corso";
-
-    aggiornaPulsanti();
-    aggiornaTassimetro();
-
-  }
-
-  function mettiInPausa(){
-
-    if(!stato.running){
-      return;
-    }
-
-    if(!stato.paused){
-
-      stato.elapsedBeforePause =
-        tempoTrascorso();
-
-      stato.startTime = null;
-      stato.paused = true;
-      stato.speedKmh = 0;
-
-      fermaGps();
-
-      $("meterState").textContent =
-        "Viaggio in pausa";
-
-      $("pauseBtn").textContent =
-        "RIPRENDI";
-
-    }else{
-
-      avviaViaggio();
-
-    }
-
-    aggiornaPulsanti();
-    aggiornaTassimetro();
-
-  }
-
-  function terminaViaggio(){
-
-    if(!stato.running){
-      return;
-    }
-
-    const conferma =
-      confirm(
-        "Terminare e salvare questo viaggio?"
-      );
-
-    if(!conferma){
-      return;
-    }
-
-    if(!stato.paused){
-
-      stato.elapsedBeforePause =
-        tempoTrascorso();
-
-      stato.startTime = null;
-
-    }
-
-    stato.running = false;
-    stato.paused = false;
-    stato.speedKmh = 0;
-
-    fermaGps();
-
-    clearInterval(stato.timer);
-    stato.timer = null;
-
-    const risultato = calcolaViaggio();
-
-    const viaggio = {
-      id:Date.now(),
-      date:new Date().toISOString(),
-      vehicle:impostazioni.vehicleName,
-      distanceKm:stato.distanceKm,
-      durationMs:stato.elapsedBeforePause,
-      fuelLiters:risultato.fuelLiters,
-      fuelCost:risultato.fuel,
-      totalCost:risultato.total,
-      extras:risultato.extras,
-      costPerKm:
-        stato.distanceKm > 0
-          ? risultato.total /
-            stato.distanceKm
-          : 0,
-      settingsSnapshot:
-        Object.assign({},impostazioni)
-    };
-
-    viaggi.unshift(viaggio);
-
-    salva(
-      "xaRoadTrips",
-      viaggi
-    );
-
-    $("meterState").textContent =
-      "Viaggio salvato";
-
-    $("gpsStatus").textContent =
-      "GPS pronto";
-
-    $("gpsStatus").classList.remove("live");
-
-    aggiornaPulsanti();
-    aggiornaTassimetro();
-    mostraViaggi();
-    mostraMessaggio("Viaggio salvato");
-
-  }
-
-  function aggiornaPulsanti(){
-
-    $("startBtn").disabled =
-      stato.running &&
-      !stato.paused;
-
-    $("pauseBtn").disabled =
-      !stato.running;
-
-    $("stopBtn").disabled =
-      !stato.running;
-
-  }
-
-  function apriSpesa(tipo){
-
-    stato.expenseType = tipo;
-
-    $("expenseTitle").textContent =
-      "Aggiungi: " +
-      tipo;
-
-    $("expenseAmount").value = "";
-    $("expenseNote").value = "";
-
-    $("expenseModal").classList.add("open");
-
-    setTimeout(
-      function(){
-        $("expenseAmount").focus();
-      },
-      120
-    );
-
-  }
-
-  function aggiungiSpesa(){
-
-    const importo =
-      Number(
-        $("expenseAmount").value || 0
-      );
-
-    if(importo <= 0){
-
-      mostraMessaggio(
-        "Inserisci un importo valido"
-      );
-
-      return;
-
-    }
-
-    stato.extras.push({
-      type:stato.expenseType,
-      amount:importo,
-      note:$("expenseNote").value.trim(),
-      time:new Date().toISOString()
-    });
-
-    $("expenseModal").classList.remove("open");
-
-    aggiornaTassimetro();
-
-    mostraMessaggio(
-      stato.expenseType +
-      ": " +
-      euro(importo)
-    );
-
-  }
-
-  function mostraViaggi(){
-
-    $("tripCount").textContent =
-      viaggi.length +
-      (
-        viaggi.length === 1
-          ? " viaggio"
-          : " viaggi"
-      );
-
-    const contenitore =
-      $("tripsList");
-
-    if(!viaggi.length){
-
-      contenitore.innerHTML =
-        '<div class="empty">' +
-        "Nessun viaggio registrato.<br>" +
-        "Avvia il tassimetro per creare il primo." +
-        "</div>";
-
-      return;
-
-    }
-
-    contenitore.innerHTML =
-      viaggi.map(
-        function(viaggio){
-
-          const data =
-            new Date(viaggio.date);
-
-          const titolo =
-            data.toLocaleDateString(
-              "it-IT",
-              {
-                day:"2-digit",
-                month:"2-digit",
-                year:"numeric"
-              }
-            ) +
-            " · " +
-            data.toLocaleTimeString(
-              "it-IT",
-              {
-                hour:"2-digit",
-                minute:"2-digit"
-              }
+            return Object.assign(
+              {},
+              valoriBase,
+              JSON.parse(salvato)
             );
 
-          return (
-            '<article class="trip">' +
+          }
 
-              '<div class="trip-head">' +
-                "<b>" +
-                  titolo +
-                "</b>" +
+          return Object.assign(
+            {},
+            valoriBase
+          );
 
-                "<span>" +
-                  euro(viaggio.totalCost) +
-                "</span>" +
-              "</div>" +
+        }catch(errore){
 
-              '<div class="trip-meta">' +
-
-                "<div>" +
-                  "<b>" +
-                    numero(
-                      viaggio.distanceKm,
-                      1
-                    ) +
-                  "</b>" +
-                  "<small>KM</small>" +
-                "</div>" +
-
-                "<div>" +
-                  "<b>" +
-                    formatoTempo(
-                      viaggio.durationMs
-                    ) +
-                  "</b>" +
-                  "<small>DURATA</small>" +
-                "</div>" +
-
-                "<div>" +
-                  "<b>" +
-                    numero(
-                      viaggio.costPerKm,
-                      3
-                    ) +
-                  "</b>" +
-                  "<small>€/KM</small>" +
-                "</div>" +
-
-              "</div>" +
-
-            "</article>"
+          return Object.assign(
+            {},
+            valoriBase
           );
 
         }
-      ).join("");
-
-  }
-
-  function esportaCsv(){
-
-    if(!viaggi.length){
-
-      mostraMessaggio(
-        "Nessun viaggio da esportare"
-      );
-
-      return;
-
-    }
-
-    const righe = [
-
-      [
-        "Data",
-        "Veicolo",
-        "Km",
-        "Durata secondi",
-        "Litri",
-        "Costo carburante",
-        "Spese extra",
-        "Costo totale",
-        "Costo €/km"
-      ]
-
-    ];
-
-    viaggi.forEach(
-      function(viaggio){
-
-        righe.push([
-
-          new Date(
-            viaggio.date
-          ).toLocaleString("it-IT"),
-
-          viaggio.vehicle,
-
-          viaggio.distanceKm.toFixed(3),
-
-          Math.round(
-            viaggio.durationMs / 1000
-          ),
-
-          viaggio.fuelLiters.toFixed(3),
-
-          viaggio.fuelCost.toFixed(2),
-
-          viaggio.extras.toFixed(2),
-
-          viaggio.totalCost.toFixed(2),
-
-          viaggio.costPerKm.toFixed(4)
-
-        ]);
 
       }
-    );
 
-    const csv =
-      righe.map(
-        function(riga){
+      function loadArray(nome){
 
-          return riga.map(
-            function(valore){
+        try{
 
-              return (
-                '"' +
-                String(valore).replaceAll(
-                  '"',
-                  '""'
-                ) +
-                '"'
-              );
+          const salvato =
+            localStorage.getItem(nome);
 
-            }
-          ).join(";");
+          const valore =
+            salvato
+              ? JSON.parse(salvato)
+              : [];
+
+          return Array.isArray(valore)
+            ? valore
+            : [];
+
+        }catch(errore){
+
+          return [];
 
         }
-      ).join("\n");
 
-    const file =
-      new Blob(
-        ["\uFEFF" + csv],
-        {
-          type:"text/csv;charset=utf-8"
-        }
-      );
+      }
 
-    const indirizzo =
-      URL.createObjectURL(file);
+      function save(nome,dati){
 
-    const collegamento =
-      document.createElement("a");
-
-    collegamento.href =
-      indirizzo;
-
-    collegamento.download =
-      "xa-road-meter-viaggi.csv";
-
-    collegamento.click();
-
-    URL.revokeObjectURL(indirizzo);
-
-  }
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(
-      function(pulsante){
-
-        pulsante.addEventListener(
-          "click",
-          function(){
-
-            document
-              .querySelectorAll(".nav-btn")
-              .forEach(
-                function(elemento){
-                  elemento.classList.remove(
-                    "active"
-                  );
-                }
-              );
-
-            document
-              .querySelectorAll(".page")
-              .forEach(
-                function(pagina){
-                  pagina.classList.remove(
-                    "active"
-                  );
-                }
-              );
-
-            pulsante.classList.add("active");
-
-            $(
-              "page-" +
-              pulsante.dataset.page
-            ).classList.add("active");
-
-            window.scrollTo({
-              top:0,
-              behavior:"smooth"
-            });
-
-          }
+        localStorage.setItem(
+          nome,
+          JSON.stringify(dati)
         );
 
       }
-    );
 
-  document
-    .querySelectorAll("[data-expense]")
-    .forEach(
-      function(pulsante){
+      function toast(testo){
 
-        pulsante.addEventListener(
-          "click",
+        $("toast").textContent =
+          testo;
+
+        $("toast").classList.add(
+          "show"
+        );
+
+        setTimeout(
           function(){
 
-            apriSpesa(
-              pulsante.dataset.expense
+            $("toast").classList.remove(
+              "show"
             );
 
+          },
+          1700
+        );
+
+      }
+
+      function fillSettings(){
+
+        Object.keys(defaults).forEach(
+          function(nome){
+
+            if($(nome)){
+
+              $(nome).value =
+                settings[nome];
+
+            }
+
+          }
+        );
+
+        updateTheoreticalCosts();
+
+      }
+
+      function readSettings(){
+
+        Object.keys(defaults).forEach(
+          function(nome){
+
+            if(!$(nome)){
+              return;
+            }
+
+            if(nome === "vehicleName"){
+
+              settings[nome] =
+                $(nome).value.trim();
+
+            }else{
+
+              settings[nome] =
+                Number(
+                  $(nome).value || 0
+                );
+
+            }
+
           }
         );
 
       }
-    );
 
-  $("startBtn").addEventListener(
-    "click",
-    avviaViaggio
-  );
+      function perKmCosts(){
 
-  $("pauseBtn").addEventListener(
-    "click",
-    mettiInPausa
-  );
+        const fuel =
+          (
+            settings.consumption /
+            100
+          ) *
+          settings.fuelPrice;
 
-  $("stopBtn").addEventListener(
-    "click",
-    terminaViaggio
-  );
+        const tires =
+          settings.tiresLife > 0
+            ? settings.tiresPrice /
+              settings.tiresLife
+            : 0;
 
-  $("confirmExpense").addEventListener(
-    "click",
-    aggiungiSpesa
-  );
+        const maintenance =
+          settings.maintenancePerKm;
 
-  $("cancelExpense").addEventListener(
-    "click",
-    function(){
+        const fixedAnnual =
+          settings.insurance +
+          settings.tax +
+          settings.inspection +
+          settings.garage;
 
-      $("expenseModal").classList.remove(
-        "open"
-      );
+        const fixed =
+          settings.annualKm > 0
+            ? fixedAnnual /
+              settings.annualKm
+            : 0;
 
-    }
-  );
+        const depreciation =
+          settings.ownershipKm > 0
+            ? Math.max(
+                0,
+                settings.purchasePrice -
+                settings.residualValue
+              ) /
+              settings.ownershipKm
+            : 0;
 
-  $("expenseModal").addEventListener(
-    "click",
-    function(evento){
+        return {
 
-      if(evento.target === $("expenseModal")){
+          fuel:fuel,
+          tires:tires,
+          maintenance:maintenance,
+          fixed:fixed,
+          depreciation:depreciation,
+
+          total:
+            fuel +
+            tires +
+            maintenance +
+            fixed +
+            depreciation
+
+        };
+
+      }
+
+      function calculate(){
+
+        const costs =
+          perKmCosts();
+
+        const distance =
+          state.distanceKm;
+
+        const movingLiters =
+          distance *
+          settings.consumption /
+          100;
+
+        const idleLiters =
+          (
+            state.idleMs /
+            3600000
+          ) *
+          settings.idleLitersHour;
+
+        const fuelLiters =
+          movingLiters +
+          idleLiters;
+
+        const extras =
+          state.extras.reduce(
+            function(totale,spesa){
+
+              return totale +
+                spesa.amount;
+
+            },
+            0
+          );
+
+        const result = {
+
+          fuelLiters:fuelLiters,
+
+          fuel:
+            fuelLiters *
+            settings.fuelPrice,
+
+          tires:
+            distance *
+            costs.tires,
+
+          maintenance:
+            distance *
+            costs.maintenance,
+
+          fixed:
+            distance *
+            costs.fixed,
+
+          depreciation:
+            distance *
+            costs.depreciation,
+
+          extras:extras
+
+        };
+
+        result.total =
+          result.fuel +
+          result.tires +
+          result.maintenance +
+          result.fixed +
+          result.depreciation +
+          result.extras;
+
+        return result;
+
+      }
+
+      function elapsedMs(){
+
+        if(!state.startTime){
+
+          return state.elapsedBeforePause;
+
+        }
+
+        if(
+          state.running &&
+          !state.paused
+        ){
+
+          return (
+            state.elapsedBeforePause +
+            (
+              Date.now() -
+              state.startTime
+            )
+          );
+
+        }
+
+        return state.elapsedBeforePause;
+
+      }
+
+      function formatTime(milliseconds){
+
+        const totalSeconds =
+          Math.floor(
+            milliseconds /
+            1000
+          );
+
+        const hours =
+          String(
+            Math.floor(
+              totalSeconds /
+              3600
+            )
+          ).padStart(2,"0");
+
+        const minutes =
+          String(
+            Math.floor(
+              (
+                totalSeconds %
+                3600
+              ) /
+              60
+            )
+          ).padStart(2,"0");
+
+        const seconds =
+          String(
+            totalSeconds %
+            60
+          ).padStart(2,"0");
+
+        return (
+          hours +
+          ":" +
+          minutes +
+          ":" +
+          seconds
+        );
+
+      }
+
+      function formatShort(milliseconds){
+
+        const totalSeconds =
+          Math.floor(
+            milliseconds /
+            1000
+          );
+
+        const minutes =
+          String(
+            Math.floor(
+              totalSeconds /
+              60
+            )
+          ).padStart(2,"0");
+
+        const seconds =
+          String(
+            totalSeconds %
+            60
+          ).padStart(2,"0");
+
+        return (
+          minutes +
+          ":" +
+          seconds
+        );
+
+      }
+
+      function updateIdleClock(){
+
+        const now =
+          Date.now();
+
+        if(
+          state.running &&
+          !state.paused &&
+          state.speedKmh < 2
+        ){
+
+          state.idleMs +=
+            Math.max(
+              0,
+              now -
+              state.lastTick
+            );
+
+        }
+
+        state.lastTick =
+          now;
+
+      }
+
+      function setGauge(value,max,type){
+
+        const ratio =
+          clamp(
+            value /
+            max,
+            0,
+            1
+          );
+
+        const degrees =
+          -132 +
+          (
+            264 *
+            ratio
+          );
+
+        const variable =
+          type === "speed"
+            ? "--needle-speed"
+            : "--needle-cost";
+
+        document.documentElement
+          .style
+          .setProperty(
+            variable,
+            degrees + "deg"
+          );
+
+      }
+
+      function updateBars(result){
+
+        const maximum =
+          Math.max(
+            result.fuel,
+            result.tires,
+            result.maintenance,
+            result.fixed,
+            result.depreciation,
+            result.extras,
+            0.01
+          );
+
+        const bars = {
+
+          fuelBar:
+            result.fuel,
+
+          tiresBar:
+            result.tires,
+
+          maintenanceBar:
+            result.maintenance,
+
+          fixedBar:
+            result.fixed,
+
+          depreciationBar:
+            result.depreciation,
+
+          extrasBar:
+            result.extras
+
+        };
+
+        Object.entries(bars).forEach(
+          function(elemento){
+
+            const id =
+              elemento[0];
+
+            const value =
+              elemento[1];
+
+            const percentage =
+              clamp(
+                (
+                  value /
+                  maximum
+                ) *
+                100,
+                0,
+                100
+              );
+
+            $(id).style.width =
+              percentage +
+              "%";
+
+          }
+        );
+
+      }
+
+      function updateLive(){
+
+        updateIdleClock();
+
+        const result =
+          calculate();
+
+        const minutes =
+          elapsedMs() /
+          60000;
+
+        const costKm =
+          state.distanceKm > 0
+            ? result.total /
+              state.distanceKm
+            : perKmCosts().total;
+
+        $("totalCost").textContent =
+          num(
+            result.total,
+            2
+          );
+
+        $("distance").textContent =
+          num(
+            state.distanceKm,
+            2
+          );
+
+        $("duration").textContent =
+          formatTime(
+            elapsedMs()
+          );
+
+        $("speed").textContent =
+          Math.round(
+            state.speedKmh
+          );
+
+        $("fuelLitersTop").textContent =
+          num(
+            result.fuelLiters,
+            2
+          );
+
+        $("fuelDetail").textContent =
+          num(
+            result.fuelLiters,
+            2
+          ) +
+          " L consumati";
+
+        $("fuelCost").textContent =
+          euro(
+            result.fuel
+          );
+
+        $("tiresCost").textContent =
+          euro(
+            result.tires
+          );
+
+        $("maintenanceCost").textContent =
+          euro(
+            result.maintenance
+          );
+
+        $("fixedCost").textContent =
+          euro(
+            result.fixed
+          );
+
+        $("depreciationCost").textContent =
+          euro(
+            result.depreciation
+          );
+
+        $("extrasCost").textContent =
+          euro(
+            result.extras
+          );
+
+        $("liveConsumption").textContent =
+          num(
+            settings.consumption,
+            1
+          );
+
+        $("costPerKm").textContent =
+          num(
+            costKm,
+            3
+          ) +
+          " €/km";
+
+        $("costPerKmGauge").textContent =
+          num(
+            costKm,
+            3
+          );
+
+        $("costPerMinute").textContent =
+          minutes > 0
+            ? euro(
+                result.total /
+                minutes
+              )
+            : euro(0);
+
+        $("idleTime").textContent =
+          formatShort(
+            state.idleMs
+          );
+
+        $("fixedRate").textContent =
+          num(
+            perKmCosts().fixed,
+            3
+          );
+
+        if(costKm < 0.45){
+
+          $("costLevel").textContent =
+            "ECONOMY";
+
+        }else if(costKm < 0.7){
+
+          $("costLevel").textContent =
+            "HEAVY";
+
+        }else{
+
+          $("costLevel").textContent =
+            "HIGH COST";
+
+        }
+
+        setGauge(
+          state.speedKmh,
+          240,
+          "speed"
+        );
+
+        setGauge(
+          costKm,
+          1.2,
+          "cost"
+        );
+
+        updateBars(result);
+
+      }
+
+      function updateTheoreticalCosts(){
+
+        const costs =
+          perKmCosts();
+
+        $("baseLiveCost").textContent =
+          euro(
+            costs.fuel +
+            costs.tires +
+            costs.maintenance
+          ) +
+          "/km";
+
+        $("baseTotalCost").textContent =
+          euro(
+            costs.total
+          ) +
+          "/km";
+
+      }
+
+      function haversine(positionOne,positionTwo){
+
+        const earthRadius =
+          6371;
+
+        const toRadians =
+          function(value){
+
+            return (
+              value *
+              Math.PI /
+              180
+            );
+
+          };
+
+        const differenceLatitude =
+          toRadians(
+            positionTwo.latitude -
+            positionOne.latitude
+          );
+
+        const differenceLongitude =
+          toRadians(
+            positionTwo.longitude -
+            positionOne.longitude
+          );
+
+        const latitudeOne =
+          toRadians(
+            positionOne.latitude
+          );
+
+        const latitudeTwo =
+          toRadians(
+            positionTwo.latitude
+          );
+
+        const calculation =
+          Math.sin(
+            differenceLatitude /
+            2
+          ) ** 2 +
+
+          Math.sin(
+            differenceLongitude /
+            2
+          ) ** 2 *
+
+          Math.cos(
+            latitudeOne
+          ) *
+
+          Math.cos(
+            latitudeTwo
+          );
+
+        return (
+          2 *
+          earthRadius *
+          Math.asin(
+            Math.sqrt(
+              calculation
+            )
+          )
+        );
+
+      }
+
+      function onPosition(position){
+
+        const coordinates =
+          position.coords;
+
+        $("gpsLamp").classList.add(
+          "on"
+        );
+
+        $("gpsAccuracy").textContent =
+          "±" +
+          Math.round(
+            coordinates.accuracy
+          ) +
+          " M";
+
+        if(state.lastPosition){
+
+          const kilometers =
+            haversine(
+              state.lastPosition,
+              coordinates
+            );
+
+          const plausible =
+            kilometers >= 0.003 &&
+            kilometers < 1;
+
+          const goodAccuracy =
+            coordinates.accuracy <= 80;
+
+          if(
+            plausible &&
+            goodAccuracy
+          ){
+
+            state.distanceKm +=
+              kilometers;
+
+          }
+
+        }
+
+        state.lastPosition = {
+
+          latitude:
+            coordinates.latitude,
+
+          longitude:
+            coordinates.longitude
+
+        };
+
+        if(
+          Number.isFinite(
+            coordinates.speed
+          ) &&
+          coordinates.speed >= 0
+        ){
+
+          state.speedKmh =
+            clamp(
+              coordinates.speed *
+              3.6,
+              0,
+              260
+            );
+
+        }else{
+
+          state.speedKmh =
+            0;
+
+        }
+
+        updateLive();
+
+      }
+
+      function onPositionError(error){
+
+        $("gpsLamp").classList.remove(
+          "on"
+        );
+
+        $("gpsAccuracy").textContent =
+          "NO SIGNAL";
+
+        if(error.code === 1){
+
+          $("meterState").textContent =
+            "Consenti la posizione nelle impostazioni del browser";
+
+        }else{
+
+          $("meterState").textContent =
+            "Segnale GPS debole o non disponibile";
+
+        }
+
+      }
+
+      function startGps(){
+
+        if(!navigator.geolocation){
+
+          onPositionError({
+            code:0
+          });
+
+          return;
+
+        }
+
+        state.watchId =
+          navigator.geolocation
+            .watchPosition(
+              onPosition,
+              onPositionError,
+              {
+                enableHighAccuracy:true,
+                maximumAge:1000,
+                timeout:12000
+              }
+            );
+
+      }
+
+      function stopGps(){
+
+        if(
+          state.watchId !== null &&
+          navigator.geolocation
+        ){
+
+          navigator.geolocation
+            .clearWatch(
+              state.watchId
+            );
+
+          state.watchId =
+            null;
+
+        }
+
+      }
+
+      function startTrip(){
+
+        if(
+          state.running &&
+          state.paused
+        ){
+
+          state.paused =
+            false;
+
+          state.startTime =
+            Date.now();
+
+          state.lastTick =
+            Date.now();
+
+          startGps();
+
+          $("meterState").textContent =
+            "ROAD METER LIVE";
+
+          $("meterState").classList.add(
+            "live"
+          );
+
+          $("pauseBtn").textContent =
+            "PAUSA";
+
+          updateButtons();
+
+          return;
+
+        }
+
+        state =
+          freshState();
+
+        state.running =
+          true;
+
+        state.startTime =
+          Date.now();
+
+        state.lastTick =
+          Date.now();
+
+        startGps();
+
+        state.timer =
+          setInterval(
+            updateLive,
+            1000
+          );
+
+        $("meterState").textContent =
+          "ROAD METER LIVE";
+
+        $("meterState").classList.add(
+          "live"
+        );
+
+        updateButtons();
+        updateLive();
+
+      }
+
+      function pauseTrip(){
+
+        if(!state.running){
+          return;
+        }
+
+        if(!state.paused){
+
+          state.elapsedBeforePause =
+            elapsedMs();
+
+          state.startTime =
+            null;
+
+          state.paused =
+            true;
+
+          state.speedKmh =
+            0;
+
+          stopGps();
+
+          $("meterState").textContent =
+            "VIAGGIO IN PAUSA";
+
+          $("meterState").classList.remove(
+            "live"
+          );
+
+          $("pauseBtn").textContent =
+            "RIPRENDI";
+
+        }else{
+
+          startTrip();
+
+        }
+
+        updateButtons();
+        updateLive();
+
+      }
+
+      function stopTrip(){
+
+        if(!state.running){
+          return;
+        }
+
+        const confirmStop =
+          confirm(
+            "Terminare e salvare questo viaggio?"
+          );
+
+        if(!confirmStop){
+          return;
+        }
+
+        if(!state.paused){
+
+          state.elapsedBeforePause =
+            elapsedMs();
+
+          state.startTime =
+            null;
+
+        }
+
+        state.running =
+          false;
+
+        state.paused =
+          false;
+
+        stopGps();
+
+        clearInterval(
+          state.timer
+        );
+
+        state.timer =
+          null;
+
+        state.speedKmh =
+          0;
+
+        const result =
+          calculate();
+
+        const trip = {
+
+          id:
+            Date.now(),
+
+          date:
+            new Date().toISOString(),
+
+          vehicle:
+            settings.vehicleName,
+
+          distanceKm:
+            state.distanceKm,
+
+          durationMs:
+            state.elapsedBeforePause,
+
+          idleMs:
+            state.idleMs,
+
+          fuelLiters:
+            result.fuelLiters,
+
+          fuelCost:
+            result.fuel,
+
+          totalCost:
+            result.total,
+
+          extras:
+            result.extras,
+
+          costPerKm:
+            state.distanceKm > 0
+              ? result.total /
+                state.distanceKm
+              : 0,
+
+          settingsSnapshot:
+            Object.assign(
+              {},
+              settings
+            )
+
+        };
+
+        trips.unshift(
+          trip
+        );
+
+        save(
+          "xaRoadTrips",
+          trips
+        );
+
+        $("meterState").textContent =
+          "VIAGGIO SALVATO";
+
+        $("meterState").classList.remove(
+          "live"
+        );
+
+        $("gpsLamp").classList.remove(
+          "on"
+        );
+
+        $("gpsAccuracy").textContent =
+          "GPS READY";
+
+        updateButtons();
+        updateLive();
+        renderTrips();
+
+        toast(
+          "Viaggio salvato"
+        );
+
+      }
+
+      function updateButtons(){
+
+        $("startBtn").disabled =
+          state.running &&
+          !state.paused;
+
+        $("pauseBtn").disabled =
+          !state.running;
+
+        $("stopBtn").disabled =
+          !state.running;
+
+      }
+
+      function openExpense(type){
+
+        state.expenseType =
+          type;
+
+        $("expenseTitle").textContent =
+          "Aggiungi: " +
+          type;
+
+        $("expenseAmount").value =
+          "";
+
+        $("expenseNote").value =
+          "";
+
+        $("expenseModal").classList.add(
+          "open"
+        );
+
+        setTimeout(
+          function(){
+
+            $("expenseAmount").focus();
+
+          },
+          120
+        );
+
+      }
+
+      function addExpense(){
+
+        const amount =
+          Number(
+            $("expenseAmount").value ||
+            0
+          );
+
+        if(amount <= 0){
+
+          toast(
+            "Inserisci un importo valido"
+          );
+
+          return;
+
+        }
+
+        state.extras.push({
+
+          type:
+            state.expenseType,
+
+          amount:
+            amount,
+
+          note:
+            $("expenseNote").value.trim(),
+
+          time:
+            new Date().toISOString()
+
+        });
 
         $("expenseModal").classList.remove(
           "open"
         );
 
-      }
+        updateLive();
 
-    }
-  );
-
-  $("saveSettings").addEventListener(
-    "click",
-    function(){
-
-      leggiImpostazioni();
-
-      salva(
-        "xaRoadSettings",
-        impostazioni
-      );
-
-      aggiornaCostiTeorici();
-      aggiornaTassimetro();
-
-      mostraMessaggio(
-        "Dati Ford Edge salvati"
-      );
-
-    }
-  );
-
-  $("resetSettings").addEventListener(
-    "click",
-    function(){
-
-      const conferma =
-        confirm(
-          "Ripristinare i valori iniziali?"
+        toast(
+          state.expenseType +
+          ": " +
+          euro(amount)
         );
 
-      if(!conferma){
-        return;
       }
 
-      impostazioni =
-        Object.assign(
-          {},
-          valoriBase
+      function renderTrips(){
+
+        $("tripCount").textContent =
+          trips.length +
+          (
+            trips.length === 1
+              ? " viaggio"
+              : " viaggi"
+          );
+
+        const box =
+          $("tripsList");
+
+        if(!trips.length){
+
+          box.innerHTML =
+            '<div class="empty">' +
+            "Nessun viaggio registrato.<br>" +
+            "Avvia ROAD METER per creare il primo." +
+            "</div>";
+
+          return;
+
+        }
+
+        box.innerHTML =
+          trips.map(
+            function(trip){
+
+              const date =
+                new Date(
+                  trip.date
+                );
+
+              const title =
+                date.toLocaleDateString(
+                  "it-IT",
+                  {
+                    day:"2-digit",
+                    month:"2-digit",
+                    year:"numeric"
+                  }
+                ) +
+                " · " +
+                date.toLocaleTimeString(
+                  "it-IT",
+                  {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                  }
+                );
+
+              return (
+
+                '<article class="trip">' +
+
+                  '<div class="trip-head">' +
+
+                    "<b>" +
+                      title +
+                    "</b>" +
+
+                    "<span>" +
+                      euro(
+                        trip.totalCost
+                      ) +
+                    "</span>" +
+
+                  "</div>" +
+
+                  '<div class="trip-meta">' +
+
+                    "<div>" +
+
+                      "<b>" +
+                        num(
+                          trip.distanceKm,
+                          1
+                        ) +
+                      "</b>" +
+
+                      "<small>KM</small>" +
+
+                    "</div>" +
+
+                    "<div>" +
+
+                      "<b>" +
+                        formatTime(
+                          trip.durationMs
+                        ) +
+                      "</b>" +
+
+                      "<small>DURATA</small>" +
+
+                    "</div>" +
+
+                    "<div>" +
+
+                      "<b>" +
+                        num(
+                          trip.costPerKm,
+                          3
+                        ) +
+                      "</b>" +
+
+                      "<small>€/KM</small>" +
+
+                    "</div>" +
+
+                  "</div>" +
+
+                "</article>"
+
+              );
+
+            }
+          ).join("");
+
+      }
+
+      function exportCsv(){
+
+        if(!trips.length){
+
+          toast(
+            "Nessun viaggio da esportare"
+          );
+
+          return;
+
+        }
+
+        const rows = [
+
+          [
+            "Data",
+            "Veicolo",
+            "Km",
+            "Durata secondi",
+            "Minimo secondi",
+            "Litri",
+            "Costo carburante",
+            "Spese extra",
+            "Costo totale",
+            "Costo €/km"
+          ]
+
+        ];
+
+        trips.forEach(
+          function(trip){
+
+            rows.push([
+
+              new Date(
+                trip.date
+              ).toLocaleString(
+                "it-IT"
+              ),
+
+              trip.vehicle,
+
+              trip.distanceKm
+                .toFixed(3),
+
+              Math.round(
+                trip.durationMs /
+                1000
+              ),
+
+              Math.round(
+                (
+                  trip.idleMs ||
+                  0
+                ) /
+                1000
+              ),
+
+              trip.fuelLiters
+                .toFixed(3),
+
+              trip.fuelCost
+                .toFixed(2),
+
+              trip.extras
+                .toFixed(2),
+
+              trip.totalCost
+                .toFixed(2),
+
+              trip.costPerKm
+                .toFixed(4)
+
+            ]);
+
+          }
         );
 
-      salva(
-        "xaRoadSettings",
-        impostazioni
-      );
+        const csv =
+          rows.map(
+            function(row){
 
-      compilaImpostazioni();
-      aggiornaTassimetro();
+              return row.map(
+                function(value){
 
-      mostraMessaggio(
-        "Valori base ripristinati"
-      );
+                  return (
+                    '"' +
+                    String(value).replaceAll(
+                      '"',
+                      '""'
+                    ) +
+                    '"'
+                  );
 
-    }
-  );
+                }
+              ).join(";");
 
-  $("exportCsv").addEventListener(
-    "click",
-    esportaCsv
-  );
+            }
+          ).join("\n");
 
-  $("clearTrips").addEventListener(
-    "click",
-    function(){
+        const file =
+          new Blob(
+            [
+              "\uFEFF" +
+              csv
+            ],
+            {
+              type:
+                "text/csv;charset=utf-8"
+            }
+          );
 
-      if(!viaggi.length){
-        return;
-      }
+        const url =
+          URL.createObjectURL(
+            file
+          );
 
-      const conferma =
-        confirm(
-          "Cancellare definitivamente tutto lo storico?"
+        const link =
+          document.createElement(
+            "a"
+          );
+
+        link.href =
+          url;
+
+        link.download =
+          "xa-road-meter-viaggi.csv";
+
+        link.click();
+
+        URL.revokeObjectURL(
+          url
         );
 
-      if(!conferma){
-        return;
       }
 
-      viaggi = [];
+      document
+        .querySelectorAll(
+          ".nav-btn"
+        )
+        .forEach(
+          function(button){
 
-      salva(
-        "xaRoadTrips",
-        viaggi
+            button.addEventListener(
+              "click",
+              function(){
+
+                document
+                  .querySelectorAll(
+                    ".nav-btn"
+                  )
+                  .forEach(
+                    function(element){
+
+                      element.classList.remove(
+                        "active"
+                      );
+
+                    }
+                  );
+
+                document
+                  .querySelectorAll(
+                    ".page"
+                  )
+                  .forEach(
+                    function(page){
+
+                      page.classList.remove(
+                        "active"
+                      );
+
+                    }
+                  );
+
+                button.classList.add(
+                  "active"
+                );
+
+                $(
+                  "page-" +
+                  button.dataset.page
+                ).classList.add(
+                  "active"
+                );
+
+                window.scrollTo({
+                  top:0,
+                  behavior:"smooth"
+                });
+
+              }
+            );
+
+          }
+        );
+
+      document
+        .querySelectorAll(
+          "[data-expense]"
+        )
+        .forEach(
+          function(button){
+
+            button.addEventListener(
+              "click",
+              function(){
+
+                openExpense(
+                  button.dataset.expense
+                );
+
+              }
+            );
+
+          }
+        );
+
+      $("startBtn").addEventListener(
+        "click",
+        startTrip
       );
 
-      mostraViaggi();
-
-      mostraMessaggio(
-        "Storico cancellato"
+      $("pauseBtn").addEventListener(
+        "click",
+        pauseTrip
       );
 
-    }
-  );
+      $("stopBtn").addEventListener(
+        "click",
+        stopTrip
+      );
 
-  document.addEventListener(
-    "visibilitychange",
-    function(){
+      $("confirmExpense").addEventListener(
+        "click",
+        addExpense
+      );
 
-      if(
-        document.hidden &&
-        stato.running &&
-        !stato.paused
-      ){
+      $("cancelExpense").addEventListener(
+        "click",
+        function(){
 
-        aggiornaTassimetro();
+          $("expenseModal").classList.remove(
+            "open"
+          );
 
-      }
+        }
+      );
 
-    }
-  );
+      $("expenseModal").addEventListener(
+        "click",
+        function(event){
 
-  window.addEventListener(
-    "beforeunload",
-    function(evento){
+          if(
+            event.target ===
+            $("expenseModal")
+          ){
 
-      if(stato.running){
+            $("expenseModal").classList.remove(
+              "open"
+            );
 
-        evento.preventDefault();
-        evento.returnValue = "";
+          }
 
-      }
+        }
+      );
 
-    }
-  );
+      $("saveSettings").addEventListener(
+        "click",
+        function(){
 
-  compilaImpostazioni();
-  mostraViaggi();
-  aggiornaPulsanti();
-  aggiornaTassimetro();
+          readSettings();
 
-})();
-</script>
+          save(
+            "xaRoadSettings",
+            settings
+          );
+
+          updateTheoreticalCosts();
+          updateLive();
+
+          toast(
+            "Dati Ford Edge salvati"
+          );
+
+        }
+      );
+
+      $("resetSettings").addEventListener(
+        "click",
+        function(){
+
+          const confirmReset =
+            confirm(
+              "Ripristinare i valori iniziali?"
+            );
+
+          if(!confirmReset){
+            return;
+          }
+
+          settings =
+            Object.assign(
+              {},
+              defaults
+            );
+
+          save(
+            "xaRoadSettings",
+            settings
+          );
+
+          fillSettings();
+          updateLive();
+
+          toast(
+            "Valori base ripristinati"
+          );
+
+        }
+      );
+
+      $("exportCsv").addEventListener(
+        "click",
+        exportCsv
+      );
+
+      $("clearTrips").addEventListener(
+        "click",
+        function(){
+
+          if(!trips.length){
+            return;
+          }
+
+          const confirmDelete =
+            confirm(
+              "Cancellare definitivamente tutto lo storico?"
+            );
+
+          if(!confirmDelete){
+            return;
+          }
+
+          trips = [];
+
+          save(
+            "xaRoadTrips",
+            trips
+          );
+
+          renderTrips();
+
+          toast(
+            "Storico cancellato"
+          );
+
+        }
+      );
+
+      window.addEventListener(
+        "beforeunload",
+        function(event){
+
+          if(state.running){
+
+            event.preventDefault();
+            event.returnValue =
+              "";
+
+          }
+
+        }
+      );
+
+      fillSettings();
+      renderTrips();
+      updateButtons();
+      updateLive();
+
+    })();
+  </script>
 
 </body>
 </html>
