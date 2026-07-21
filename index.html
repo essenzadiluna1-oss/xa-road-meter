@@ -6,4320 +6,1176 @@
 <meta name="theme-color" content="#080a0d">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>XA Road Command V3</title>
-
+<title>XA Road Command V4</title>
 <style>
-:root{
-  --bg:#07090c;
-  --panel:#11151a;
-  --panel2:#181d23;
-  --steel:#303741;
-  --line:#3d4652;
-  --txt:#f7f1e7;
-  --muted:#98a1ad;
-  --amber:#ffb440;
-  --amber2:#ffd17c;
-  --red:#d23a38;
-  --green:#49da94;
-  --blue:#58b9ff;
-  --shadow:0 22px 54px #0008;
-  --speed:-132deg;
-  --cost:-132deg;
-}
+:root{--bg:#07090c;--panel:#11151a;--panel2:#181d23;--steel:#303741;--line:#3d4652;--txt:#f7f1e7;--muted:#98a1ad;--amber:#ffb440;--amber2:#ffd17c;--red:#d23a38;--green:#49da94;--blue:#58b9ff;--shadow:0 22px 54px #0008;--speed:-132deg;--cost:-132deg}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#050608;color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}body{background:radial-gradient(circle at 50% -10%,#6d161e44,transparent 34%),linear-gradient(#0d1014,#050608 58%);padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}button,input{font:inherit}button{cursor:pointer}.app{max-width:820px;margin:auto;min-height:100vh;padding:12px 12px 100px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 2px 14px}.brand{display:flex;align-items:center;gap:11px;min-width:0}.logo{width:56px;height:56px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(145deg,#c53945,#65151d 74%);border:1px solid #da5a64;box-shadow:inset 0 0 0 3px #0003,var(--shadow);font:800 26px Georgia,serif}.brand h1{margin:0;font-size:19px;letter-spacing:.1em;white-space:nowrap}.brand p{margin:4px 0 0;color:#aaa39d;font-size:10px;letter-spacing:.15em}.status-stack{display:grid;gap:5px}.pill{display:flex;align-items:center;gap:6px;border:1px solid #353c46;background:#101318;color:#929ba6;border-radius:999px;padding:6px 9px;font-size:9px;letter-spacing:.06em;white-space:nowrap}.pill i{width:7px;height:7px;border-radius:50%;background:#505761}.pill.on{color:#dfffee;border-color:#49da9460}.pill.on i{background:var(--green);box-shadow:0 0 10px #49da94}.page{display:none}.page.active{display:block}.dash{position:relative;overflow:hidden;border-radius:29px;padding:14px;background:linear-gradient(#ffffff0d,transparent 10%),repeating-linear-gradient(90deg,#fff1 0 1px,transparent 1px 4px),linear-gradient(145deg,#1c2128,#0d1014 64%,#080a0d);border:1px solid #46515e;box-shadow:var(--shadow),inset 0 0 0 2px #ffffff08}.dash:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,#71181d,#d23a38 24%,#ffb440 50%,#d23a38 76%,#71181d);box-shadow:0 0 15px #ffb44055}.dash-title{display:flex;justify-content:space-between;gap:10px;margin:4px 4px 12px;color:#aab2bd;font-size:9px;letter-spacing:.16em}.dash-title b{color:var(--amber)}.instrument{display:grid;grid-template-columns:1fr 1.22fr 1fr;gap:10px;align-items:center}.gauge{aspect-ratio:1;position:relative;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#080a0d 0 46%,transparent 47%),conic-gradient(from 224deg,#d23a38 0 15deg,#ffb440 15deg 204deg,#303741 204deg 272deg,#15191f 272deg);border:1px solid #596473;box-shadow:inset 0 0 0 8px #0a0c10,inset 0 0 0 10px #3b444f,inset 0 0 28px #000,0 10px 28px #0008}.gauge:before{content:"";position:absolute;inset:14%;border-radius:50%;background:repeating-conic-gradient(from 224deg,#fff 0 1deg,transparent 1deg 12deg);mask:radial-gradient(circle,transparent 0 73%,#000 74%);opacity:.72}.g-title{position:absolute;top:18%;font-size:7px;letter-spacing:.12em}.mark{position:absolute;font-size:6px;color:#d0d4d9}.m1{left:14%;bottom:24%}.m2{left:14%;top:28%}.m3{left:47%;top:10%}.m4{right:14%;top:28%}.m5{right:12%;bottom:24%}.needle{position:absolute;width:42%;height:3px;left:50%;top:50%;transform-origin:0 50%;background:linear-gradient(90deg,#fff5d7,#ffb440 65%,#d23a38);border-radius:99px;box-shadow:0 0 10px #ffb440;transition:transform .35s}.needle.speed{transform:rotate(var(--speed))}.needle.cost{transform:rotate(var(--cost))}.hub{position:absolute;width:17px;height:17px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e0e4e8,#646c76 35%,#14171b 72%);border:1px solid #929aa5;box-shadow:0 2px 8px #000}.g-center{position:absolute;inset:23%;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,#171b21,#07090b 70%);border:1px solid #343b45;text-align:center}.g-center b{font-size:clamp(20px,6vw,35px);line-height:1;font-variant-numeric:tabular-nums}.g-center span{font-size:7px;letter-spacing:.12em;color:#a9b0b9;margin-top:4px}.g-center small{font-size:8px;color:var(--amber);margin-top:4px}.fare{min-height:246px;border-radius:23px;padding:14px;position:relative;overflow:hidden;background:linear-gradient(#ffffff0b,transparent 20%),linear-gradient(145deg,#111419,#07090c);border:1px solid #3c4651;box-shadow:inset 0 0 38px #000c;display:flex;flex-direction:column;justify-content:center;align-items:center}.fare:before{content:"";position:absolute;inset:8px;border-radius:17px;border:1px solid #ffb44022}.fare-caption{font-size:9px;letter-spacing:.2em;color:#a4acb6}.fare-value{display:flex;align-items:flex-end;gap:6px;margin:12px 0 3px;font-weight:900;line-height:.9;font-variant-numeric:tabular-nums}.fare-value small{font-size:24px;color:var(--amber);margin-bottom:7px}.fare-value b{font-size:clamp(50px,12vw,82px);letter-spacing:-.06em}.state{font-size:12px;color:#d0d5da;margin-top:7px}.state.live{color:#dcffeb}.odo{margin-top:15px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.odo div{border-radius:11px;padding:9px 5px;background:#11151a;border:1px solid #2e3640;text-align:center;box-shadow:inset 0 0 14px #0008}.odo b{display:block;font-size:15px;font-variant-numeric:tabular-nums}.odo span{display:block;margin-top:4px;color:#818b97;font-size:7px;letter-spacing:.11em}.controls{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:9px;margin-top:12px}.btn{min-height:62px;border-radius:17px;border:1px solid #3c4550;color:#fff;font-weight:900;letter-spacing:.07em;background:linear-gradient(#2c333b,#15191e);box-shadow:inset 0 1px #ffffff18,0 8px 18px #0006}.btn.primary{background:linear-gradient(#d83e48,#791821);border-color:#e65761}.btn.pause{background:linear-gradient(#533a20,#251a11);color:#ffd797;border-color:#6e4e30}.btn.stop{background:linear-gradient(#461b20,#211014);color:#ffb0b5;border-color:#71323c}.btn:disabled{opacity:.34;cursor:not-allowed}.telemetry{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:11px}.tele{padding:9px 6px;border-radius:13px;background:#0e1115;border:1px solid #2d3540;text-align:center}.tele b{display:block;font-size:14px;color:var(--amber2);font-variant-numeric:tabular-nums}.tele span{display:block;margin-top:4px;font-size:7px;color:#818b97;letter-spacing:.09em}.gps-panel{margin-top:11px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:8px}.gps-box{padding:10px;border-radius:14px;background:#0d1014;border:1px solid #2d3540}.gps-box strong{display:block;font-size:11px}.gps-box span{display:block;margin-top:4px;color:#89939e;font-size:8px}.gps-good strong{color:var(--green)}.gps-warn strong{color:var(--amber)}.section{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:19px 3px 9px}.section h2{margin:0;font-size:13px;letter-spacing:.11em}.section span{font-size:10px;color:#9da6b1}.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.card{background:linear-gradient(145deg,#171c22,#0c0f13);border:1px solid #343e49;border-radius:17px;padding:13px;box-shadow:inset 0 1px #ffffff08}.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.card-name{font-size:12px;font-weight:800}.card-name small{display:block;margin-top:4px;color:#858f9b;font-size:8px;font-weight:500;line-height:1.35}.amount{font-size:17px;font-weight:900;color:#fff5e5;white-space:nowrap}.bar{height:5px;background:#262d35;border-radius:99px;margin-top:11px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#d23a38,#ffb440);border-radius:99px;transition:width .3s}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.quick button{border-radius:14px;padding:12px 6px;border:1px solid #3a4450;background:linear-gradient(#1c2229,#101419);color:#f7f1e7;font-size:9px;font-weight:850}.panel{background:linear-gradient(145deg,#171c22,#0c0f13);border:1px solid #343e49;border-radius:21px;padding:15px;margin-bottom:11px}.panel h3{margin:0 0 13px;font-size:13px;letter-spacing:.09em}.fields{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:9px;color:#949eaa}input{width:100%;border:1px solid #343e49;background:#080a0d;color:#fff4e7;border-radius:12px;padding:12px;outline:none;box-shadow:inset 0 0 13px #0008}input:focus{border-color:#d28b43;box-shadow:0 0 0 3px #ffb44015,inset 0 0 13px #0008}.note{font-size:9px;color:#8b95a0;line-height:1.5;margin:9px 0 0}.row2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}.summary{display:grid;grid-template-columns:1fr 1fr;gap:9px}.summary div{border-radius:15px;padding:13px;background:#0d1014;border:1px solid #2d3540}.summary span{font-size:8px;color:#858f9b;letter-spacing:.1em}.summary b{display:block;margin-top:7px;font-size:19px;color:var(--amber2)}.trip{background:linear-gradient(145deg,#171c22,#0c0f13);border:1px solid #343e49;border-radius:17px;padding:13px;margin-bottom:9px}.trip-head{display:flex;justify-content:space-between;gap:10px}.trip-head b{font-size:12px}.trip-head span{font-weight:900;color:var(--amber2)}.trip-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.trip-meta div{background:#090c0f;border:1px solid #252d35;border-radius:10px;padding:8px;text-align:center}.trip-meta b{display:block;font-size:12px}.trip-meta small{font-size:7px;color:#7f8995}.empty{text-align:center;padding:32px 16px;color:#838d99;background:#101419;border:1px dashed #35404b;border-radius:19px}.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(820px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:#07090cf5;backdrop-filter:blur(16px);border-top:1px solid #303944;padding:8px 11px calc(8px + env(safe-area-inset-bottom));z-index:20}.nav button{border:1px solid transparent;background:transparent;color:#8c96a2;padding:10px 4px;border-radius:13px;font-size:9px;font-weight:850}.nav button.active{background:linear-gradient(#29313a,#171c22);border-color:#3b4652;color:#fff4e5}.modal{position:fixed;inset:0;background:#000c;display:none;place-items:end center;z-index:50;padding:15px}.modal.open{display:grid}.modal-box{width:min(820px,100%);background:#151a20;border:1px solid #3d4854;border-radius:23px;padding:17px;box-shadow:var(--shadow)}.modal-box h3{margin:0 0 13px}.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:60;background:#f7efe2;color:#111;padding:10px 14px;border-radius:99px;font-size:11px;font-weight:850;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:680px){.instrument{gap:7px}.dash{padding:11px}.fare{min-height:225px;padding:11px}.telemetry{grid-template-columns:1fr 1fr}.gps-panel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:540px){.brand h1{font-size:16px}.logo{width:50px;height:50px}.instrument{grid-template-columns:1fr 1fr}.fare{grid-column:1/-1;grid-row:1;min-height:215px}.gauge{grid-row:2}.cost-grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.quick{grid-template-columns:1fr 1fr}.gps-panel{grid-template-columns:1fr}.status-stack .pill:last-child{display:none}}
+
+/* SPEED GUARD V4 */
+select{width:100%;border:1px solid #343e49;background:#080a0d;color:#fff4e7;border-radius:12px;padding:12px;outline:none;box-shadow:inset 0 0 13px #0008}
+select:focus{border-color:#d28b43;box-shadow:0 0 0 3px #ffb44015,inset 0 0 13px #0008}
+.speed-hero{position:relative;overflow:hidden;border-radius:28px;padding:20px;background:linear-gradient(#ffffff0d,transparent 18%),repeating-linear-gradient(90deg,#fff1 0 1px,transparent 1px 4px),linear-gradient(145deg,#1d232b,#0b0e12 68%);border:1px solid #485462;box-shadow:var(--shadow),inset 0 0 0 2px #ffffff08;text-align:center}
+.speed-hero:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,#183e32,#49da94,#ffb440,#d23a38)}
+.speed-kicker{font-size:10px;letter-spacing:.2em;color:#aab3be;margin-top:4px}.speed-readouts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.speed-dial{background:radial-gradient(circle at 50% 35%,#1b2229,#080a0d 72%);border:1px solid #394450;border-radius:22px;padding:20px 10px;box-shadow:inset 0 0 28px #000b}.speed-dial b{display:block;font-size:clamp(50px,15vw,86px);line-height:.9;font-variant-numeric:tabular-nums}.speed-dial span{display:block;margin-top:10px;font-size:9px;letter-spacing:.14em;color:#8f99a5}.speed-dial.limit b{color:var(--amber2)}
+.speed-message{margin-top:14px;border-radius:16px;padding:13px;background:#0e1216;border:1px solid #303a45;font-size:13px;font-weight:900;letter-spacing:.08em;color:#9aa5b0}.speed-message.safe{color:#dffff0;border-color:#49da9460;background:#102219}.speed-message.near{color:#ffe2a6;border-color:#ffb44066;background:#241b0e}.speed-message.danger{color:#fff;border-color:#ff6969;background:linear-gradient(135deg,#8f171c,#3c0b0f);box-shadow:0 0 24px #d23a3860}
+.preset-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.preset{min-height:52px;border-radius:15px;border:1px solid #3a4551;background:linear-gradient(#202731,#101419);color:#f7f1e7;font-size:15px;font-weight:900}.preset.active{background:linear-gradient(#d58a32,#744010);border-color:#ffbd5d;color:#fff8eb;box-shadow:0 0 16px #ffb44035}.range-wrap{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.range-wrap input[type=range]{padding:0;box-shadow:none;accent-color:#ffb440}.range-value{min-width:48px;text-align:right;color:var(--amber2);font-weight:900}.check-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #343e49;background:#080a0d;border-radius:12px;padding:12px}.check-row input{width:22px;height:22px;accent-color:#d23a38;box-shadow:none}.speed-control-button.active{background:linear-gradient(#49da94,#17643f);border-color:#6dedae;color:#06150e}.speed-test{background:linear-gradient(#4e3421,#20150d);border-color:#6f4b2d;color:#ffd49a}.speed-alert-overlay{display:none;position:fixed;left:50%;top:max(12px,env(safe-area-inset-top));transform:translateX(-50%);width:min(760px,calc(100% - 24px));z-index:100;pointer-events:none;border:2px solid #ff7272;border-radius:18px;padding:14px;background:linear-gradient(135deg,#a9131aee,#3c070bee);box-shadow:0 0 42px #ff263b99;text-align:center;color:#fff;animation:alarmPulse .72s infinite alternate}.speed-alert-overlay b{display:block;font-size:21px;letter-spacing:.13em}.speed-alert-overlay span{display:block;margin-top:5px;font-size:12px}.overspeed .speed-alert-overlay{display:block}.overspeed .logo{box-shadow:0 0 28px #ff2f42,inset 0 0 0 3px #0003}.speed-mini{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding:11px 13px;border-radius:15px;background:#0e1216;border:1px solid #303a45;color:#929da8}.speed-mini.active{color:#dffff0;border-color:#49da9450}.speed-mini.danger{color:#fff;border-color:#ff6262;background:#4d0d12}.speed-mini b{font-size:12px}.speed-mini span{font-size:10px}
+@keyframes alarmPulse{from{filter:brightness(.88);transform:translateX(-50%) scale(.99)}to{filter:brightness(1.18);transform:translateX(-50%) scale(1.01)}}
+@media(max-width:540px){.preset-grid{grid-template-columns:repeat(3,1fr)}.speed-readouts{gap:8px}.speed-dial{padding:18px 7px}.speed-dial b{font-size:54px}.speed-alert-overlay b{font-size:18px}.nav button{font-size:8px}}
 
-*{
-  box-sizing:border-box;
-}
-
-html,
-body{
-  margin:0;
-  min-height:100%;
-  background:#050608;
-  color:var(--txt);
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-}
-
-body{
-  background:
-    radial-gradient(
-      circle at 50% -10%,
-      #6d161e44,
-      transparent 34%
-    ),
-    linear-gradient(
-      #0d1014,
-      #050608 58%
-    );
-
-  padding:
-    env(safe-area-inset-top)
-    0
-    env(safe-area-inset-bottom);
-}
-
-button,
-input{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.app{
-  max-width:820px;
-  margin:auto;
-  min-height:100vh;
-  padding:12px 12px 100px;
-}
-
-.top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:7px 2px 14px;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  min-width:0;
-}
-
-.logo{
-  width:56px;
-  height:56px;
-  display:grid;
-  place-items:center;
-  border-radius:16px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #c53945,
-      #65151d 74%
-    );
-
-  border:1px solid #da5a64;
-
-  box-shadow:
-    inset 0 0 0 3px #0003,
-    var(--shadow);
-
-  font:800 26px Georgia,serif;
-}
-
-.brand h1{
-  margin:0;
-  font-size:19px;
-  letter-spacing:.1em;
-  white-space:nowrap;
-}
-
-.brand p{
-  margin:4px 0 0;
-  color:#aaa39d;
-  font-size:10px;
-  letter-spacing:.15em;
-}
-
-.status-stack{
-  display:grid;
-  gap:5px;
-}
-
-.pill{
-  display:flex;
-  align-items:center;
-  gap:6px;
-
-  border:1px solid #353c46;
-  background:#101318;
-  color:#929ba6;
-
-  border-radius:999px;
-  padding:6px 9px;
-
-  font-size:9px;
-  letter-spacing:.06em;
-  white-space:nowrap;
-}
-
-.pill i{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#505761;
-}
-
-.pill.on{
-  color:#dfffee;
-  border-color:#49da9460;
-}
-
-.pill.on i{
-  background:var(--green);
-  box-shadow:0 0 10px #49da94;
-}
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.dash{
-  position:relative;
-  overflow:hidden;
-  border-radius:29px;
-  padding:14px;
-
-  background:
-    linear-gradient(
-      #ffffff0d,
-      transparent 10%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      #fff1 0 1px,
-      transparent 1px 4px
-    ),
-    linear-gradient(
-      145deg,
-      #1c2128,
-      #0d1014 64%,
-      #080a0d
-    );
-
-  border:1px solid #46515e;
-
-  box-shadow:
-    var(--shadow),
-    inset 0 0 0 2px #ffffff08;
-}
-
-.dash:before{
-  content:"";
-  position:absolute;
-  inset:0 0 auto;
-  height:5px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #71181d,
-      #d23a38 24%,
-      #ffb440 50%,
-      #d23a38 76%,
-      #71181d
-    );
-
-  box-shadow:
-    0 0 15px #ffb44055;
-}
-
-.dash-title{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-
-  margin:4px 4px 12px;
-  color:#aab2bd;
-
-  font-size:9px;
-  letter-spacing:.16em;
-}
-
-.dash-title b{
-  color:var(--amber);
-}
-
-.instrument{
-  display:grid;
-  grid-template-columns:1fr 1.22fr 1fr;
-  gap:10px;
-  align-items:center;
-}
-
-.gauge{
-  aspect-ratio:1;
-  position:relative;
-  border-radius:50%;
-
-  display:grid;
-  place-items:center;
-
-  background:
-    radial-gradient(
-      circle,
-      #080a0d 0 46%,
-      transparent 47%
-    ),
-    conic-gradient(
-      from 224deg,
-      #d23a38 0 15deg,
-      #ffb440 15deg 204deg,
-      #303741 204deg 272deg,
-      #15191f 272deg
-    );
-
-  border:1px solid #596473;
-
-  box-shadow:
-    inset 0 0 0 8px #0a0c10,
-    inset 0 0 0 10px #3b444f,
-    inset 0 0 28px #000,
-    0 10px 28px #0008;
-}
-
-.gauge:before{
-  content:"";
-  position:absolute;
-  inset:14%;
-  border-radius:50%;
-
-  background:
-    repeating-conic-gradient(
-      from 224deg,
-      #fff 0 1deg,
-      transparent 1deg 12deg
-    );
-
-  mask:
-    radial-gradient(
-      circle,
-      transparent 0 73%,
-      #000 74%
-    );
-
-  opacity:.72;
-}
-
-.g-title{
-  position:absolute;
-  top:18%;
-  font-size:7px;
-  letter-spacing:.12em;
-}
-
-.mark{
-  position:absolute;
-  font-size:6px;
-  color:#d0d4d9;
-}
-
-.m1{
-  left:14%;
-  bottom:24%;
-}
-
-.m2{
-  left:14%;
-  top:28%;
-}
-
-.m3{
-  left:47%;
-  top:10%;
-}
-
-.m4{
-  right:14%;
-  top:28%;
-}
-
-.m5{
-  right:12%;
-  bottom:24%;
-}
-
-.needle{
-  position:absolute;
-  width:42%;
-  height:3px;
-  left:50%;
-  top:50%;
-
-  transform-origin:0 50%;
-
-  background:
-    linear-gradient(
-      90deg,
-      #fff5d7,
-      #ffb440 65%,
-      #d23a38
-    );
-
-  border-radius:99px;
-  box-shadow:0 0 10px #ffb440;
-
-  transition:transform .35s;
-}
-
-.needle.speed{
-  transform:rotate(var(--speed));
-}
-
-.needle.cost{
-  transform:rotate(var(--cost));
-}
-
-.hub{
-  position:absolute;
-  width:17px;
-  height:17px;
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle at 35% 35%,
-      #e0e4e8,
-      #646c76 35%,
-      #14171b 72%
-    );
-
-  border:1px solid #929aa5;
-  box-shadow:0 2px 8px #000;
-}
-
-.g-center{
-  position:absolute;
-  inset:23%;
-  border-radius:50%;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-
-  background:
-    radial-gradient(
-      circle at 50% 38%,
-      #171b21,
-      #07090b 70%
-    );
-
-  border:1px solid #343b45;
-  text-align:center;
-}
-
-.g-center b{
-  font-size:clamp(20px,6vw,35px);
-  line-height:1;
-  font-variant-numeric:tabular-nums;
-}
-
-.g-center span{
-  font-size:7px;
-  letter-spacing:.12em;
-  color:#a9b0b9;
-  margin-top:4px;
-}
-
-.g-center small{
-  font-size:8px;
-  color:var(--amber);
-  margin-top:4px;
-}
-
-.fare{
-  min-height:246px;
-  border-radius:23px;
-  padding:14px;
-
-  position:relative;
-  overflow:hidden;
-
-  background:
-    linear-gradient(
-      #ffffff0b,
-      transparent 20%
-    ),
-    linear-gradient(
-      145deg,
-      #111419,
-      #07090c
-    );
-
-  border:1px solid #3c4651;
-
-  box-shadow:
-    inset 0 0 38px #000c;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
-
-.fare:before{
-  content:"";
-  position:absolute;
-  inset:8px;
-  border-radius:17px;
-  border:1px solid #ffb44022;
-}
-
-.fare-caption{
-  font-size:9px;
-  letter-spacing:.2em;
-  color:#a4acb6;
-}
-
-.fare-value{
-  display:flex;
-  align-items:flex-end;
-  gap:6px;
-
-  margin:12px 0 3px;
-
-  font-weight:900;
-  line-height:.9;
-  font-variant-numeric:tabular-nums;
-}
-
-.fare-value small{
-  font-size:24px;
-  color:var(--amber);
-  margin-bottom:7px;
-}
-
-.fare-value b{
-  font-size:clamp(50px,12vw,82px);
-  letter-spacing:-.06em;
-}
-
-.state{
-  font-size:12px;
-  color:#d0d5da;
-  margin-top:7px;
-}
-
-.state.live{
-  color:#dcffeb;
-}
-
-.odo{
-  margin-top:15px;
-  width:100%;
-
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:7px;
-}
-
-.odo div{
-  border-radius:11px;
-  padding:9px 5px;
-
-  background:#11151a;
-  border:1px solid #2e3640;
-
-  text-align:center;
-
-  box-shadow:
-    inset 0 0 14px #0008;
-}
-
-.odo b{
-  display:block;
-  font-size:15px;
-  font-variant-numeric:tabular-nums;
-}
-
-.odo span{
-  display:block;
-  margin-top:4px;
-  color:#818b97;
-  font-size:7px;
-  letter-spacing:.11em;
-}
-
-.controls{
-  display:grid;
-  grid-template-columns:1.15fr 1fr 1fr;
-  gap:9px;
-  margin-top:12px;
-}
-
-.btn{
-  min-height:62px;
-  border-radius:17px;
-  border:1px solid #3c4550;
-
-  color:#fff;
-  font-weight:900;
-  letter-spacing:.07em;
-
-  background:
-    linear-gradient(
-      #2c333b,
-      #15191e
-    );
-
-  box-shadow:
-    inset 0 1px #ffffff18,
-    0 8px 18px #0006;
-}
-
-.btn.primary{
-  background:
-    linear-gradient(
-      #d83e48,
-      #791821
-    );
-
-  border-color:#e65761;
-}
-
-.btn.pause{
-  background:
-    linear-gradient(
-      #533a20,
-      #251a11
-    );
-
-  color:#ffd797;
-  border-color:#6e4e30;
-}
-
-.btn.stop{
-  background:
-    linear-gradient(
-      #461b20,
-      #211014
-    );
-
-  color:#ffb0b5;
-  border-color:#71323c;
-}
-
-.btn:disabled{
-  opacity:.34;
-  cursor:not-allowed;
-}
-
-.telemetry{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:7px;
-  margin-top:11px;
-}
-
-.tele{
-  padding:9px 6px;
-  border-radius:13px;
-
-  background:#0e1115;
-  border:1px solid #2d3540;
-
-  text-align:center;
-}
-
-.tele b{
-  display:block;
-  font-size:14px;
-  color:var(--amber2);
-  font-variant-numeric:tabular-nums;
-}
-
-.tele span{
-  display:block;
-  margin-top:4px;
-  font-size:7px;
-  color:#818b97;
-  letter-spacing:.09em;
-}
-
-.gps-panel{
-  margin-top:11px;
-
-  display:grid;
-  grid-template-columns:1.2fr 1fr 1fr;
-  gap:8px;
-}
-
-.gps-box{
-  padding:10px;
-  border-radius:14px;
-
-  background:#0d1014;
-  border:1px solid #2d3540;
-}
-
-.gps-box strong{
-  display:block;
-  font-size:11px;
-}
-
-.gps-box span{
-  display:block;
-  margin-top:4px;
-  color:#89939e;
-  font-size:8px;
-}
-
-.gps-good strong{
-  color:var(--green);
-}
-
-.gps-warn strong{
-  color:var(--amber);
-}
-
-.section{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin:19px 3px 9px;
-}
-
-.section h2{
-  margin:0;
-  font-size:13px;
-  letter-spacing:.11em;
-}
-
-.section span{
-  font-size:10px;
-  color:#9da6b1;
-}
-
-.cost-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-}
-
-.card{
-  background:
-    linear-gradient(
-      145deg,
-      #171c22,
-      #0c0f13
-    );
-
-  border:1px solid #343e49;
-  border-radius:17px;
-  padding:13px;
-
-  box-shadow:
-    inset 0 1px #ffffff08;
-}
-
-.card-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-
-.card-name{
-  font-size:12px;
-  font-weight:800;
-}
-
-.card-name small{
-  display:block;
-  margin-top:4px;
-  color:#858f9b;
-  font-size:8px;
-  font-weight:500;
-  line-height:1.35;
-}
-
-.amount{
-  font-size:17px;
-  font-weight:900;
-  color:#fff5e5;
-  white-space:nowrap;
-}
-
-.bar{
-  height:5px;
-  background:#262d35;
-  border-radius:99px;
-  margin-top:11px;
-  overflow:hidden;
-}
-
-.bar i{
-  display:block;
-  height:100%;
-  width:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      #d23a38,
-      #ffb440
-    );
-
-  border-radius:99px;
-  transition:width .3s;
-}
-
-.quick{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-}
-
-.quick button{
-  border-radius:14px;
-  padding:12px 6px;
-
-  border:1px solid #3a4450;
-
-  background:
-    linear-gradient(
-      #1c2229,
-      #101419
-    );
-
-  color:#f7f1e7;
-  font-size:9px;
-  font-weight:850;
-}
-
-.panel{
-  background:
-    linear-gradient(
-      145deg,
-      #171c22,
-      #0c0f13
-    );
-
-  border:1px solid #343e49;
-  border-radius:21px;
-  padding:15px;
-  margin-bottom:11px;
-}
-
-.panel h3{
-  margin:0 0 13px;
-  font-size:13px;
-  letter-spacing:.09em;
-}
-
-.fields{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:11px;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-label{
-  font-size:9px;
-  color:#949eaa;
-}
-
-input{
-  width:100%;
-
-  border:1px solid #343e49;
-  background:#080a0d;
-  color:#fff4e7;
-
-  border-radius:12px;
-  padding:12px;
-  outline:none;
-
-  box-shadow:
-    inset 0 0 13px #0008;
-}
-
-input:focus{
-  border-color:#d28b43;
-
-  box-shadow:
-    0 0 0 3px #ffb44015,
-    inset 0 0 13px #0008;
-}
-
-.note{
-  font-size:9px;
-  color:#8b95a0;
-  line-height:1.5;
-  margin:9px 0 0;
-}
-
-.row2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:11px;
-}
-
-.summary{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-}
-
-.summary div{
-  border-radius:15px;
-  padding:13px;
-
-  background:#0d1014;
-  border:1px solid #2d3540;
-}
-
-.summary span{
-  font-size:8px;
-  color:#858f9b;
-  letter-spacing:.1em;
-}
-
-.summary b{
-  display:block;
-  margin-top:7px;
-  font-size:19px;
-  color:var(--amber2);
-}
-
-.trip{
-  background:
-    linear-gradient(
-      145deg,
-      #171c22,
-      #0c0f13
-    );
-
-  border:1px solid #343e49;
-  border-radius:17px;
-  padding:13px;
-  margin-bottom:9px;
-}
-
-.trip-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.trip-head b{
-  font-size:12px;
-}
-
-.trip-head span{
-  font-weight:900;
-  color:var(--amber2);
-}
-
-.trip-meta{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:6px;
-  margin-top:10px;
-}
-
-.trip-meta div{
-  background:#090c0f;
-  border:1px solid #252d35;
-  border-radius:10px;
-  padding:8px;
-  text-align:center;
-}
-
-.trip-meta b{
-  display:block;
-  font-size:12px;
-}
-
-.trip-meta small{
-  font-size:7px;
-  color:#7f8995;
-}
-
-.empty{
-  text-align:center;
-  padding:32px 16px;
-  color:#838d99;
-
-  background:#101419;
-  border:1px dashed #35404b;
-  border-radius:19px;
-}
-
-.nav{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:0;
-
-  width:min(820px,100%);
-
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:5px;
-
-  background:#07090cf5;
-  backdrop-filter:blur(16px);
-
-  border-top:1px solid #303944;
-
-  padding:
-    8px
-    11px
-    calc(8px + env(safe-area-inset-bottom));
-
-  z-index:20;
-}
-
-.nav button{
-  border:1px solid transparent;
-  background:transparent;
-  color:#8c96a2;
-
-  padding:10px 4px;
-  border-radius:13px;
-
-  font-size:9px;
-  font-weight:850;
-}
-
-.nav button.active{
-  background:
-    linear-gradient(
-      #29313a,
-      #171c22
-    );
-
-  border-color:#3b4652;
-  color:#fff4e5;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-
-  background:#000c;
-
-  display:none;
-  place-items:end center;
-
-  z-index:50;
-  padding:15px;
-}
-
-.modal.open{
-  display:grid;
-}
-
-.modal-box{
-  width:min(820px,100%);
-
-  background:#151a20;
-  border:1px solid #3d4854;
-  border-radius:23px;
-
-  padding:17px;
-  box-shadow:var(--shadow);
-}
-
-.modal-box h3{
-  margin:0 0 13px;
-}
-
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:90px;
-
-  transform:translate(-50%,20px);
-  opacity:0;
-
-  pointer-events:none;
-  z-index:60;
-
-  background:#f7efe2;
-  color:#111;
-
-  padding:10px 14px;
-  border-radius:99px;
-
-  font-size:11px;
-  font-weight:850;
-
-  transition:.25s;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-@media(max-width:680px){
-
-  .instrument{
-    gap:7px;
-  }
-
-  .dash{
-    padding:11px;
-  }
-
-  .fare{
-    min-height:225px;
-    padding:11px;
-  }
-
-  .telemetry{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .gps-panel{
-    grid-template-columns:1fr 1fr 1fr;
-  }
-}
-
-@media(max-width:540px){
-
-  .brand h1{
-    font-size:16px;
-  }
-
-  .logo{
-    width:50px;
-    height:50px;
-  }
-
-  .instrument{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .fare{
-    grid-column:1/-1;
-    grid-row:1;
-    min-height:215px;
-  }
-
-  .gauge{
-    grid-row:2;
-  }
-
-  .cost-grid{
-    grid-template-columns:1fr;
-  }
-
-  .fields{
-    grid-template-columns:1fr;
-  }
-
-  .field.full{
-    grid-column:auto;
-  }
-
-  .quick{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .gps-panel{
-    grid-template-columns:1fr;
-  }
-
-  .status-stack .pill:last-child{
-    display:none;
-  }
-}
 </style>
 </head>
-
 <body>
-
 <div class="app">
-
-<header class="top">
-
-  <div class="brand">
-
-    <div class="logo">
-      XA
-    </div>
-
-    <div>
-
-      <h1>
-        ROAD COMMAND V3
-      </h1>
-
-      <p>
-        FORD EDGE ST-LINE 238 CV
-      </p>
-
-    </div>
-
-  </div>
-
-  <div class="status-stack">
-
-    <div id="gpsLamp" class="pill">
-      <i></i>
-      <span id="gpsStatus">GPS PRONTO</span>
-    </div>
-
-    <div id="wakeLamp" class="pill">
-      <i></i>
-      <span>SCHERMO ATTIVO</span>
-    </div>
-
-  </div>
-
-</header>
-
+<header class="top"><div class="brand"><div class="logo">XA</div><div><h1>ROAD COMMAND V4</h1><p>FORD EDGE ST-LINE 238 CV</p></div></div><div class="status-stack"><div id="gpsLamp" class="pill"><i></i><span id="gpsStatus">GPS PRONTO</span></div><div id="wakeLamp" class="pill"><i></i><span>SCHERMO ATTIVO</span></div></div></header>
 <main>
-
 <section id="page-live" class="page active">
-
 <div class="dash">
-
-  <div class="dash-title">
-
-    <span>
-      AMERICAN ROAD INSTRUMENTATION
-    </span>
-
-    <b>
-      GPS WATCHDOG V3
-    </b>
-
-  </div>
-
-  <div class="instrument">
-
-    <div class="gauge">
-
-      <span class="g-title">
-        ROAD SPEED
-      </span>
-
-      <span class="mark m1">0</span>
-      <span class="mark m2">60</span>
-      <span class="mark m3">120</span>
-      <span class="mark m4">180</span>
-      <span class="mark m5">240</span>
-
-      <div class="needle speed"></div>
-      <div class="hub"></div>
-
-      <div class="g-center">
-
-        <b id="speed">
-          0
-        </b>
-
-        <span>
-          KM/H
-        </span>
-
-        <small id="accuracy">
-          GPS READY
-        </small>
-
-      </div>
-
-    </div>
-
-    <div class="fare">
-
-      <div class="fare-caption">
-        REAL TRIP COST
-      </div>
-
-      <div class="fare-value">
-
-        <small>
-          €
-        </small>
-
-        <b id="totalCost">
-          0,00
-        </b>
-
-      </div>
-
-      <div id="meterState" class="state">
-        Premi START per iniziare
-      </div>
-
-      <div class="odo">
-
-        <div>
-
-          <b id="distance">
-            0,00
-          </b>
-
-          <span>
-            TRIP KM
-          </span>
-
-        </div>
-
-        <div>
-
-          <b id="duration">
-            00:00:00
-          </b>
-
-          <span>
-            DRIVE TIME
-          </span>
-
-        </div>
-
-        <div>
-
-          <b id="fuelLiters">
-            0,00
-          </b>
-
-          <span>
-            FUEL L
-          </span>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="gauge">
-
-      <span class="g-title">
-        COST RATE
-      </span>
-
-      <span class="mark m1">0</span>
-      <span class="mark m2">0,3</span>
-      <span class="mark m3">0,6</span>
-      <span class="mark m4">0,9</span>
-      <span class="mark m5">1,2</span>
-
-      <div class="needle cost"></div>
-      <div class="hub"></div>
-
-      <div class="g-center">
-
-        <b id="costGauge">
-          0,000
-        </b>
-
-        <span>
-          EURO / KM
-        </span>
-
-        <small id="costLevel">
-          NORMAL
-        </small>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="controls">
-
-    <button id="startBtn" class="btn primary">
-      START TRIP
-    </button>
-
-    <button id="pauseBtn" class="btn pause" disabled>
-      PAUSA
-    </button>
-
-    <button id="stopBtn" class="btn stop" disabled>
-      STOP & SAVE
-    </button>
-
-  </div>
-
-  <div class="telemetry">
-
-    <div class="tele">
-
-      <b id="consumptionLive">
-        8,5
-      </b>
-
-      <span>
-        L/100 KM
-      </span>
-
-    </div>
-
-    <div class="tele">
-
-      <b id="costMinute">
-        € 0,00
-      </b>
-
-      <span>
-        COSTO/MIN
-      </span>
-
-    </div>
-
-    <div class="tele">
-
-      <b id="idleTime">
-        00:00
-      </b>
-
-      <span>
-        IDLE TIME
-      </span>
-
-    </div>
-
-    <div class="tele">
-
-      <b id="fixedRate">
-        0,000
-      </b>
-
-      <span>
-        FISSI €/KM
-      </span>
-
-    </div>
-
-  </div>
-
-  <div class="gps-panel">
-
-    <div id="fixBox" class="gps-box">
-
-      <strong id="fixState">
-        IN ATTESA DEL GPS
-      </strong>
-
-      <span id="lastFix">
-        Nessun punto ricevuto
-      </span>
-
-    </div>
-
-    <div class="gps-box">
-
-      <strong id="accepted">
-        0 ACCETTATI
-      </strong>
-
-      <span id="rejected">
-        0 scartati
-      </span>
-
-    </div>
-
-    <div class="gps-box">
-
-      <strong id="method">
-        COORDINATE
-      </strong>
-
-      <span>
-        Backup velocità automatico
-      </span>
-
-    </div>
-
-  </div>
-
+<div class="dash-title"><span>AMERICAN ROAD INSTRUMENTATION</span><b>GPS WATCHDOG V4</b></div>
+<div class="instrument">
+<div class="gauge"><span class="g-title">ROAD SPEED</span><span class="mark m1">0</span><span class="mark m2">60</span><span class="mark m3">120</span><span class="mark m4">180</span><span class="mark m5">240</span><div class="needle speed"></div><div class="hub"></div><div class="g-center"><b id="speed">0</b><span>KM/H</span><small id="accuracy">GPS READY</small></div></div>
+<div class="fare"><div class="fare-caption">REAL TRIP COST</div><div class="fare-value"><small>€</small><b id="totalCost">0,00</b></div><div id="meterState" class="state">Premi START per iniziare</div><div class="odo"><div><b id="distance">0,00</b><span>TRIP KM</span></div><div><b id="duration">00:00:00</b><span>DRIVE TIME</span></div><div><b id="fuelLiters">0,00</b><span>FUEL L</span></div></div></div>
+<div class="gauge"><span class="g-title">COST RATE</span><span class="mark m1">0</span><span class="mark m2">0,3</span><span class="mark m3">0,6</span><span class="mark m4">0,9</span><span class="mark m5">1,2</span><div class="needle cost"></div><div class="hub"></div><div class="g-center"><b id="costGauge">0,000</b><span>EURO / KM</span><small id="costLevel">NORMAL</small></div></div>
 </div>
-
-<div class="section">
-
-  <h2>
-    COST BREAKDOWN
-  </h2>
-
-  <span id="costPerKm">
-    0,000 €/km
-  </span>
-
+<div class="controls"><button id="startBtn" class="btn primary">START TRIP</button><button id="pauseBtn" class="btn pause" disabled>PAUSA</button><button id="stopBtn" class="btn stop" disabled>STOP & SAVE</button></div>
+<div class="telemetry"><div class="tele"><b id="consumptionLive">8,5</b><span>L/100 KM</span></div><div class="tele"><b id="costMinute">€ 0,00</b><span>COSTO/MIN</span></div><div class="tele"><b id="idleTime">00:00</b><span>IDLE TIME</span></div><div class="tele"><b id="fixedRate">0,000</b><span>FISSI €/KM</span></div></div>
+<div class="gps-panel"><div id="fixBox" class="gps-box"><strong id="fixState">IN ATTESA DEL GPS</strong><span id="lastFix">Nessun punto ricevuto</span></div><div class="gps-box"><strong id="accepted">0 ACCETTATI</strong><span id="rejected">0 scartati</span></div><div class="gps-box"><strong id="method">COORDINATE</strong><span>Backup velocità automatico</span></div></div>
 </div>
-
+<div id="speedMini" class="speed-mini"><b>SPEED GUARD DISATTIVATO</b><span id="speedMiniValue">Limite 90 km/h</span></div>
+<div class="section"><h2>COST BREAKDOWN</h2><span id="costPerKm">0,000 €/km</span></div>
 <div class="cost-grid">
+<div class="card"><div class="card-top"><div class="card-name">Carburante<small id="fuelDetail">0,00 L consumati</small></div><div id="fuelCost" class="amount">€ 0,00</div></div><div class="bar"><i id="fuelBar"></i></div></div>
+<div class="card"><div class="card-top"><div class="card-name">Gomme<small>Usura progressiva del treno gomme</small></div><div id="tiresCost" class="amount">€ 0,00</div></div><div class="bar"><i id="tiresBar"></i></div></div>
+<div class="card"><div class="card-top"><div class="card-name">Manutenzione<small>Tagliandi, freni, olio, filtri e AdBlue</small></div><div id="maintenanceCost" class="amount">€ 0,00</div></div><div class="bar"><i id="maintenanceBar"></i></div></div>
+<div class="card"><div class="card-top"><div class="card-name">Costi fissi<small>Assicurazione, bollo, revisione e garage</small></div><div id="fixedCost" class="amount">€ 0,00</div></div><div class="bar"><i id="fixedBar"></i></div></div>
+<div class="card"><div class="card-top"><div class="card-name">Svalutazione<small>Quota di perdita del valore del veicolo</small></div><div id="depreciationCost" class="amount">€ 0,00</div></div><div class="bar"><i id="depreciationBar"></i></div></div>
+<div class="card"><div class="card-top"><div class="card-name">Spese viaggio<small>Autostrada, parcheggio e altre spese</small></div><div id="extrasCost" class="amount">€ 0,00</div></div><div class="bar"><i id="extrasBar"></i></div></div>
+</div>
+<div class="section"><h2>QUICK COMMAND</h2><span>Aggiunta immediata</span></div>
+<div class="quick"><button data-expense="Autostrada">AUTOSTRADA</button><button data-expense="Parcheggio">PARCHEGGIO</button><button data-expense="Rifornimento">RIFORNIMENTO</button><button id="gpsRestart">RIAVVIA GPS</button></div>
+</section>
 
-  <div class="card">
-
-    <div class="card-top">
-
-      <div class="card-name">
-
-        Carburante
-
-        <small id="fuelDetail">
-          0,00 L consumati
-        </small>
-
-      </div>
-
-      <div id="fuelCost" class="amount">
-        € 0,00
-      </div>
-
-    </div>
-
-    <div class="bar">
-      <i id="fuelBar"></i>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <div class="card-top">
-
-      <div class="card-name">
-
-        Gomme
-
-        <small>
-          Usura progressiva del treno gomme
-        </small>
-
-      </div>
-
-      <div id="tiresCost" class="amount">
-        € 0,00
-      </div>
-
-    </div>
-
-    <div class="bar">
-      <i id="tiresBar"></i>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <div class="card-top">
-
-      <div class="card-name">
-
-        Manutenzione
-
-        <small>
-          Tagliandi, freni, olio, filtri e AdBlue
-        </small>
-
-      </div>
-
-      <div id="maintenanceCost" class="amount">
-        € 0,00
-      </div>
-
-    </div>
-
-    <div class="bar">
-      <i id="maintenanceBar"></i>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <div class="card-top">
-
-      <div class="card-name">
-
-        Costi fissi
-
-        <small>
-          Assicurazione, bollo, revisione e garage
-        </small>
-
-      </div>
-
-      <div id="fixedCost" class="amount">
-        € 0,00
-      </div>
-
-    </div>
-
-    <div class="bar">
-      <i id="fixedBar"></i>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <div class="card-top">
-
-      <div class="card-name">
-
-        Svalutazione
-
-        <small>
-          Quota di perdita del valore del veicolo
-        </small>
-
-      </div>
-
-      <div id="depreciationCost" class="amount">
-        € 0,00
-      </div>
-
-    </div>
-
-    <div class="bar">
-      <i id="depreciationBar"></i>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <div class="card-top">
-
-      <div class="card-name">
-
-        Spese viaggio
-
-        <small>
-          Autostrada, parcheggio e altre spese
-        </small>
-
-      </div>
-
-      <div id="extrasCost" class="amount">
-        € 0,00
-      </div>
-
-    </div>
-
-    <div class="bar">
-      <i id="extrasBar"></i>
-    </div>
-
-  </div>
-
+<section id="page-speed" class="page">
+<div id="speedHero" class="speed-hero">
+<div class="speed-kicker">SPEED GUARD · LIMIT CONTROL V4</div>
+<div class="speed-readouts">
+<div class="speed-dial"><b id="speedNowBig">0</b><span>VELOCITÀ ATTUALE · KM/H</span></div>
+<div class="speed-dial limit"><b id="speedLimitBig">90</b><span>LIMITE IMPOSTATO · KM/H</span></div>
+</div>
+<div id="speedMessage" class="speed-message">CONTROLLO DISATTIVATO</div>
 </div>
 
-<div class="section">
-
-  <h2>
-    QUICK COMMAND
-  </h2>
-
-  <span>
-    Aggiunta immediata
-  </span>
-
+<div class="section"><h2>PRESET VELOCITÀ</h2><span>Tocco rapido</span></div>
+<div class="preset-grid">
+<button class="preset" data-speed-preset="50">50</button>
+<button class="preset" data-speed-preset="70">70</button>
+<button class="preset" data-speed-preset="90">90</button>
+<button class="preset" data-speed-preset="110">110</button>
+<button class="preset" data-speed-preset="130">130</button>
 </div>
 
-<div class="quick">
-
-  <button data-expense="Autostrada">
-    AUTOSTRADA
-  </button>
-
-  <button data-expense="Parcheggio">
-    PARCHEGGIO
-  </button>
-
-  <button data-expense="Rifornimento">
-    RIFORNIMENTO
-  </button>
-
-  <button id="gpsRestart">
-    RIAVVIA GPS
-  </button>
-
+<div class="panel" style="margin-top:12px">
+<h3>SPEED CONTROL SETTINGS</h3>
+<div class="fields">
+<div class="field"><label>Velocità massima desiderata (km/h)</label><input id="speedLimit" type="number" min="20" max="200" step="1"></div>
+<div class="field"><label>Tolleranza prima dell'allarme (km/h)</label><input id="speedTolerance" type="number" min="0" max="15" step="1"></div>
+<div class="field"><label>Ripetizione allarme (secondi)</label><input id="speedRepeatSeconds" type="number" min="3" max="30" step="1"></div>
+<div class="field"><label>Tipo di avviso</label><select id="speedSound"><option value="music">Motivo musicale</option><option value="beep">Doppio beep</option><option value="siren">Sirena breve</option></select></div>
+<div class="field full"><label>Volume dell'avviso</label><div class="range-wrap"><input id="speedVolume" type="range" min="0.1" max="1" step="0.05"><span id="volumeValue" class="range-value">65%</span></div></div>
+<div class="field full"><label>Vibrazione del telefono</label><div class="check-row"><span>Vibra insieme al suono</span><input id="speedVibration" type="checkbox"></div></div>
 </div>
-
+<div class="row2">
+<button id="toggleSpeedControl" class="btn speed-control-button">ATTIVA CONTROLLO</button>
+<button id="testSpeedAlarm" class="btn speed-test">TEST ALLARME</button>
+</div>
+<button id="saveSpeedSettings" class="btn primary" style="width:100%;margin-top:9px">SALVA IMPOSTAZIONI</button>
+<p class="note">Esempio: limite 90 e tolleranza 3 significa allarme da 94 km/h. Il sistema avverte soltanto: non agisce sull'acceleratore o sul cruise control della Ford Edge.</p>
+</div>
 </section>
 
 <section id="page-edge" class="page">
-
-<div class="panel">
-
-  <h3>
-    VEHICLE PROFILE
-  </h3>
-
-  <div class="fields">
-
-    <div class="field full">
-
-      <label>
-        Veicolo
-      </label>
-
-      <input id="vehicleName">
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Prezzo di acquisto (€)
-      </label>
-
-      <input
-        id="purchasePrice"
-        type="number"
-        min="0"
-        step="100"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Valore futuro stimato (€)
-      </label>
-
-      <input
-        id="residualValue"
-        type="number"
-        min="0"
-        step="100"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Km previsti di possesso
-      </label>
-
-      <input
-        id="ownershipKm"
-        type="number"
-        min="1"
-        step="1000"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Km annuali previsti
-      </label>
-
-      <input
-        id="annualKm"
-        type="number"
-        min="1"
-        step="1000"
-      >
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="panel">
-
-  <h3>
-    FUEL & GPS CALIBRATION
-  </h3>
-
-  <div class="fields">
-
-    <div class="field">
-
-      <label>
-        Prezzo gasolio €/L
-      </label>
-
-      <input
-        id="fuelPrice"
-        type="number"
-        min="0"
-        step="0.001"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Consumo medio L/100 km
-      </label>
-
-      <input
-        id="consumption"
-        type="number"
-        min="0"
-        step="0.1"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Consumo al minimo L/ora
-      </label>
-
-      <input
-        id="idleLitersHour"
-        type="number"
-        min="0"
-        step="0.1"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Precisione GPS massima accettata (m)
-      </label>
-
-      <input
-        id="maxAccuracy"
-        type="number"
-        min="20"
-        max="200"
-        step="5"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Passo minimo GPS (metri)
-      </label>
-
-      <input
-        id="minStepMeters"
-        type="number"
-        min="1"
-        max="20"
-        step="1"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Correzione distanza GPS (%)
-      </label>
-
-      <input
-        id="gpsCorrection"
-        type="number"
-        min="80"
-        max="120"
-        step="0.5"
-      >
-
-    </div>
-
-  </div>
-
-  <p class="note">
-    Valori consigliati: precisione 90 m, passo minimo 3 m,
-    correzione 100%. Il watchdog riavvia automaticamente
-    il GPS quando smette di ricevere punti.
-  </p>
-
-</div>
-
-<div class="panel">
-
-  <h3>
-    TIRES & MAINTENANCE
-  </h3>
-
-  <div class="fields">
-
-    <div class="field">
-
-      <label>
-        Costo quattro gomme (€)
-      </label>
-
-      <input
-        id="tiresPrice"
-        type="number"
-        min="0"
-        step="10"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Durata gomme (km)
-      </label>
-
-      <input
-        id="tiresLife"
-        type="number"
-        min="1"
-        step="1000"
-      >
-
-    </div>
-
-    <div class="field full">
-
-      <label>
-        Manutenzione stimata €/km
-      </label>
-
-      <input
-        id="maintenancePerKm"
-        type="number"
-        min="0"
-        step="0.001"
-      >
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="panel">
-
-  <h3>
-    ANNUAL FIXED COSTS
-  </h3>
-
-  <div class="fields">
-
-    <div class="field">
-
-      <label>
-        Assicurazione (€)
-      </label>
-
-      <input
-        id="insurance"
-        type="number"
-        min="0"
-        step="10"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Bollo (€)
-      </label>
-
-      <input
-        id="tax"
-        type="number"
-        min="0"
-        step="10"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Revisione, media annua (€)
-      </label>
-
-      <input
-        id="inspection"
-        type="number"
-        min="0"
-        step="10"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Garage e altri costi (€)
-      </label>
-
-      <input
-        id="garage"
-        type="number"
-        min="0"
-        step="10"
-      >
-
-    </div>
-
-  </div>
-
-  <div class="row2">
-
-    <button id="saveSettings" class="btn primary">
-      SALVA DATI
-    </button>
-
-    <button id="resetSettings" class="btn">
-      VALORI BASE
-    </button>
-
-  </div>
-
-</div>
-
-<div class="panel">
-
-  <h3>
-    COST ANALYSIS
-  </h3>
-
-  <div class="summary">
-
-    <div>
-
-      <span>
-        COSTO VIVO
-      </span>
-
-      <b id="baseLiveCost">
-        € 0,00/km
-      </b>
-
-    </div>
-
-    <div>
-
-      <span>
-        COSTO TOTALE
-      </span>
-
-      <b id="baseTotalCost">
-        € 0,00/km
-      </b>
-
-    </div>
-
-  </div>
-
-</div>
-
+<div class="panel"><h3>VEHICLE PROFILE</h3><div class="fields"><div class="field full"><label>Veicolo</label><input id="vehicleName"></div><div class="field"><label>Prezzo di acquisto (€)</label><input id="purchasePrice" type="number" min="0" step="100"></div><div class="field"><label>Valore futuro stimato (€)</label><input id="residualValue" type="number" min="0" step="100"></div><div class="field"><label>Km previsti di possesso</label><input id="ownershipKm" type="number" min="1" step="1000"></div><div class="field"><label>Km annuali previsti</label><input id="annualKm" type="number" min="1" step="1000"></div></div></div>
+<div class="panel"><h3>FUEL & GPS CALIBRATION</h3><div class="fields"><div class="field"><label>Prezzo gasolio €/L</label><input id="fuelPrice" type="number" min="0" step="0.001"></div><div class="field"><label>Consumo medio L/100 km</label><input id="consumption" type="number" min="0" step="0.1"></div><div class="field"><label>Consumo al minimo L/ora</label><input id="idleLitersHour" type="number" min="0" step="0.1"></div><div class="field"><label>Precisione GPS massima accettata (m)</label><input id="maxAccuracy" type="number" min="20" max="200" step="5"></div><div class="field"><label>Passo minimo GPS (metri)</label><input id="minStepMeters" type="number" min="1" max="20" step="1"></div><div class="field"><label>Correzione distanza GPS (%)</label><input id="gpsCorrection" type="number" min="80" max="120" step="0.5"></div></div><p class="note">Valori consigliati: precisione 90 m, passo minimo 3 m, correzione 100%. Il watchdog riavvia automaticamente il GPS quando smette di ricevere punti.</p></div>
+<div class="panel"><h3>TIRES & MAINTENANCE</h3><div class="fields"><div class="field"><label>Costo quattro gomme (€)</label><input id="tiresPrice" type="number" min="0" step="10"></div><div class="field"><label>Durata gomme (km)</label><input id="tiresLife" type="number" min="1" step="1000"></div><div class="field full"><label>Manutenzione stimata €/km</label><input id="maintenancePerKm" type="number" min="0" step="0.001"></div></div></div>
+<div class="panel"><h3>ANNUAL FIXED COSTS</h3><div class="fields"><div class="field"><label>Assicurazione (€)</label><input id="insurance" type="number" min="0" step="10"></div><div class="field"><label>Bollo (€)</label><input id="tax" type="number" min="0" step="10"></div><div class="field"><label>Revisione, media annua (€)</label><input id="inspection" type="number" min="0" step="10"></div><div class="field"><label>Garage e altri costi (€)</label><input id="garage" type="number" min="0" step="10"></div></div><div class="row2"><button id="saveSettings" class="btn primary">SALVA DATI</button><button id="resetSettings" class="btn">VALORI BASE</button></div></div>
+<div class="panel"><h3>COST ANALYSIS</h3><div class="summary"><div><span>COSTO VIVO</span><b id="baseLiveCost">€ 0,00/km</b></div><div><span>COSTO TOTALE</span><b id="baseTotalCost">€ 0,00/km</b></div></div></div>
 </section>
 
 <section id="page-trips" class="page">
-
-<div class="section">
-
-  <h2>
-    TRIP LOG
-  </h2>
-
-  <span id="tripCount">
-    0 viaggi
-  </span>
-
-</div>
-
+<div class="section"><h2>TRIP LOG</h2><span id="tripCount">0 viaggi</span></div>
 <div id="tripsList"></div>
-
-<div class="row2">
-
-  <button id="exportCsv" class="btn">
-    ESPORTA CSV
-  </button>
-
-  <button id="clearTrips" class="btn stop">
-    CANCELLA STORICO
-  </button>
-
-</div>
-
+<div class="row2"><button id="exportCsv" class="btn">ESPORTA CSV</button><button id="clearTrips" class="btn stop">CANCELLA STORICO</button></div>
 </section>
-
 </main>
-
 </div>
 
 <nav class="nav">
-
-<button class="active" data-page="live">
-  ROAD METER
-</button>
-
-<button data-page="edge">
-  FORD EDGE
-</button>
-
-<button data-page="trips">
-  TRIP LOG
-</button>
-
+<button class="active" data-page="live">ROAD METER</button>
+<button data-page="speed">SPEED GUARD</button>
+<button data-page="edge">FORD EDGE</button>
+<button data-page="trips">TRIP LOG</button>
 </nav>
 
+<div id="speedAlertOverlay" class="speed-alert-overlay"><b>⚠ VELOCITÀ SUPERATA</b><span id="speedAlertText">RALLENTA</span></div>
+
 <div id="expenseModal" class="modal">
-
 <div class="modal-box">
-
-  <h3 id="expenseTitle">
-    Aggiungi spesa
-  </h3>
-
-  <div class="fields">
-
-    <div class="field full">
-
-      <label>
-        Importo (€)
-      </label>
-
-      <input
-        id="expenseAmount"
-        type="number"
-        min="0"
-        step="0.01"
-        placeholder="0,00"
-      >
-
-    </div>
-
-    <div class="field full">
-
-      <label>
-        Nota facoltativa
-      </label>
-
-      <input
-        id="expenseNote"
-        placeholder="Esempio: casello Firenze Nord"
-      >
-
-    </div>
-
-  </div>
-
-  <div class="row2">
-
-    <button id="confirmExpense" class="btn primary">
-      AGGIUNGI
-    </button>
-
-    <button id="cancelExpense" class="btn">
-      ANNULLA
-    </button>
-
-  </div>
-
+<h3 id="expenseTitle">Aggiungi spesa</h3>
+<div class="fields">
+<div class="field full"><label>Importo (€)</label><input id="expenseAmount" type="number" min="0" step="0.01" placeholder="0,00"></div>
+<div class="field full"><label>Nota facoltativa</label><input id="expenseNote" placeholder="Esempio: casello Firenze Nord"></div>
+</div>
+<div class="row2"><button id="confirmExpense" class="btn primary">AGGIUNGI</button><button id="cancelExpense" class="btn">ANNULLA</button></div>
+</div>
 </div>
 
-</div>
-
-<div id="toast" class="toast">
-  Salvato
-</div>
+<div id="toast" class="toast">Salvato</div>
 
 <script>
-(() => {
-
-  const $ = id =>
-    document.getElementById(id);
-
-  const euro = n =>
-    new Intl.NumberFormat(
-      "it-IT",
-      {
-        style:"currency",
-        currency:"EUR"
-      }
-    ).format(
-      Number(n || 0)
-    );
-
-  const num = (n,d = 2) =>
-    Number(n || 0).toLocaleString(
-      "it-IT",
-      {
-        minimumFractionDigits:d,
-        maximumFractionDigits:d
-      }
-    );
-
-  const clamp = (n,a,b) =>
-    Math.min(
-      b,
-      Math.max(a,n)
-    );
-
-  const defaults = {
-
-    vehicleName:
-      "Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD",
-
-    purchasePrice:23000,
-    residualValue:12000,
-    ownershipKm:100000,
-    annualKm:15000,
-
-    fuelPrice:1.75,
-    consumption:8.5,
-    idleLitersHour:1.1,
-
-    tiresPrice:900,
-    tiresLife:45000,
-
-    maintenancePerKm:0.045,
-
-    insurance:900,
-    tax:620,
-    inspection:40,
-    garage:0,
-
-    maxAccuracy:90,
-    minStepMeters:3,
-    gpsCorrection:100
-  };
-
-  const SETTINGS =
-    "xaRoadSettings";
-
-  const TRIPS =
-    "xaRoadTrips";
-
-  const SESSION =
-    "xaRoadActiveV3";
-
-  const loadObj = (key,fallback) => {
-
-    try{
-
-      return {
-        ...fallback,
-        ...JSON.parse(
-          localStorage.getItem(key) ||
-          "{}"
-        )
-      };
-
-    }catch{
-
-      return {
-        ...fallback
-      };
-
-    }
-
-  };
-
-  const loadArr = key => {
-
-    try{
-
-      const value =
-        JSON.parse(
-          localStorage.getItem(key) ||
-          "[]"
-        );
-
-      return Array.isArray(value)
-        ? value
-        : [];
-
-    }catch{
-
-      return [];
-
-    }
-
-  };
-
-  const save = (key,value) => {
-
-    localStorage.setItem(
-      key,
-      JSON.stringify(value)
-    );
-
-  };
-
-  let settings =
-    loadObj(
-      SETTINGS,
-      defaults
-    );
-
-  let trips =
-    loadArr(TRIPS);
-
-  let wakeLock =
-    null;
-
-  const fresh = () => ({
-
-    running:false,
-    paused:false,
-
-    startEpoch:0,
-    elapsedSaved:0,
-
-    distanceKm:0,
-    idleMs:0,
-    speedKmh:0,
-
-    extras:[],
-
-    watchId:null,
-    timer:null,
-    watchdog:null,
-
-    lastAccepted:null,
-    lastFixEpoch:0,
-    lastTick:Date.now(),
-
-    accepted:0,
-    rejected:0,
-
-    lastMethod:"COORDINATE",
-    expenseType:"Altro"
-  });
-
-  let state =
-    fresh();
-
-  function toast(text){
-
-    $("toast").textContent =
-      text;
-
-    $("toast").classList.add(
-      "show"
-    );
-
-    setTimeout(
-      () => {
-
-        $("toast").classList.remove(
-          "show"
-        );
-
-      },
-      1700
-    );
-
-  }
-
-  function fill(){
-
-    Object.keys(
-      defaults
-    ).forEach(
-      key => {
-
-        if($(key)){
-
-          $(key).value =
-            settings[key];
-
-        }
-
-      }
-    );
-
-    theoretical();
-
-  }
-
-  function read(){
-
-    Object.keys(
-      defaults
-    ).forEach(
-      key => {
-
-        if(!$(key)){
-          return;
-        }
-
-        settings[key] =
-          key === "vehicleName"
-            ? $(key).value.trim()
-            : Number(
-                $(key).value ||
-                0
-              );
-
-      }
-    );
-
-  }
-
-  function costs(){
-
-    const fuel =
-      settings.consumption /
-      100 *
-      settings.fuelPrice;
-
-    const tires =
-      settings.tiresLife
-        ? settings.tiresPrice /
-          settings.tiresLife
-        : 0;
-
-    const maintenance =
-      settings.maintenancePerKm;
-
-    const fixed =
-      settings.annualKm
-        ? (
-            settings.insurance +
-            settings.tax +
-            settings.inspection +
-            settings.garage
-          ) /
-          settings.annualKm
-        : 0;
-
-    const depreciation =
-      settings.ownershipKm
-        ? Math.max(
-            0,
-            settings.purchasePrice -
-            settings.residualValue
-          ) /
-          settings.ownershipKm
-        : 0;
-
-    return {
-
-      fuel,
-      tires,
-      maintenance,
-      fixed,
-      depreciation,
-
-      total:
-        fuel +
-        tires +
-        maintenance +
-        fixed +
-        depreciation
-    };
-
-  }
-
-  function elapsed(){
-
-    return (
-      state.elapsedSaved +
-      (
-        state.running &&
-        !state.paused
-          ? Date.now() -
-            state.startEpoch
-          : 0
-      )
-    );
-
-  }
-
-  function fmt(milliseconds){
-
-    const seconds =
-      Math.floor(
-        milliseconds /
-        1000
-      );
-
-    return (
-      String(
-        Math.floor(
-          seconds /
-          3600
-        )
-      ).padStart(2,"0") +
-      ":" +
-      String(
-        Math.floor(
-          seconds %
-          3600 /
-          60
-        )
-      ).padStart(2,"0") +
-      ":" +
-      String(
-        seconds %
-        60
-      ).padStart(2,"0")
-    );
-
-  }
-
-  function fmtShort(milliseconds){
-
-    const seconds =
-      Math.floor(
-        milliseconds /
-        1000
-      );
-
-    return (
-      String(
-        Math.floor(
-          seconds /
-          60
-        )
-      ).padStart(2,"0") +
-      ":" +
-      String(
-        seconds %
-        60
-      ).padStart(2,"0")
-    );
-
-  }
-
-  function calc(){
-
-    const cost =
-      costs();
-
-    const movingLiters =
-      state.distanceKm *
-      settings.consumption /
-      100;
-
-    const idleLiters =
-      state.idleMs /
-      3600000 *
-      settings.idleLitersHour;
-
-    const fuelLiters =
-      movingLiters +
-      idleLiters;
-
-    const extras =
-      state.extras.reduce(
-        (total,item) =>
-          total +
-          item.amount,
-        0
-      );
-
-    const result = {
-
-      fuelLiters,
-
-      fuel:
-        fuelLiters *
-        settings.fuelPrice,
-
-      tires:
-        state.distanceKm *
-        cost.tires,
-
-      maintenance:
-        state.distanceKm *
-        cost.maintenance,
-
-      fixed:
-        state.distanceKm *
-        cost.fixed,
-
-      depreciation:
-        state.distanceKm *
-        cost.depreciation,
-
-      extras
-    };
-
-    result.total =
-      result.fuel +
-      result.tires +
-      result.maintenance +
-      result.fixed +
-      result.depreciation +
-      result.extras;
-
-    return result;
-
-  }
-
-  function setNeedle(
-    value,
-    maximum,
-    property
-  ){
-
-    const degrees =
-      -132 +
-      264 *
-      clamp(
-        value /
-        maximum,
-        0,
-        1
-      );
-
-    document.documentElement
-      .style
-      .setProperty(
-        property,
-        degrees +
-        "deg"
-      );
-
-  }
-
-  function updateIdle(){
-
-    const now =
-      Date.now();
-
-    const fixFresh =
-      now -
-      state.lastFixEpoch <
-      12000;
-
-    if(
-      state.running &&
-      !state.paused &&
-      fixFresh &&
-      state.speedKmh <
-      2.5
-    ){
-
-      state.idleMs +=
-        Math.max(
-          0,
-          now -
-          state.lastTick
-        );
-
-    }
-
-    state.lastTick =
-      now;
-
-  }
-
-  function bars(result){
-
-    const maximum =
-      Math.max(
-        .01,
-        result.fuel,
-        result.tires,
-        result.maintenance,
-        result.fixed,
-        result.depreciation,
-        result.extras
-      );
-
-    const values = {
-
-      fuelBar:
-        result.fuel,
-
-      tiresBar:
-        result.tires,
-
-      maintenanceBar:
-        result.maintenance,
-
-      fixedBar:
-        result.fixed,
-
-      depreciationBar:
-        result.depreciation,
-
-      extrasBar:
-        result.extras
-    };
-
-    Object.entries(
-      values
-    ).forEach(
-      ([id,value]) => {
-
-        $(id).style.width =
-          clamp(
-            value /
-            maximum *
-            100,
-            0,
-            100
-          ) +
-          "%";
-
-      }
-    );
-
-  }
-
-  function update(){
-
-    updateIdle();
-
-    const result =
-      calc();
-
-    const minutes =
-      elapsed() /
-      60000;
-
-    const costPerKm =
-      state.distanceKm
-        ? result.total /
-          state.distanceKm
-        : costs().total;
-
-    const age =
-      state.lastFixEpoch
-        ? Math.floor(
-            (
-              Date.now() -
-              state.lastFixEpoch
-            ) /
-            1000
-          )
-        : null;
-
-    $("totalCost").textContent =
-      num(
-        result.total
-      );
-
-    $("distance").textContent =
-      num(
-        state.distanceKm
-      );
-
-    $("duration").textContent =
-      fmt(
-        elapsed()
-      );
-
-    $("fuelLiters").textContent =
-      num(
-        result.fuelLiters
-      );
-
-    $("speed").textContent =
-      Math.round(
-        state.speedKmh
-      );
-
-    $("costGauge").textContent =
-      num(
-        costPerKm,
-        3
-      );
-
-    $("consumptionLive").textContent =
-      num(
-        settings.consumption,
-        1
-      );
-
-    $("costMinute").textContent =
-      minutes
-        ? euro(
-            result.total /
-            minutes
-          )
-        : euro(0);
-
-    $("idleTime").textContent =
-      fmtShort(
-        state.idleMs
-      );
-
-    $("fixedRate").textContent =
-      num(
-        costs().fixed,
-        3
-      );
-
-    $("fuelDetail").textContent =
-      num(
-        result.fuelLiters
-      ) +
-      " L consumati";
-
-    $("fuelCost").textContent =
-      euro(
-        result.fuel
-      );
-
-    $("tiresCost").textContent =
-      euro(
-        result.tires
-      );
-
-    $("maintenanceCost").textContent =
-      euro(
-        result.maintenance
-      );
-
-    $("fixedCost").textContent =
-      euro(
-        result.fixed
-      );
-
-    $("depreciationCost").textContent =
-      euro(
-        result.depreciation
-      );
-
-    $("extrasCost").textContent =
-      euro(
-        result.extras
-      );
-
-    $("costPerKm").textContent =
-      num(
-        costPerKm,
-        3
-      ) +
-      " €/km";
-
-    $("accepted").textContent =
-      state.accepted +
-      " ACCETTATI";
-
-    $("rejected").textContent =
-      state.rejected +
-      " scartati";
-
-    $("method").textContent =
-      state.lastMethod;
-
-    $("lastFix").textContent =
-      age === null
-        ? "Nessun punto ricevuto"
-        : "Ultimo punto " +
-          age +
-          " secondi fa";
-
-    if(
-      age !== null &&
-      age <
-      8
-    ){
-
-      $("fixState").textContent =
-        "GPS IN DIRETTA";
-
-      $("fixBox").className =
-        "gps-box gps-good";
-
-    }else if(
-      state.running
-    ){
-
-      $("fixState").textContent =
-        "RICERCA SEGNALE";
-
-      $("fixBox").className =
-        "gps-box gps-warn";
-
-    }else{
-
-      $("fixState").textContent =
-        "IN ATTESA DEL GPS";
-
-      $("fixBox").className =
-        "gps-box";
-
-    }
-
-    $("costLevel").textContent =
-      costPerKm <
-      .45
-        ? "ECONOMY"
-        : costPerKm <
-          .7
-          ? "HEAVY"
-          : "HIGH COST";
-
-    setNeedle(
-      state.speedKmh,
-      240,
-      "--speed"
-    );
-
-    setNeedle(
-      costPerKm,
-      1.2,
-      "--cost"
-    );
-
-    bars(
-      result
-    );
-
-    persist();
-
-  }
-
-  function theoretical(){
-
-    const cost =
-      costs();
-
-    $("baseLiveCost").textContent =
-      euro(
-        cost.fuel +
-        cost.tires +
-        cost.maintenance
-      ) +
-      "/km";
-
-    $("baseTotalCost").textContent =
-      euro(
-        cost.total
-      ) +
-      "/km";
-
-  }
-
-  function haversine(
-    first,
-    second
-  ){
-
-    const radius =
-      6371;
-
-    const radians =
-      value =>
-        value *
-        Math.PI /
-        180;
-
-    const latitude =
-      radians(
-        second.lat -
-        first.lat
-      );
-
-    const longitude =
-      radians(
-        second.lon -
-        first.lon
-      );
-
-    const value =
-      Math.sin(
-        latitude /
-        2
-      ) ** 2 +
-
-      Math.sin(
-        longitude /
-        2
-      ) ** 2 *
-
-      Math.cos(
-        radians(
-          first.lat
-        )
-      ) *
-
-      Math.cos(
-        radians(
-          second.lat
-        )
-      );
-
-    return (
-      2 *
-      radius *
-      Math.asin(
-        Math.sqrt(
-          value
-        )
-      )
-    );
-
-  }
-
-  function processPosition(
-    position
-  ){
-
-    const coordinates =
-      position.coords;
-
-    const timestamp =
-      position.timestamp ||
-      Date.now();
-
-    if(
-      timestamp <=
-      state.lastFixEpoch -
-      500
-    ){
-
-      return;
-
-    }
-
-    state.lastFixEpoch =
-      Date.now();
-
-    $("gpsLamp").classList.add(
-      "on"
-    );
-
-    $("gpsStatus").textContent =
-      "GPS LIVE";
-
-    $("accuracy").textContent =
-      "±" +
-      Math.round(
-        coordinates.accuracy
-      ) +
-      " M";
-
-    const point = {
-
-      lat:
-        coordinates.latitude,
-
-      lon:
-        coordinates.longitude,
-
-      t:
-        timestamp,
-
-      accuracy:
-        coordinates.accuracy
-    };
-
-    let speed =
-      Number.isFinite(
-        coordinates.speed
-      ) &&
-      coordinates.speed >=
-      0
-        ? coordinates.speed *
-          3.6
-        : null;
-
-    if(
-      !state.lastAccepted
-    ){
-
-      if(
-        coordinates.accuracy <=
-        settings.maxAccuracy
-      ){
-
-        state.lastAccepted =
-          point;
-
-        state.accepted++;
-
-      }else{
-
-        state.rejected++;
-
-      }
-
-      state.speedKmh =
-        speed ??
-        0;
-
-      update();
-      return;
-
-    }
-
-    const deltaTime =
-      Math.max(
-        .1,
-        (
-          timestamp -
-          state.lastAccepted.t
-        ) /
-        1000
-      );
-
-    const distance =
-      haversine(
-        state.lastAccepted,
-        point
-      );
-
-    const inferredSpeed =
-      distance /
-      deltaTime *
-      3600;
-
-    const maximumDistance =
-      Math.max(
-        .3,
-        deltaTime *
-        .075 *
-        1.35
-      );
-
-    const goodAccuracy =
-      coordinates.accuracy <=
-      settings.maxAccuracy;
-
-    const plausible =
-      distance <=
-      maximumDistance &&
-      inferredSpeed <
-      270;
-
-    let addedDistance =
-      0;
-
-    let method =
-      "COORDINATE";
-
-    if(
-      goodAccuracy &&
-      plausible
-    ){
-
-      const minimum =
-        settings.minStepMeters /
-        1000;
-
-      if(
-        distance >=
-        minimum
-      ){
-
-        addedDistance =
-          distance;
-
-      }else if(
-        speed !== null &&
-        speed >
-        5 &&
-        deltaTime <=
-        15
-      ){
-
-        addedDistance =
-          speed /
-          3600 *
-          deltaTime *
-          .92;
-
-        method =
-          "BACKUP VELOCITÀ";
-
-      }
-
-      state.lastAccepted =
-        point;
-
-      state.accepted++;
-
-    }else{
-
-      state.rejected++;
-
-    }
-
-    if(
-      addedDistance >
-      0
-    ){
-
-      state.distanceKm +=
-        addedDistance *
-        (
-          settings.gpsCorrection /
-          100
-        );
-
-    }
-
-    state.speedKmh =
-      clamp(
-        speed ??
-        (
-          plausible
-            ? inferredSpeed
-            : state.speedKmh
-        ),
-        0,
-        260
-      );
-
-    state.lastMethod =
-      method;
-
-    update();
-
-  }
-
-  function gpsError(
-    error
-  ){
-
-    $("gpsLamp").classList.remove(
-      "on"
-    );
-
-    $("gpsStatus").textContent =
-      error.code ===
-      1
-        ? "GPS NEGATO"
-        : "GPS IN RICERCA";
-
-    $("accuracy").textContent =
-      error.code ===
-      1
-        ? "PERMESSO"
-        : "NO SIGNAL";
-
-    if(
-      error.code ===
-      1
-    ){
-
-      $("meterState").textContent =
-        "Consenti la posizione a Chrome";
-
-    }
-
-  }
-
-  function startWatch(){
-
-    stopWatch();
-
-    if(
-      !navigator.geolocation
-    ){
-
-      gpsError({
-        code:0
-      });
-
-      return;
-
-    }
-
-    state.watchId =
-      navigator.geolocation
-        .watchPosition(
-          processPosition,
-          gpsError,
-          {
-            enableHighAccuracy:true,
-            maximumAge:0,
-            timeout:15000
-          }
-        );
-
-  }
-
-  function stopWatch(){
-
-    if(
-      state.watchId !==
-      null &&
-      navigator.geolocation
-    ){
-
-      navigator.geolocation
-        .clearWatch(
-          state.watchId
-        );
-
-    }
-
-    state.watchId =
-      null;
-
-  }
-
-  function runWatchdog(){
-
-    if(
-      !state.running ||
-      state.paused
-    ){
-
-      return;
-
-    }
-
-    const age =
-      Date.now() -
-      state.lastFixEpoch;
-
-    if(
-      !state.lastFixEpoch ||
-      age >
-      10000
-    ){
-
-      navigator.geolocation
-        ?.getCurrentPosition(
-          processPosition,
-          gpsError,
-          {
-            enableHighAccuracy:true,
-            maximumAge:0,
-            timeout:10000
-          }
-        );
-
-    }
-
-    if(
-      age >
-      22000
-    ){
-
-      startWatch();
-
-      state.lastMethod =
-        "WATCHDOG RESTART";
-
-    }
-
-  }
-
-  async function requestWake(){
-
-    try{
-
-      if(
-        "wakeLock" in
-        navigator
-      ){
-
-        wakeLock =
-          await navigator.wakeLock
-            .request(
-              "screen"
-            );
-
-        $("wakeLamp").classList.add(
-          "on"
-        );
-
-        wakeLock.addEventListener(
-          "release",
-          () => {
-
-            $("wakeLamp")
-              .classList
-              .remove(
-                "on"
-              );
-
-          }
-        );
-
-      }
-
-    }catch{}
-
-  }
-
-  async function releaseWake(){
-
-    try{
-
-      await wakeLock
-        ?.release();
-
-    }catch{}
-
-    wakeLock =
-      null;
-
-    $("wakeLamp")
-      .classList
-      .remove(
-        "on"
-      );
-
-  }
-
-  function persist(){
-
-    if(
-      !state.running
-    ){
-
-      localStorage.removeItem(
-        SESSION
-      );
-
-      return;
-
-    }
-
-    save(
-      SESSION,
-      {
-
-        running:true,
-        paused:state.paused,
-
-        startEpoch:
-          state.startEpoch,
-
-        elapsedSaved:
-          elapsed(),
-
-        distanceKm:
-          state.distanceKm,
-
-        idleMs:
-          state.idleMs,
-
-        speedKmh:
-          state.speedKmh,
-
-        extras:
-          state.extras,
-
-        lastAccepted:
-          state.lastAccepted,
-
-        lastFixEpoch:
-          state.lastFixEpoch,
-
-        accepted:
-          state.accepted,
-
-        rejected:
-          state.rejected,
-
-        lastMethod:
-          state.lastMethod
-      }
-    );
-
-  }
-
-  function recover(){
-
-    try{
-
-      const saved =
-        JSON.parse(
-          localStorage.getItem(
-            SESSION
-          ) ||
-          "null"
-        );
-
-      if(
-        !saved?.running
-      ){
-
-        return;
-
-      }
-
-      if(
-        !confirm(
-          "È presente un viaggio interrotto. Vuoi riprenderlo?"
-        )
-      ){
-
-        localStorage.removeItem(
-          SESSION
-        );
-
-        return;
-
-      }
-
-      state = {
-
-        ...fresh(),
-        ...saved,
-
-        running:true,
-        paused:false,
-
-        startEpoch:
-          Date.now(),
-
-        elapsedSaved:
-          saved.elapsedSaved ||
-          0,
-
-        lastTick:
-          Date.now()
-      };
-
-      startWatch();
-
-      state.timer =
-        setInterval(
-          update,
-          1000
-        );
-
-      state.watchdog =
-        setInterval(
-          runWatchdog,
-          6000
-        );
-
-      requestWake();
-
-      $("meterState").textContent =
-        "VIAGGIO RIPRISTINATO";
-
-      $("meterState").classList.add(
-        "live"
-      );
-
-      updateButtons();
-
-    }catch{
-
-      localStorage.removeItem(
-        SESSION
-      );
-
-    }
-
-  }
-
-  function startTrip(){
-
-    if(
-      state.running &&
-      state.paused
-    ){
-
-      state.paused =
-        false;
-
-      state.startEpoch =
-        Date.now();
-
-      state.lastTick =
-        Date.now();
-
-      startWatch();
-      requestWake();
-
-      $("pauseBtn").textContent =
-        "PAUSA";
-
-      $("meterState").textContent =
-        "ROAD METER LIVE";
-
-      $("meterState").classList.add(
-        "live"
-      );
-
-      updateButtons();
-      return;
-
-    }
-
-    state =
-      fresh();
-
-    state.running =
-      true;
-
-    state.startEpoch =
-      Date.now();
-
-    state.lastTick =
-      Date.now();
-
-    startWatch();
-    requestWake();
-
-    state.timer =
-      setInterval(
-        update,
-        1000
-      );
-
-    state.watchdog =
-      setInterval(
-        runWatchdog,
-        6000
-      );
-
-    $("meterState").textContent =
-      "ROAD METER LIVE";
-
-    $("meterState").classList.add(
-      "live"
-    );
-
-    updateButtons();
-    update();
-
-  }
-
-  function pauseTrip(){
-
-    if(
-      !state.running
-    ){
-
-      return;
-
-    }
-
-    if(
-      !state.paused
-    ){
-
-      state.elapsedSaved =
-        elapsed();
-
-      state.startEpoch =
-        0;
-
-      state.paused =
-        true;
-
-      state.speedKmh =
-        0;
-
-      stopWatch();
-      releaseWake();
-
-      $("pauseBtn").textContent =
-        "RIPRENDI";
-
-      $("meterState").textContent =
-        "VIAGGIO IN PAUSA";
-
-      $("meterState").classList.remove(
-        "live"
-      );
-
-    }else{
-
-      startTrip();
-
-    }
-
-    updateButtons();
-    update();
-
-  }
-
-  function stopTrip(){
-
-    if(
-      !state.running ||
-      !confirm(
-        "Terminare e salvare questo viaggio?"
-      )
-    ){
-
-      return;
-
-    }
-
-    if(
-      !state.paused
-    ){
-
-      state.elapsedSaved =
-        elapsed();
-
-    }
-
-    state.running =
-      false;
-
-    state.paused =
-      false;
-
-    stopWatch();
-    releaseWake();
-
-    clearInterval(
-      state.timer
-    );
-
-    clearInterval(
-      state.watchdog
-    );
-
-    const result =
-      calc();
-
-    const trip = {
-
-      id:
-        Date.now(),
-
-      date:
-        new Date()
-          .toISOString(),
-
-      vehicle:
-        settings.vehicleName,
-
-      distanceKm:
-        state.distanceKm,
-
-      durationMs:
-        state.elapsedSaved,
-
-      idleMs:
-        state.idleMs,
-
-      fuelLiters:
-        result.fuelLiters,
-
-      fuelCost:
-        result.fuel,
-
-      totalCost:
-        result.total,
-
-      extras:
-        result.extras,
-
-      costPerKm:
-        state.distanceKm
-          ? result.total /
-            state.distanceKm
-          : 0
-    };
-
-    trips.unshift(
-      trip
-    );
-
-    save(
-      TRIPS,
-      trips
-    );
-
-    localStorage.removeItem(
-      SESSION
-    );
-
-    state.speedKmh =
-      0;
-
-    $("meterState").textContent =
-      "VIAGGIO SALVATO";
-
-    $("meterState").classList.remove(
-      "live"
-    );
-
-    $("gpsLamp").classList.remove(
-      "on"
-    );
-
-    $("gpsStatus").textContent =
-      "GPS PRONTO";
-
-    updateButtons();
-    renderTrips();
-    update();
-
-    toast(
-      "Viaggio salvato"
-    );
-
-  }
-
-  function updateButtons(){
-
-    $("startBtn").disabled =
-      state.running &&
-      !state.paused;
-
-    $("pauseBtn").disabled =
-      !state.running;
-
-    $("stopBtn").disabled =
-      !state.running;
-
-  }
-
-  function openExpense(
-    type
-  ){
-
-    state.expenseType =
-      type;
-
-    $("expenseTitle").textContent =
-      "Aggiungi: " +
-      type;
-
-    $("expenseAmount").value =
-      "";
-
-    $("expenseNote").value =
-      "";
-
-    $("expenseModal").classList.add(
-      "open"
-    );
-
-  }
-
-  function addExpense(){
-
-    const amount =
-      Number(
-        $("expenseAmount").value ||
-        0
-      );
-
-    if(
-      amount <=
-      0
-    ){
-
-      toast(
-        "Inserisci un importo valido"
-      );
-
-      return;
-
-    }
-
-    state.extras.push({
-
-      type:
-        state.expenseType,
-
-      amount,
-
-      note:
-        $("expenseNote")
-          .value
-          .trim(),
-
-      time:
-        new Date()
-          .toISOString()
-    });
-
-    $("expenseModal").classList.remove(
-      "open"
-    );
-
-    update();
-
-    toast(
-      state.expenseType +
-      ": " +
-      euro(amount)
-    );
-
-  }
-
-  function renderTrips(){
-
-    $("tripCount").textContent =
-      trips.length +
-      " " +
-      (
-        trips.length ===
-        1
-          ? "viaggio"
-          : "viaggi"
-      );
-
-    if(
-      !trips.length
-    ){
-
-      $("tripsList").innerHTML =
-        '<div class="empty">' +
-        "Nessun viaggio registrato.<br>" +
-        "Avvia ROAD METER per creare il primo." +
-        "</div>";
-
-      return;
-
-    }
-
-    $("tripsList").innerHTML =
-      trips.map(
-        trip => {
-
-          const date =
-            new Date(
-              trip.date
-            );
-
-          const title =
-            date.toLocaleDateString(
-              "it-IT"
-            ) +
-            " · " +
-            date.toLocaleTimeString(
-              "it-IT",
-              {
-                hour:"2-digit",
-                minute:"2-digit"
-              }
-            );
-
-          return (
-            '<article class="trip">' +
-
-              '<div class="trip-head">' +
-
-                "<b>" +
-                  title +
-                "</b>" +
-
-                "<span>" +
-                  euro(
-                    trip.totalCost
-                  ) +
-                "</span>" +
-
-              "</div>" +
-
-              '<div class="trip-meta">' +
-
-                "<div>" +
-
-                  "<b>" +
-                    num(
-                      trip.distanceKm,
-                      1
-                    ) +
-                  "</b>" +
-
-                  "<small>KM</small>" +
-
-                "</div>" +
-
-                "<div>" +
-
-                  "<b>" +
-                    fmt(
-                      trip.durationMs
-                    ) +
-                  "</b>" +
-
-                  "<small>DURATA</small>" +
-
-                "</div>" +
-
-                "<div>" +
-
-                  "<b>" +
-                    num(
-                      trip.costPerKm,
-                      3
-                    ) +
-                  "</b>" +
-
-                  "<small>€/KM</small>" +
-
-                "</div>" +
-
-              "</div>" +
-
-            "</article>"
-          );
-
-        }
-      ).join("");
-
-  }
-
-  function exportCsv(){
-
-    if(
-      !trips.length
-    ){
-
-      toast(
-        "Nessun viaggio da esportare"
-      );
-
-      return;
-
-    }
-
-    const rows = [
-
-      [
-        "Data",
-        "Veicolo",
-        "Km",
-        "Durata secondi",
-        "Minimo secondi",
-        "Litri",
-        "Costo carburante",
-        "Spese extra",
-        "Costo totale",
-        "Costo €/km"
-      ],
-
-      ...trips.map(
-        trip => [
-
-          new Date(
-            trip.date
-          ).toLocaleString(
-            "it-IT"
-          ),
-
-          trip.vehicle,
-
-          trip.distanceKm
-            .toFixed(3),
-
-          Math.round(
-            trip.durationMs /
-            1000
-          ),
-
-          Math.round(
-            (
-              trip.idleMs ||
-              0
-            ) /
-            1000
-          ),
-
-          trip.fuelLiters
-            .toFixed(3),
-
-          trip.fuelCost
-            .toFixed(2),
-
-          trip.extras
-            .toFixed(2),
-
-          trip.totalCost
-            .toFixed(2),
-
-          trip.costPerKm
-            .toFixed(4)
-        ]
-      )
-    ];
-
-    const csv =
-      rows.map(
-        row =>
-          row.map(
-            value =>
-              '"' +
-              String(value).replaceAll(
-                '"',
-                '""'
-              ) +
-              '"'
-          ).join(";")
-      ).join("\n");
-
-    const blob =
-      new Blob(
-        [
-          "\uFEFF" +
-          csv
-        ],
-        {
-          type:
-            "text/csv;charset=utf-8"
-        }
-      );
-
-    const url =
-      URL.createObjectURL(
-        blob
-      );
-
-    const link =
-      document.createElement(
-        "a"
-      );
-
-    link.href =
-      url;
-
-    link.download =
-      "xa-road-command-v3-viaggi.csv";
-
-    link.click();
-
-    URL.revokeObjectURL(
-      url
-    );
-
-  }
-
-  document
-    .querySelectorAll(
-      ".nav button"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () => {
-
-            document
-              .querySelectorAll(
-                ".nav button"
-              )
-              .forEach(
-                item =>
-                  item.classList.remove(
-                    "active"
-                  )
-              );
-
-            document
-              .querySelectorAll(
-                ".page"
-              )
-              .forEach(
-                page =>
-                  page.classList.remove(
-                    "active"
-                  )
-              );
-
-            button.classList.add(
-              "active"
-            );
-
-            $(
-              "page-" +
-              button.dataset.page
-            ).classList.add(
-              "active"
-            );
-
-            scrollTo({
-              top:0,
-              behavior:"smooth"
-            });
-
-          };
-
-      }
-    );
-
-  document
-    .querySelectorAll(
-      "[data-expense]"
-    )
-    .forEach(
-      button => {
-
-        button.onclick =
-          () =>
-            openExpense(
-              button.dataset.expense
-            );
-
-      }
-    );
-
-  $("startBtn").onclick =
-    startTrip;
-
-  $("pauseBtn").onclick =
-    pauseTrip;
-
-  $("stopBtn").onclick =
-    stopTrip;
-
-  $("gpsRestart").onclick =
-    () => {
-
-      startWatch();
-      runWatchdog();
-
-      toast(
-        "GPS riavviato"
-      );
-
-    };
-
-  $("confirmExpense").onclick =
-    addExpense;
-
-  $("cancelExpense").onclick =
-    () =>
-      $("expenseModal")
-        .classList
-        .remove(
-          "open"
-        );
-
-  $("expenseModal").onclick =
-    event => {
-
-      if(
-        event.target ===
-        $("expenseModal")
-      ){
-
-        $("expenseModal")
-          .classList
-          .remove(
-            "open"
-          );
-
-      }
-
-    };
-
-  $("saveSettings").onclick =
-    () => {
-
-      read();
-
-      save(
-        SETTINGS,
-        settings
-      );
-
-      theoretical();
-      update();
-
-      toast(
-        "Dati Ford Edge salvati"
-      );
-
-    };
-
-  $("resetSettings").onclick =
-    () => {
-
-      if(
-        !confirm(
-          "Ripristinare i valori iniziali?"
-        )
-      ){
-
-        return;
-
-      }
-
-      settings = {
-        ...defaults
-      };
-
-      save(
-        SETTINGS,
-        settings
-      );
-
-      fill();
-      update();
-
-      toast(
-        "Valori base ripristinati"
-      );
-
-    };
-
-  $("exportCsv").onclick =
-    exportCsv;
-
-  $("clearTrips").onclick =
-    () => {
-
-      if(
-        trips.length &&
-        confirm(
-          "Cancellare definitivamente tutto lo storico?"
-        )
-      ){
-
-        trips = [];
-
-        save(
-          TRIPS,
-          trips
-        );
-
-        renderTrips();
-
-        toast(
-          "Storico cancellato"
-        );
-
-      }
-
-    };
-
-  document.addEventListener(
-    "visibilitychange",
-    () => {
-
-      if(
-        document.visibilityState ===
-        "visible" &&
-        state.running &&
-        !state.paused
-      ){
-
-        startWatch();
-        requestWake();
-        runWatchdog();
-
-      }
-
-      persist();
-
-    }
-  );
-
-  window.addEventListener(
-    "beforeunload",
-    persist
-  );
-
-  fill();
-  renderTrips();
-  updateButtons();
-  update();
-  recover();
-
+(()=>{
+const $=id=>document.getElementById(id),euro=n=>new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(n||0)),num=(n,d=2)=>Number(n||0).toLocaleString('it-IT',{minimumFractionDigits:d,maximumFractionDigits:d}),clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
+
+const defaults={
+vehicleName:'Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD',
+purchasePrice:23000,
+residualValue:12000,
+ownershipKm:100000,
+annualKm:15000,
+fuelPrice:1.75,
+consumption:8.5,
+idleLitersHour:1.1,
+tiresPrice:900,
+tiresLife:45000,
+maintenancePerKm:0.045,
+insurance:900,
+tax:620,
+inspection:40,
+garage:0,
+maxAccuracy:90,
+minStepMeters:3,
+gpsCorrection:100,
+speedLimit:90,
+speedTolerance:3,
+speedRepeatSeconds:8,
+speedSound:'music',
+speedVolume:.65,
+speedVibration:true
+};
+
+const SETTINGS='xaRoadSettings',TRIPS='xaRoadTrips',SESSION='xaRoadActiveV4';
+
+const loadObj=(k,f)=>{
+try{
+return{...f,...JSON.parse(localStorage.getItem(k)||'{}')};
+}catch{
+return{...f};
+}
+};
+
+const loadArr=k=>{
+try{
+const x=JSON.parse(localStorage.getItem(k)||'[]');
+return Array.isArray(x)?x:[];
+}catch{
+return[];
+}
+};
+
+const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+
+let settings=loadObj(SETTINGS,defaults);
+let trips=loadArr(TRIPS);
+let wakeLock=null;
+
+const fresh=()=>({
+running:false,
+paused:false,
+startEpoch:0,
+elapsedSaved:0,
+distanceKm:0,
+idleMs:0,
+speedKmh:0,
+extras:[],
+watchId:null,
+timer:null,
+watchdog:null,
+lastAccepted:null,
+lastFixEpoch:0,
+lastTick:Date.now(),
+accepted:0,
+rejected:0,
+lastMethod:'COORDINATE',
+expenseType:'Altro'
+});
+
+let state=fresh();
+
+let speedControl={
+active:false,
+alarm:false,
+lastSound:0,
+audio:null,
+timer:null,
+watchdog:null
+};
+
+function toast(t){
+$('toast').textContent=t;
+$('toast').classList.add('show');
+setTimeout(()=>$('toast').classList.remove('show'),1700);
+}
+
+function fill(){
+Object.keys(defaults).forEach(k=>{
+if(!$(k))return;
+if($(k).type==='checkbox')$(k).checked=!!settings[k];
+else $(k).value=settings[k];
+});
+if($('volumeValue'))$('volumeValue').textContent=Math.round(settings.speedVolume*100)+'%';
+theoretical();
+updateSpeedUI();
+}
+
+function read(){
+Object.keys(defaults).forEach(k=>{
+if(!$(k))return;
+if($(k).type==='checkbox')settings[k]=$(k).checked;
+else if(k==='vehicleName'||k==='speedSound')settings[k]=$(k).value.trim();
+else settings[k]=Number($(k).value||0);
+});
+}
+
+function costs(){
+const fuel=settings.consumption/100*settings.fuelPrice;
+const tires=settings.tiresLife?settings.tiresPrice/settings.tiresLife:0;
+const maintenance=settings.maintenancePerKm;
+const fixed=settings.annualKm?(settings.insurance+settings.tax+settings.inspection+settings.garage)/settings.annualKm:0;
+const depreciation=settings.ownershipKm?Math.max(0,settings.purchasePrice-settings.residualValue)/settings.ownershipKm:0;
+
+return{
+fuel,
+tires,
+maintenance,
+fixed,
+depreciation,
+total:fuel+tires+maintenance+fixed+depreciation
+};
+}
+
+function elapsed(){
+return state.elapsedSaved+(state.running&&!state.paused?Date.now()-state.startEpoch:0);
+}
+
+function fmt(ms){
+const s=Math.floor(ms/1000);
+return`${String(Math.floor(s/3600)).padStart(2,'0')}:${String(Math.floor(s%3600/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+}
+
+function fmtShort(ms){
+const s=Math.floor(ms/1000);
+return`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+}
+
+function calc(){
+const c=costs();
+const moving=state.distanceKm*settings.consumption/100;
+const idle=state.idleMs/3600000*settings.idleLitersHour;
+const fuelLiters=moving+idle;
+const extras=state.extras.reduce((a,x)=>a+x.amount,0);
+
+const r={
+fuelLiters,
+fuel:fuelLiters*settings.fuelPrice,
+tires:state.distanceKm*c.tires,
+maintenance:state.distanceKm*c.maintenance,
+fixed:state.distanceKm*c.fixed,
+depreciation:state.distanceKm*c.depreciation,
+extras
+};
+
+r.total=r.fuel+r.tires+r.maintenance+r.fixed+r.depreciation+r.extras;
+return r;
+}
+
+function setNeedle(v,max,key){
+document.documentElement.style.setProperty(key,`${-132+264*clamp(v/max,0,1)}deg`);
+}
+
+function updateIdle(){
+const now=Date.now();
+const fixFresh=now-state.lastFixEpoch<12000;
+
+if(state.running&&!state.paused&&fixFresh&&state.speedKmh<2.5){
+state.idleMs+=Math.max(0,now-state.lastTick);
+}
+
+state.lastTick=now;
+}
+
+function bars(r){
+const m=Math.max(.01,r.fuel,r.tires,r.maintenance,r.fixed,r.depreciation,r.extras);
+
+Object.entries({
+fuelBar:r.fuel,
+tiresBar:r.tires,
+maintenanceBar:r.maintenance,
+fixedBar:r.fixed,
+depreciationBar:r.depreciation,
+extrasBar:r.extras
+}).forEach(([id,v])=>{
+$(id).style.width=`${clamp(v/m*100,0,100)}%`;
+});
+}
+
+function gpsNeeded(){
+return speedControl.active||(state.running&&!state.paused);
+}
+
+function unlockAudio(){
+try{
+if(!speedControl.audio){
+speedControl.audio=new(window.AudioContext||window.webkitAudioContext)();
+}
+if(speedControl.audio.state==='suspended'){
+speedControl.audio.resume();
+}
+}catch{}
+}
+
+function soundPattern(force=false){
+if(!force&&!speedControl.active)return;
+
+unlockAudio();
+
+const ctx=speedControl.audio;
+if(!ctx)return;
+
+const mode=settings.speedSound||'music';
+const volume=clamp(Number(settings.speedVolume)||.65,.05,1);
+
+let notes;
+let type;
+
+if(mode==='beep'){
+notes=[[880,.17],[0,.09],[880,.2]];
+type='square';
+}else if(mode==='siren'){
+notes=[[620,.2],[880,.2],[620,.2],[880,.25]];
+type='sawtooth';
+}else{
+notes=[[523,.13],[659,.13],[784,.16],[1047,.26]];
+type='triangle';
+}
+
+let t=ctx.currentTime+.02;
+
+notes.forEach(([frequency,duration])=>{
+if(frequency){
+const osc=ctx.createOscillator();
+const gain=ctx.createGain();
+
+osc.type=type;
+osc.frequency.setValueAtTime(frequency,t);
+
+gain.gain.setValueAtTime(.0001,t);
+gain.gain.exponentialRampToValueAtTime(.18*volume,t+.018);
+gain.gain.exponentialRampToValueAtTime(.0001,t+duration);
+
+osc.connect(gain).connect(ctx.destination);
+osc.start(t);
+osc.stop(t+duration+.03);
+}
+
+t+=duration;
+});
+
+if(settings.speedVibration&&navigator.vibrate){
+navigator.vibrate([260,110,260]);
+}
+}
+
+function clearSpeedAlarm(){
+speedControl.alarm=false;
+document.body.classList.remove('overspeed');
+}
+
+function updatePresetButtons(){
+document.querySelectorAll('[data-speed-preset]').forEach(b=>{
+b.classList.toggle('active',Number(b.dataset.speedPreset)===Number(settings.speedLimit));
+});
+}
+
+function updateSpeedUI(){
+if(!$('speedNowBig'))return;
+
+const speed=Math.max(0,state.speedKmh||0);
+const limit=Math.max(20,Number(settings.speedLimit)||90);
+const tolerance=Math.max(0,Number(settings.speedTolerance)||0);
+const threshold=limit+tolerance;
+const over=speed-limit;
+
+$('speedNowBig').textContent=Math.round(speed);
+$('speedLimitBig').textContent=Math.round(limit);
+$('speedMiniValue').textContent=`Limite ${Math.round(limit)} km/h`;
+$('speedAlertText').textContent=`${Math.round(speed)} km/h · limite ${Math.round(limit)} · RALLENTA`;
+
+$('speedHero').classList.remove('safe','near','danger');
+$('speedMessage').className='speed-message';
+$('speedMini').className='speed-mini';
+
+if(!speedControl.active){
+$('speedMessage').textContent='CONTROLLO DISATTIVATO';
+$('speedMini').querySelector('b').textContent='SPEED GUARD DISATTIVATO';
+clearSpeedAlarm();
+}else if(speed>threshold){
+$('speedMessage').textContent=`ALLARME · +${Math.max(1,Math.round(over))} KM/H · RALLENTA`;
+$('speedMessage').classList.add('danger');
+$('speedMini').classList.add('danger');
+$('speedMini').querySelector('b').textContent='⚠ VELOCITÀ SUPERATA';
+
+speedControl.alarm=true;
+document.body.classList.add('overspeed');
+
+const now=Date.now();
+const repeat=Math.max(3,Number(settings.speedRepeatSeconds)||8)*1000;
+
+if(now-speedControl.lastSound>=repeat){
+speedControl.lastSound=now;
+soundPattern(false);
+}
+}else if(speed>limit){
+$('speedMessage').textContent=`OLTRE LIMITE DI ${Math.max(1,Math.round(over))} KM/H · TOLLERANZA`;
+$('speedMessage').classList.add('near');
+$('speedMini').classList.add('active');
+$('speedMini').querySelector('b').textContent='SPEED GUARD · ATTENZIONE';
+clearSpeedAlarm();
+}else{
+$('speedMessage').textContent=`VELOCITÀ REGOLARE · MARGINE ${Math.max(0,Math.round(limit-speed))} KM/H`;
+$('speedMessage').classList.add('safe');
+$('speedMini').classList.add('active');
+$('speedMini').querySelector('b').textContent='SPEED GUARD ATTIVO';
+clearSpeedAlarm();
+}
+
+$('toggleSpeedControl').textContent=speedControl.active?'DISATTIVA CONTROLLO':'ATTIVA CONTROLLO';
+$('toggleSpeedControl').classList.toggle('active',speedControl.active);
+
+updatePresetButtons();
+}
+
+function activateSpeedControl(){
+read();
+save(SETTINGS,settings);
+unlockAudio();
+
+speedControl.active=!speedControl.active;
+speedControl.lastSound=0;
+
+if(speedControl.active){
+startWatch();
+requestWake();
+
+if(!speedControl.timer){
+speedControl.timer=setInterval(updateSpeedUI,1000);
+}
+
+if(!speedControl.watchdog){
+speedControl.watchdog=setInterval(watchdog,6000);
+}
+
+toast(`Speed Guard attivo: ${settings.speedLimit} km/h`);
+}else{
+clearSpeedAlarm();
+
+clearInterval(speedControl.timer);
+clearInterval(speedControl.watchdog);
+
+speedControl.timer=null;
+speedControl.watchdog=null;
+
+if(!state.running||state.paused){
+stopWatch();
+releaseWake();
+state.speedKmh=0;
+}
+
+toast('Speed Guard disattivato');
+}
+
+updateSpeedUI();
+update();
+}
+
+function saveSpeed(){
+read();
+
+settings.speedLimit=clamp(settings.speedLimit,20,200);
+settings.speedTolerance=clamp(settings.speedTolerance,0,15);
+settings.speedRepeatSeconds=clamp(settings.speedRepeatSeconds,3,30);
+
+save(SETTINGS,settings);
+fill();
+toast('Impostazioni Speed Guard salvate');
+}
+
+function testSpeedAlarm(){
+read();
+save(SETTINGS,settings);
+unlockAudio();
+soundPattern(true);
+
+document.body.classList.add('overspeed');
+$('speedAlertText').textContent='TEST ALLARME SPEED GUARD';
+
+setTimeout(()=>{
+if(!speedControl.alarm){
+document.body.classList.remove('overspeed');
+}
+updateSpeedUI();
+},1500);
+
+toast('Test allarme avviato');
+}
+
+function update(){
+updateIdle();
+
+const r=calc();
+const mins=elapsed()/60000;
+const cpk=state.distanceKm?r.total/state.distanceKm:costs().total;
+const age=state.lastFixEpoch?Math.floor((Date.now()-state.lastFixEpoch)/1000):null;
+
+$('totalCost').textContent=num(r.total);
+$('distance').textContent=num(state.distanceKm);
+$('duration').textContent=fmt(elapsed());
+$('fuelLiters').textContent=num(r.fuelLiters);
+$('speed').textContent=Math.round(state.speedKmh);
+$('costGauge').textContent=num(cpk,3);
+$('consumptionLive').textContent=num(settings.consumption,1);
+$('costMinute').textContent=mins?euro(r.total/mins):euro(0);
+$('idleTime').textContent=fmtShort(state.idleMs);
+$('fixedRate').textContent=num(costs().fixed,3);
+$('fuelDetail').textContent=`${num(r.fuelLiters)} L consumati`;
+$('fuelCost').textContent=euro(r.fuel);
+$('tiresCost').textContent=euro(r.tires);
+$('maintenanceCost').textContent=euro(r.maintenance);
+$('fixedCost').textContent=euro(r.fixed);
+$('depreciationCost').textContent=euro(r.depreciation);
+$('extrasCost').textContent=euro(r.extras);
+$('costPerKm').textContent=`${num(cpk,3)} €/km`;
+$('accepted').textContent=`${state.accepted} ACCETTATI`;
+$('rejected').textContent=`${state.rejected} scartati`;
+$('method').textContent=state.lastMethod;
+$('lastFix').textContent=age===null?'Nessun punto ricevuto':`Ultimo punto ${age} secondi fa`;
+
+if(age!==null&&age<8){
+$('fixState').textContent='GPS IN DIRETTA';
+$('fixBox').className='gps-box gps-good';
+}else if(gpsNeeded()){
+$('fixState').textContent='RICERCA SEGNALE';
+$('fixBox').className='gps-box gps-warn';
+}else{
+$('fixState').textContent='IN ATTESA DEL GPS';
+$('fixBox').className='gps-box';
+}
+
+$('costLevel').textContent=cpk<.45?'ECONOMY':cpk<.7?'HEAVY':'HIGH COST';
+
+setNeedle(state.speedKmh,240,'--speed');
+setNeedle(cpk,1.2,'--cost');
+
+bars(r);
+updateSpeedUI();
+persist();
+}
+
+function theoretical(){
+const c=costs();
+$('baseLiveCost').textContent=`${euro(c.fuel+c.tires+c.maintenance)}/km`;
+$('baseTotalCost').textContent=`${euro(c.total)}/km`;
+}
+
+function hav(a,b){
+const R=6371;
+const rad=x=>x*Math.PI/180;
+const dlat=rad(b.lat-a.lat);
+const dlon=rad(b.lon-a.lon);
+
+const q=
+Math.sin(dlat/2)**2+
+Math.sin(dlon/2)**2*
+Math.cos(rad(a.lat))*
+Math.cos(rad(b.lat));
+
+return 2*R*Math.asin(Math.sqrt(q));
+}
+
+function process(pos){
+const c=pos.coords;
+const now=pos.timestamp||Date.now();
+
+if(now<=state.lastFixEpoch-500)return;
+
+state.lastFixEpoch=Date.now();
+
+$('gpsLamp').classList.add('on');
+$('gpsStatus').textContent='GPS LIVE';
+$('accuracy').textContent=`±${Math.round(c.accuracy)} M`;
+
+const point={
+lat:c.latitude,
+lon:c.longitude,
+t:now,
+accuracy:c.accuracy
+};
+
+let speed=
+Number.isFinite(c.speed)&&c.speed>=0
+?c.speed*3.6
+:null;
+
+if(!state.lastAccepted){
+if(c.accuracy<=settings.maxAccuracy){
+state.lastAccepted=point;
+state.accepted++;
+}else{
+state.rejected++;
+}
+
+state.speedKmh=speed??0;
+update();
+return;
+}
+
+const dt=Math.max(.1,(now-state.lastAccepted.t)/1000);
+const d=hav(state.lastAccepted,point);
+const inferred=d/dt*3600;
+const maxDistance=Math.max(.3,dt*.075*1.35);
+const goodAccuracy=c.accuracy<=settings.maxAccuracy;
+const plausible=d<=maxDistance&&inferred<270;
+
+let add=0;
+let method='COORDINATE';
+
+if(goodAccuracy&&plausible){
+const min=settings.minStepMeters/1000;
+
+if(d>=min){
+add=d;
+}else if(speed!==null&&speed>5&&dt<=15){
+add=speed/3600*dt*.92;
+method='BACKUP VELOCITÀ';
+}
+
+state.lastAccepted=point;
+state.accepted++;
+}else{
+state.rejected++;
+}
+
+if(add>0&&state.running&&!state.paused){
+state.distanceKm+=add*(settings.gpsCorrection/100);
+}
+
+state.speedKmh=clamp(
+speed??(plausible?inferred:state.speedKmh),
+0,
+260
+);
+
+state.lastMethod=method;
+update();
+}
+
+function geoError(e){
+$('gpsLamp').classList.remove('on');
+$('gpsStatus').textContent=e.code===1?'GPS NEGATO':'GPS IN RICERCA';
+$('accuracy').textContent=e.code===1?'PERMESSO':'NO SIGNAL';
+
+if(e.code===1){
+$('meterState').textContent='Consenti la posizione a Chrome';
+}
+}
+
+function startWatch(){
+stopWatch();
+
+if(!navigator.geolocation){
+geoError({code:0});
+return;
+}
+
+state.watchId=navigator.geolocation.watchPosition(
+process,
+geoError,
+{
+enableHighAccuracy:true,
+maximumAge:0,
+timeout:15000
+}
+);
+}
+
+function stopWatch(){
+if(state.watchId!==null&&navigator.geolocation){
+navigator.geolocation.clearWatch(state.watchId);
+}
+
+state.watchId=null;
+}
+
+function watchdog(){
+if(!gpsNeeded())return;
+
+const age=Date.now()-state.lastFixEpoch;
+
+if(!state.lastFixEpoch||age>10000){
+navigator.geolocation?.getCurrentPosition(
+process,
+geoError,
+{
+enableHighAccuracy:true,
+maximumAge:0,
+timeout:10000
+}
+);
+}
+
+if(age>22000){
+startWatch();
+state.lastMethod='WATCHDOG RESTART';
+}
+}
+
+async function requestWake(){
+try{
+if('wakeLock'in navigator){
+wakeLock=await navigator.wakeLock.request('screen');
+$('wakeLamp').classList.add('on');
+
+wakeLock.addEventListener('release',()=>{
+$('wakeLamp').classList.remove('on');
+});
+}
+}catch{}
+}
+
+async function releaseWake(){
+try{
+await wakeLock?.release();
+}catch{}
+
+wakeLock=null;
+$('wakeLamp').classList.remove('on');
+}
+
+function persist(){
+if(!state.running){
+localStorage.removeItem(SESSION);
+return;
+}
+
+save(SESSION,{
+running:true,
+paused:state.paused,
+startEpoch:state.startEpoch,
+elapsedSaved:elapsed(),
+distanceKm:state.distanceKm,
+idleMs:state.idleMs,
+speedKmh:state.speedKmh,
+extras:state.extras,
+lastAccepted:state.lastAccepted,
+lastFixEpoch:state.lastFixEpoch,
+accepted:state.accepted,
+rejected:state.rejected,
+lastMethod:state.lastMethod
+});
+}
+
+function recover(){
+try{
+const s=JSON.parse(localStorage.getItem(SESSION)||'null');
+
+if(!s?.running)return;
+
+if(!confirm('È presente un viaggio interrotto. Vuoi riprenderlo?')){
+localStorage.removeItem(SESSION);
+return;
+}
+
+state={
+...fresh(),
+...s,
+running:true,
+paused:false,
+startEpoch:Date.now(),
+elapsedSaved:s.elapsedSaved||0,
+lastTick:Date.now()
+};
+
+startWatch();
+state.timer=setInterval(update,1000);
+state.watchdog=setInterval(watchdog,6000);
+requestWake();
+
+$('meterState').textContent='VIAGGIO RIPRISTINATO';
+$('meterState').classList.add('live');
+
+buttons();
+}catch{
+localStorage.removeItem(SESSION);
+}
+}
+
+function startTrip(){
+if(state.running&&state.paused){
+state.paused=false;
+state.startEpoch=Date.now();
+state.lastTick=Date.now();
+state.lastAccepted=null;
+
+startWatch();
+requestWake();
+
+$('pauseBtn').textContent='PAUSA';
+$('meterState').textContent='ROAD METER LIVE';
+$('meterState').classList.add('live');
+
+buttons();
+return;
+}
+
+state=fresh();
+state.running=true;
+state.startEpoch=Date.now();
+state.lastTick=Date.now();
+
+startWatch();
+requestWake();
+
+state.timer=setInterval(update,1000);
+state.watchdog=setInterval(watchdog,6000);
+
+$('meterState').textContent='ROAD METER LIVE';
+$('meterState').classList.add('live');
+
+buttons();
+update();
+}
+
+function pauseTrip(){
+if(!state.running)return;
+
+if(!state.paused){
+state.elapsedSaved=elapsed();
+state.startEpoch=0;
+state.paused=true;
+state.speedKmh=0;
+state.lastAccepted=null;
+
+if(!speedControl.active){
+stopWatch();
+releaseWake();
+}
+
+$('pauseBtn').textContent='RIPRENDI';
+$('meterState').textContent='VIAGGIO IN PAUSA';
+$('meterState').classList.remove('live');
+}else{
+startTrip();
+}
+
+buttons();
+update();
+}
+
+function stopTrip(){
+if(!state.running||!confirm('Terminare e salvare questo viaggio?'))return;
+
+if(!state.paused){
+state.elapsedSaved=elapsed();
+}
+
+state.running=false;
+state.paused=false;
+
+if(!speedControl.active){
+stopWatch();
+releaseWake();
+}
+
+clearInterval(state.timer);
+clearInterval(state.watchdog);
+
+const r=calc();
+
+const trip={
+id:Date.now(),
+date:new Date().toISOString(),
+vehicle:settings.vehicleName,
+distanceKm:state.distanceKm,
+durationMs:state.elapsedSaved,
+idleMs:state.idleMs,
+fuelLiters:r.fuelLiters,
+fuelCost:r.fuel,
+totalCost:r.total,
+extras:r.extras,
+costPerKm:state.distanceKm?r.total/state.distanceKm:0
+};
+
+trips.unshift(trip);
+save(TRIPS,trips);
+localStorage.removeItem(SESSION);
+
+if(!speedControl.active){
+state.speedKmh=0;
+}
+
+$('meterState').textContent='VIAGGIO SALVATO';
+$('meterState').classList.remove('live');
+
+if(!speedControl.active){
+$('gpsLamp').classList.remove('on');
+$('gpsStatus').textContent='GPS PRONTO';
+}
+
+buttons();
+renderTrips();
+update();
+toast('Viaggio salvato');
+}
+
+function buttons(){
+$('startBtn').disabled=state.running&&!state.paused;
+$('pauseBtn').disabled=!state.running;
+$('stopBtn').disabled=!state.running;
+}
+
+function openExpense(type){
+state.expenseType=type;
+$('expenseTitle').textContent=`Aggiungi: ${type}`;
+$('expenseAmount').value='';
+$('expenseNote').value='';
+$('expenseModal').classList.add('open');
+}
+
+function addExpense(){
+const amount=Number($('expenseAmount').value||0);
+
+if(amount<=0){
+toast('Inserisci un importo valido');
+return;
+}
+
+state.extras.push({
+type:state.expenseType,
+amount,
+note:$('expenseNote').value.trim(),
+time:new Date().toISOString()
+});
+
+$('expenseModal').classList.remove('open');
+update();
+toast(`${state.expenseType}: ${euro(amount)}`);
+}
+
+function renderTrips(){
+$('tripCount').textContent=`${trips.length} ${trips.length===1?'viaggio':'viaggi'}`;
+
+if(!trips.length){
+$('tripsList').innerHTML='<div class="empty">Nessun viaggio registrato.<br>Avvia ROAD METER per creare il primo.</div>';
+return;
+}
+
+$('tripsList').innerHTML=trips.map(t=>{
+const d=new Date(t.date);
+
+const title=
+`${d.toLocaleDateString('it-IT')} · ${d.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})}`;
+
+return`
+<article class="trip">
+<div class="trip-head">
+<b>${title}</b>
+<span>${euro(t.totalCost)}</span>
+</div>
+<div class="trip-meta">
+<div><b>${num(t.distanceKm,1)}</b><small>KM</small></div>
+<div><b>${fmt(t.durationMs)}</b><small>DURATA</small></div>
+<div><b>${num(t.costPerKm,3)}</b><small>€/KM</small></div>
+</div>
+</article>`;
+}).join('');
+}
+
+function exportCsv(){
+if(!trips.length){
+toast('Nessun viaggio da esportare');
+return;
+}
+
+const rows=[
+[
+'Data',
+'Veicolo',
+'Km',
+'Durata secondi',
+'Minimo secondi',
+'Litri',
+'Costo carburante',
+'Spese extra',
+'Costo totale',
+'Costo €/km'
+],
+...trips.map(t=>[
+new Date(t.date).toLocaleString('it-IT'),
+t.vehicle,
+t.distanceKm.toFixed(3),
+Math.round(t.durationMs/1000),
+Math.round((t.idleMs||0)/1000),
+t.fuelLiters.toFixed(3),
+t.fuelCost.toFixed(2),
+t.extras.toFixed(2),
+t.totalCost.toFixed(2),
+t.costPerKm.toFixed(4)
+])
+];
+
+const csv=rows.map(r=>
+r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(';')
+).join('\n');
+
+const blob=new Blob(
+['\uFEFF'+csv],
+{type:'text/csv;charset=utf-8'}
+);
+
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+
+a.href=url;
+a.download='xa-road-command-v4-viaggi.csv';
+a.click();
+
+URL.revokeObjectURL(url);
+}
+
+document.querySelectorAll('.nav button').forEach(b=>{
+b.onclick=()=>{
+document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+
+b.classList.add('active');
+$(`page-${b.dataset.page}`).classList.add('active');
+
+scrollTo({
+top:0,
+behavior:'smooth'
+});
+};
+});
+
+document.querySelectorAll('[data-expense]').forEach(b=>{
+b.onclick=()=>openExpense(b.dataset.expense);
+});
+
+$('startBtn').onclick=startTrip;
+$('pauseBtn').onclick=pauseTrip;
+$('stopBtn').onclick=stopTrip;
+
+$('gpsRestart').onclick=()=>{
+startWatch();
+watchdog();
+toast('GPS riavviato');
+};
+
+$('confirmExpense').onclick=addExpense;
+
+$('cancelExpense').onclick=()=>{
+$('expenseModal').classList.remove('open');
+};
+
+$('expenseModal').onclick=e=>{
+if(e.target===$('expenseModal')){
+$('expenseModal').classList.remove('open');
+}
+};
+
+$('saveSettings').onclick=()=>{
+read();
+save(SETTINGS,settings);
+theoretical();
+update();
+toast('Dati Ford Edge salvati');
+};
+
+$('resetSettings').onclick=()=>{
+if(!confirm('Ripristinare i valori iniziali?'))return;
+
+settings={...defaults};
+save(SETTINGS,settings);
+
+fill();
+update();
+toast('Valori base ripristinati');
+};
+
+$('exportCsv').onclick=exportCsv;
+
+$('clearTrips').onclick=()=>{
+if(trips.length&&confirm('Cancellare definitivamente tutto lo storico?')){
+trips=[];
+save(TRIPS,trips);
+renderTrips();
+toast('Storico cancellato');
+}
+};
+
+document.querySelectorAll('[data-speed-preset]').forEach(b=>{
+b.onclick=()=>{
+settings.speedLimit=Number(b.dataset.speedPreset);
+$('speedLimit').value=settings.speedLimit;
+
+save(SETTINGS,settings);
+updateSpeedUI();
+
+toast(`Limite impostato: ${settings.speedLimit} km/h`);
+};
+});
+
+$('toggleSpeedControl').onclick=activateSpeedControl;
+$('testSpeedAlarm').onclick=testSpeedAlarm;
+$('saveSpeedSettings').onclick=saveSpeed;
+
+$('speedVolume').oninput=()=>{
+$('volumeValue').textContent=
+Math.round(Number($('speedVolume').value)*100)+'%';
+};
+
+$('speedLimit').oninput=()=>{
+$('speedLimitBig').textContent=
+Math.round(Number($('speedLimit').value)||0);
+};
+
+document.addEventListener('visibilitychange',()=>{
+if(document.visibilityState==='visible'&&gpsNeeded()){
+startWatch();
+requestWake();
+watchdog();
+}
+
+persist();
+});
+
+window.addEventListener('beforeunload',persist);
+
+fill();
+renderTrips();
+buttons();
+update();
+recover();
 })();
 </script>
-
 </body>
 </html>
