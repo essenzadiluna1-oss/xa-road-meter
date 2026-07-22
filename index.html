@@ -3,23 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#08090c">
-<title>XA Road Command V6.1</title>
+<meta name="theme-color" content="#07090c">
+<meta name="mobile-web-app-capable" content="yes">
+<title>XA Road Command V7</title>
 
 <style>
 :root{
   --bg:#07090c;
   --panel:#141920;
+  --panel2:#1c232c;
   --line:#394451;
   --text:#f7f1e7;
   --muted:#8d98a4;
   --amber:#ffb440;
+  --amber2:#ffd37e;
   --red:#db4148;
-  --green:#49d994
+  --green:#49d994;
+  --blue:#5dbbff;
+  --shadow:0 18px 48px #0009;
 }
 
 *{
-  box-sizing:border-box
+  box-sizing:border-box;
 }
 
 html,
@@ -28,30 +33,36 @@ body{
   min-height:100%;
   background:#050608;
   color:var(--text);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
 }
 
 body{
   background:
     radial-gradient(circle at 50% -10%,#7d1b2540,transparent 35%),
-    linear-gradient(#101319,#050608 65%)
+    linear-gradient(#11151b,#050608 64%);
+
+  padding:
+    env(safe-area-inset-top)
+    0
+    env(safe-area-inset-bottom);
 }
 
 button,
 input,
 select,
 textarea{
-  font:inherit
+  font:inherit;
 }
 
 button{
-  cursor:pointer
+  cursor:pointer;
 }
 
 .app{
-  max-width:860px;
+  max-width:880px;
   margin:auto;
-  padding:12px 12px 100px
+  min-height:100vh;
+  padding:12px 12px 104px;
 }
 
 .top{
@@ -59,265 +70,396 @@ button{
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin-bottom:12px
+  padding:5px 2px 13px;
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:10px
+  gap:10px;
+  min-width:0;
 }
 
 .logo{
-  width:52px;
-  height:52px;
-  border-radius:15px;
+  width:53px;
+  height:53px;
+
   display:grid;
   place-items:center;
-  background:linear-gradient(145deg,#ca3b47,#65151d);
-  border:1px solid #e45d68;
-  font:800 24px Georgia,serif;
-  box-shadow:0 12px 30px #0008
+
+  border-radius:15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #c83b47,
+      #65151d 74%
+    );
+
+  border:1px solid #df5a65;
+
+  box-shadow:
+    inset 0 0 0 3px #0003,
+    var(--shadow);
+
+  font:800 25px Georgia,serif;
 }
 
 .brand h1{
+  margin:0;
   font-size:17px;
   letter-spacing:.09em;
-  margin:0
+  white-space:nowrap;
 }
 
 .brand p{
+  margin:4px 0 0;
+  color:#aaa39d;
   font-size:8px;
   letter-spacing:.13em;
-  color:#aaa39d;
-  margin:4px 0 0
+}
+
+.status-stack{
+  display:grid;
+  gap:5px;
 }
 
 .pill{
   display:flex;
   align-items:center;
   gap:6px;
+
   padding:6px 9px;
-  border:1px solid #38424d;
+
+  border:1px solid #37414c;
   border-radius:99px;
+
   background:#101318;
   color:#96a0ab;
-  font-size:8px
+
+  font-size:8px;
+  white-space:nowrap;
 }
 
 .pill i{
   width:7px;
   height:7px;
   border-radius:50%;
-  background:#555f69
+  background:#555f69;
 }
 
 .pill.on{
   color:#dbffeb;
-  border-color:#49d99466
+  border-color:#49d99466;
 }
 
 .pill.on i{
   background:var(--green);
-  box-shadow:0 0 10px var(--green)
+  box-shadow:0 0 10px var(--green);
 }
 
 .page{
-  display:none
+  display:none;
 }
 
 .page.active{
-  display:block
+  display:block;
 }
 
 .hero,
 .panel,
 .card{
   background:
-    linear-gradient(#ffffff0b,transparent 14%),
-    linear-gradient(145deg,#1b2129,#0c0f13 72%);
+    linear-gradient(
+      #ffffff0b,
+      transparent 14%
+    ),
+    linear-gradient(
+      145deg,
+      #1b2129,
+      #0c0f13 72%
+    );
+
   border:1px solid var(--line);
-  box-shadow:0 18px 45px #0008,inset 0 1px #ffffff08
+
+  box-shadow:
+    var(--shadow),
+    inset 0 1px #ffffff08;
 }
 
 .hero{
   border-radius:27px;
   padding:15px;
   position:relative;
-  overflow:hidden
+  overflow:hidden;
 }
 
 .hero:before{
   content:"";
+
   position:absolute;
   inset:0 0 auto;
   height:5px;
-  background:linear-gradient(
-    90deg,
-    #71181d,
-    var(--red),
-    var(--amber),
-    var(--red),
-    #71181d
-  )
+
+  background:
+    linear-gradient(
+      90deg,
+      #71181d,
+      var(--red),
+      var(--amber),
+      var(--red),
+      #71181d
+    );
 }
 
 .kicker{
   display:flex;
   justify-content:space-between;
   gap:8px;
+
   margin:3px 2px 12px;
+
   font-size:8px;
   letter-spacing:.14em;
-  color:#aab2bc
+  color:#aab2bc;
 }
 
 .kicker b{
-  color:var(--amber)
+  color:var(--amber);
 }
 
 .meters{
   display:grid;
-  grid-template-columns:1fr 1.2fr 1fr;
-  gap:8px
+  grid-template-columns:1fr 1.18fr 1fr;
+  gap:8px;
 }
 
 .meter{
   border-radius:20px;
   padding:17px 7px;
+
   text-align:center;
-  background:radial-gradient(circle at 50% 35%,#212830,#080a0d 72%);
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      #212830,
+      #080a0d 72%
+    );
+
   border:1px solid #3b4650;
-  box-shadow:inset 0 0 25px #000b
+
+  box-shadow:
+    inset 0 0 25px #000b;
 }
 
 .meter b{
   display:block;
-  font-size:clamp(36px,11vw,68px);
+
+  font-size:
+    clamp(
+      34px,
+      10vw,
+      66px
+    );
+
   line-height:.95;
-  font-variant-numeric:tabular-nums
+  font-variant-numeric:tabular-nums;
 }
 
 .meter.main b{
-  font-size:clamp(48px,14vw,82px);
-  color:#ffd37e
+  font-size:
+    clamp(
+      46px,
+      13vw,
+      80px
+    );
+
+  color:var(--amber2);
 }
 
 .meter span{
   display:block;
   margin-top:8px;
+
   font-size:7px;
   letter-spacing:.11em;
-  color:#8d98a4
+  color:#8d98a4;
 }
 
 .message{
   margin-top:11px;
   padding:12px;
+
   border-radius:14px;
   border:1px solid #303a45;
+
   background:#0e1216;
+
   text-align:center;
   font-size:10px;
   font-weight:900;
-  color:#99a4af
+  color:#99a4af;
 }
 
 .message.safe{
   color:#dffff0;
   border-color:#49d99460;
-  background:#102219
+  background:#102219;
 }
 
 .message.warn{
   color:#ffe2a6;
   border-color:#ffb44066;
-  background:#241b0e
+  background:#241b0e;
 }
 
 .message.danger{
   color:#fff;
   border-color:#ff6969;
-  background:linear-gradient(135deg,#8f171c,#3c0b0f);
-  box-shadow:0 0 24px #db414860
+
+  background:
+    linear-gradient(
+      135deg,
+      #8f171c,
+      #3c0b0f
+    );
+
+  box-shadow:
+    0 0 24px #db414860;
 }
 
 .controls,
-.row2{
+.row2,
+.row3{
   display:grid;
-  grid-template-columns:1fr 1fr;
   gap:8px;
-  margin-top:9px
+  margin-top:9px;
 }
 
 .controls{
-  grid-template-columns:1.2fr 1fr 1fr
+  grid-template-columns:1.2fr 1fr 1fr;
+}
+
+.row2{
+  grid-template-columns:1fr 1fr;
+}
+
+.row3{
+  grid-template-columns:repeat(3,1fr);
 }
 
 .btn{
   min-height:52px;
+
   border-radius:15px;
   border:1px solid #3a4550;
+
   color:#fff;
-  background:linear-gradient(#2b333c,#151a20);
+
+  background:
+    linear-gradient(
+      #2b333c,
+      #151a20
+    );
+
   font-weight:900;
   letter-spacing:.05em;
-  box-shadow:inset 0 1px #ffffff14
+
+  box-shadow:
+    inset 0 1px #ffffff14;
 }
 
 .btn.primary{
-  background:linear-gradient(#d83e48,#791821);
-  border-color:#e65761
+  background:
+    linear-gradient(
+      #d83e48,
+      #791821
+    );
+
+  border-color:#e65761;
 }
 
 .btn.warn{
-  background:linear-gradient(#583b20,#271a10);
+  background:
+    linear-gradient(
+      #583b20,
+      #271a10
+    );
+
   color:#ffd797;
-  border-color:#745030
+  border-color:#745030;
 }
 
 .btn.danger{
-  background:linear-gradient(#481b21,#211014);
+  background:
+    linear-gradient(
+      #481b21,
+      #211014
+    );
+
   color:#ffb1b6;
-  border-color:#74333d
+  border-color:#74333d;
 }
 
 .btn.success{
-  background:linear-gradient(#42cc89,#17643f);
+  background:
+    linear-gradient(
+      #42cc89,
+      #17643f
+    );
+
   border-color:#6dedae;
-  color:#06150e
+  color:#06150e;
+}
+
+.btn.blue{
+  background:
+    linear-gradient(
+      #37658f,
+      #15324e
+    );
+
+  border-color:#5f99c8;
 }
 
 .btn:disabled{
-  opacity:.35
+  opacity:.35;
 }
 
-.telemetry{
+.telemetry,
+.diagnostics{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:7px;
-  margin-top:9px
+  margin-top:9px;
 }
 
-.tele{
+.tele,
+.diag{
   padding:9px 5px;
+
   border-radius:12px;
+
   background:#0d1115;
   border:1px solid #2d3640;
-  text-align:center
+
+  text-align:center;
 }
 
-.tele b{
+.tele b,
+.diag b{
   display:block;
-  color:#ffd37e;
-  font-size:13px
+  color:var(--amber2);
+  font-size:13px;
 }
 
-.tele span{
+.tele span,
+.diag span{
   display:block;
   margin-top:4px;
   color:#7f8995;
-  font-size:7px
+  font-size:7px;
 }
 
 .section{
@@ -325,98 +467,109 @@ button{
   justify-content:space-between;
   align-items:center;
   gap:8px;
-  margin:18px 3px 8px
+
+  margin:18px 3px 8px;
 }
 
 .section h2{
   margin:0;
   font-size:12px;
-  letter-spacing:.1em
+  letter-spacing:.1em;
 }
 
 .section span{
   font-size:8px;
-  color:#98a2ad
+  color:#98a2ad;
 }
 
 .panel,
 .card{
   border-radius:17px;
   padding:13px;
-  margin-bottom:9px
+  margin-bottom:9px;
 }
 
 .panel h3,
 .card h3{
   margin:0 0 11px;
   font-size:12px;
-  letter-spacing:.08em
+  letter-spacing:.08em;
 }
 
 .cards{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:8px
+  gap:8px;
 }
 
 .card{
-  margin:0
+  margin:0;
 }
 
 .cardline{
   display:flex;
   justify-content:space-between;
-  gap:8px
+  gap:8px;
 }
 
 .card strong{
-  color:#fff5e5
+  color:#fff5e5;
 }
 
 .card small{
   display:block;
   margin-top:4px;
   color:#84909b;
-  font-size:8px
+  font-size:8px;
 }
 
 .fields{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px
+  gap:10px;
 }
 
 .field{
   display:flex;
   flex-direction:column;
-  gap:6px
+  gap:6px;
 }
 
 .field.full{
-  grid-column:1/-1
+  grid-column:1/-1;
 }
 
 label{
   font-size:8px;
-  color:#949eaa
+  color:#949eaa;
 }
 
 input,
 select,
 textarea{
   width:100%;
+
   border:1px solid #343e49;
   background:#080a0d;
   color:#fff4e7;
+
   border-radius:11px;
   padding:11px;
-  outline:none
+  outline:none;
 }
 
 textarea{
-  min-height:110px;
+  min-height:115px;
   font-family:ui-monospace,Consolas,monospace;
-  font-size:10px
+  font-size:10px;
+  resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#d28b43;
+  box-shadow:0 0 0 3px #ffb44015;
 }
 
 .check{
@@ -424,101 +577,192 @@ textarea{
   align-items:center;
   justify-content:space-between;
   gap:10px;
+
   border:1px solid #343e49;
   background:#080a0d;
+
   border-radius:11px;
-  padding:10px
+  padding:10px;
 }
 
 .check input{
   width:22px;
   height:22px;
-  accent-color:var(--red)
+  accent-color:var(--red);
 }
 
 .presets{
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:7px
+  gap:7px;
 }
 
 .preset{
   min-height:48px;
+
   border-radius:13px;
   border:1px solid #3a4551;
-  background:linear-gradient(#202731,#101419);
+
+  background:
+    linear-gradient(
+      #202731,
+      #101419
+    );
+
   color:#fff;
-  font-weight:900
+  font-weight:900;
 }
 
 .preset.active{
-  background:linear-gradient(#d58a32,#744010);
-  border-color:#ffbd5d
+  background:
+    linear-gradient(
+      #d58a32,
+      #744010
+    );
+
+  border-color:#ffbd5d;
 }
 
 .soundgrid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:7px
+  gap:7px;
 }
 
 .sound{
   padding:10px;
+
   border:1px solid #35414d;
-  background:linear-gradient(#1a2028,#0e1216);
+
+  background:
+    linear-gradient(
+      #1a2028,
+      #0e1216
+    );
+
   border-radius:13px;
+
   text-align:left;
-  color:#fff
+  color:#fff;
 }
 
 .sound b{
   display:block;
-  font-size:10px
+  font-size:10px;
 }
 
 .sound span{
   display:block;
   margin-top:4px;
   font-size:8px;
-  color:#87929e
+  color:#87929e;
 }
 
 .sound.active{
   border-color:var(--amber);
-  background:linear-gradient(#493218,#17110a)
+
+  background:
+    linear-gradient(
+      #493218,
+      #17110a
+    );
 }
 
-.reliability{
+.velox-main{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:7px;
-  margin-top:9px
+  grid-template-columns:110px 1fr;
+  gap:10px;
+  align-items:stretch;
+  margin-top:11px;
 }
 
-.reliability div{
-  padding:9px 5px;
+.arrowbox{
+  display:grid;
+  place-items:center;
+
+  border-radius:20px;
+
+  background:
+    radial-gradient(
+      circle,
+      #202832,
+      #080a0d 72%
+    );
+
+  border:1px solid #3b4650;
+  min-height:150px;
+}
+
+.arrow{
+  font-size:66px;
+  color:var(--amber);
+
+  filter:
+    drop-shadow(
+      0 0 12px #ffb44088
+    );
+
+  transform:rotate(0deg);
+  transition:transform .35s;
+}
+
+.velox-info{
+  display:grid;
+  gap:7px;
+}
+
+.info-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+
+  padding:10px;
+
   border-radius:12px;
+
   background:#0d1115;
   border:1px solid #2d3640;
-  text-align:center
 }
 
-.reliability b{
-  display:block;
-  color:#ffd37e;
-  font-size:12px
+.info-row span{
+  font-size:8px;
+  color:#89939e;
 }
 
-.reliability span{
-  display:block;
-  margin-top:4px;
-  color:#7f8995;
-  font-size:7px
+.info-row b{
+  font-size:11px;
+  text-align:right;
+}
+
+.source-badge{
+  display:inline-block;
+  padding:3px 7px;
+
+  border-radius:99px;
+  border:1px solid #4b5663;
+
+  font-size:7px;
+  font-weight:900;
+}
+
+.source-badge.ok{
+  color:#dffff0;
+  border-color:#49d99466;
+}
+
+.source-badge.warn{
+  color:#ffe2a6;
+  border-color:#ffb44066;
+}
+
+.source-badge.bad{
+  color:#ffb0b5;
+  border-color:#db414866;
 }
 
 .veloxlist{
   display:grid;
-  gap:7px
+  gap:7px;
 }
 
 .veloxitem{
@@ -526,236 +770,340 @@ textarea{
   grid-template-columns:1fr auto;
   gap:8px;
   align-items:center;
+
   padding:10px;
+
   border-radius:13px;
+
   background:#0c1014;
-  border:1px solid #303a44
+  border:1px solid #303a44;
 }
 
 .veloxitem h4{
   margin:0;
-  font-size:10px
+  font-size:10px;
 }
 
 .veloxitem p{
   margin:4px 0 0;
   font-size:8px;
-  color:#89939e
-}
-
-.badge{
-  display:inline-block;
-  margin-top:5px;
-  padding:3px 6px;
-  border-radius:99px;
-  border:1px solid #4b5663;
-  font-size:7px;
-  font-weight:900
-}
-
-.badge.ok{
-  color:#dffff0;
-  border-color:#49d99466
-}
-
-.badge.warn{
-  color:#ffe2a6;
-  border-color:#ffb44066
-}
-
-.badge.bad{
-  color:#ffb0b5;
-  border-color:#db414866
+  color:#89939e;
 }
 
 .delete{
   width:39px;
   height:39px;
+
   border-radius:11px;
   border:1px solid #6f3239;
+
   background:#35151a;
   color:#ffb0b5;
-  font-weight:900
+
+  font-weight:900;
 }
 
 .empty{
   text-align:center;
+
   padding:25px 12px;
+
   border:1px dashed #35404b;
   border-radius:15px;
+
   background:#101419;
-  color:#838d99
+  color:#838d99;
 }
 
 .trip{
   padding:11px;
   margin-bottom:8px;
+
   border-radius:15px;
+
   background:#101419;
-  border:1px solid #343e49
+  border:1px solid #343e49;
 }
 
 .triphead{
   display:flex;
   justify-content:space-between;
   gap:8px;
-  font-size:10px
+  font-size:10px;
 }
 
 .triphead span{
   color:#ffd37e;
-  font-weight:900
+  font-weight:900;
 }
 
 .tripmeta{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:6px;
-  margin-top:8px
+  margin-top:8px;
 }
 
 .tripmeta div{
   text-align:center;
   padding:7px;
+
   border-radius:9px;
+
   background:#080b0e;
-  border:1px solid #252d35
+  border:1px solid #252d35;
 }
 
 .tripmeta b{
   display:block;
-  font-size:11px
+  font-size:11px;
 }
 
 .tripmeta small{
   font-size:7px;
-  color:#7f8995
+  color:#7f8995;
 }
 
 .nav{
   position:fixed;
   left:50%;
   bottom:0;
+
   transform:translateX(-50%);
-  width:min(860px,100%);
+
+  width:min(880px,100%);
+
   display:grid;
   grid-template-columns:repeat(5,1fr);
   gap:4px;
-  padding:8px 9px calc(8px + env(safe-area-inset-bottom));
+
+  padding:
+    8px
+    9px
+    calc(
+      8px +
+      env(safe-area-inset-bottom)
+    );
+
   background:#07090cf5;
   backdrop-filter:blur(15px);
+
   border-top:1px solid #303944;
-  z-index:40
+
+  z-index:40;
 }
 
 .nav button{
   border:1px solid transparent;
   background:transparent;
   color:#89939e;
+
   padding:9px 2px;
   border-radius:11px;
+
   font-size:7px;
-  font-weight:900
+  font-weight:900;
 }
 
 .nav button.active{
-  background:linear-gradient(#29313a,#171c22);
+  background:
+    linear-gradient(
+      #29313a,
+      #171c22
+    );
+
   border-color:#3b4652;
-  color:#fff4e5
+  color:#fff4e5;
 }
 
 .overlay{
   display:none;
+
   position:fixed;
   left:50%;
-  top:12px;
+
+  top:max(
+    12px,
+    env(safe-area-inset-top)
+  );
+
   transform:translateX(-50%);
-  width:min(800px,calc(100% - 24px));
+
+  width:min(
+    820px,
+    calc(100% - 24px)
+  );
+
   z-index:100;
+
   padding:14px;
+
   border-radius:17px;
   border:2px solid #ff7272;
-  background:linear-gradient(135deg,#a9131aee,#3c070bee);
-  box-shadow:0 0 42px #ff263b99;
+
+  background:
+    linear-gradient(
+      135deg,
+      #a9131aee,
+      #3c070bee
+    );
+
+  box-shadow:
+    0 0 42px #ff263b99;
+
   text-align:center;
-  color:#fff
+  color:#fff;
+
+  animation:
+    pulse .7s
+    infinite alternate;
 }
 
 .overlay b{
   display:block;
-  font-size:18px
+  font-size:18px;
 }
 
 .overlay span{
   display:block;
   margin-top:5px;
-  font-size:10px
+  font-size:10px;
 }
 
 .show-speed .speedOverlay,
 .show-velox .veloxOverlay{
-  display:block
+  display:block;
 }
 
 .toast{
   position:fixed;
   left:50%;
   bottom:90px;
-  transform:translate(-50%,18px);
+
+  transform:
+    translate(
+      -50%,
+      18px
+    );
+
   opacity:0;
   z-index:110;
+
   padding:10px 13px;
+
   border-radius:99px;
+
   background:#f7efe2;
   color:#111;
+
   font-size:10px;
   font-weight:900;
-  transition:.25s
+
+  transition:.25s;
 }
 
 .toast.show{
   opacity:1;
-  transform:translate(-50%,0)
+
+  transform:
+    translate(
+      -50%,
+      0
+    );
 }
 
-@media(max-width:600px){
+.note{
+  font-size:8px;
+  color:#8d98a4;
+  line-height:1.5;
+}
+
+.online-ok{
+  color:#bfffdc;
+}
+
+.online-bad{
+  color:#ffb0b5;
+}
+
+@keyframes pulse{
+  from{
+    filter:brightness(.88);
+
+    transform:
+      translateX(-50%)
+      scale(.99);
+  }
+
+  to{
+    filter:brightness(1.18);
+
+    transform:
+      translateX(-50%)
+      scale(1.01);
+  }
+}
+
+@media(max-width:620px){
+
   .meters{
-    grid-template-columns:1fr 1fr
+    grid-template-columns:1fr 1fr;
   }
 
   .meter.main{
     grid-column:1/-1;
-    grid-row:1
+    grid-row:1;
   }
 
   .cards,
   .fields{
-    grid-template-columns:1fr
+    grid-template-columns:1fr;
   }
 
   .field.full{
-    grid-column:auto
+    grid-column:auto;
   }
 
-  .telemetry{
-    grid-template-columns:1fr 1fr
+  .telemetry,
+  .diagnostics{
+    grid-template-columns:1fr 1fr;
   }
 
   .presets{
-    grid-template-columns:repeat(3,1fr)
+    grid-template-columns:repeat(3,1fr);
   }
 
   .soundgrid{
-    grid-template-columns:1fr
+    grid-template-columns:1fr;
   }
 
   .brand h1{
-    font-size:14px
+    font-size:14px;
   }
 
   .logo{
     width:48px;
-    height:48px
+    height:48px;
+  }
+
+  .velox-main{
+    grid-template-columns:95px 1fr;
+  }
+
+  .arrowbox{
+    min-height:142px;
+  }
+
+  .arrow{
+    font-size:58px;
+  }
+
+  .row3{
+    grid-template-columns:1fr;
+  }
+
+  .status-stack .pill:last-child{
+    display:none;
   }
 }
 </style>
@@ -774,15 +1122,31 @@ textarea{
     </div>
 
     <div>
-      <h1>ROAD COMMAND V6.1</h1>
-      <p>RELIABILITY EDITION · FORD EDGE</p>
+
+      <h1>
+        ROAD COMMAND V7
+      </h1>
+
+      <p>
+        AUTOVELOX PRO · FORD EDGE
+      </p>
+
     </div>
 
   </div>
 
-  <div id="gpsPill" class="pill">
-    <i></i>
-    <span id="gpsText">GPS PRONTO</span>
+  <div class="status-stack">
+
+    <div id="gpsPill" class="pill">
+      <i></i>
+      <span id="gpsText">GPS PRONTO</span>
+    </div>
+
+    <div id="wakePill" class="pill">
+      <i></i>
+      <span>SCHERMO ATTIVO</span>
+    </div>
+
   </div>
 
 </header>
@@ -795,7 +1159,7 @@ textarea{
 
     <div class="kicker">
       <span>ROAD METER</span>
-      <b>GPS WATCHDOG</b>
+      <b>GPS WATCHDOG V7</b>
     </div>
 
     <div class="meters">
@@ -893,7 +1257,7 @@ textarea{
 
         <div>
           <h3>Gomme</h3>
-          <small>Usura</small>
+          <small>Usura chilometrica</small>
         </div>
 
         <strong id="tireCost">
@@ -983,46 +1347,131 @@ textarea{
 
   <div class="presets">
 
-    <button class="preset" data-limit="50">50</button>
-    <button class="preset" data-limit="70">70</button>
-    <button class="preset" data-limit="90">90</button>
-    <button class="preset" data-limit="110">110</button>
-    <button class="preset" data-limit="130">130</button>
+    <button class="preset" data-limit="50">
+      50
+    </button>
+
+    <button class="preset" data-limit="70">
+      70
+    </button>
+
+    <button class="preset" data-limit="90">
+      90
+    </button>
+
+    <button class="preset" data-limit="110">
+      110
+    </button>
+
+    <button class="preset" data-limit="130">
+      130
+    </button>
 
   </div>
 
   <div class="panel">
 
-    <h3>IMPOSTAZIONI</h3>
+    <h3>
+      IMPOSTAZIONI ALLARME
+    </h3>
 
     <div class="fields">
 
       <div class="field">
-        <label>Limite km/h</label>
-        <input id="speedLimit" type="number">
+
+        <label>
+          Limite km/h
+        </label>
+
+        <input
+          id="speedLimit"
+          type="number"
+          min="20"
+          max="200"
+        >
+
       </div>
 
       <div class="field">
-        <label>Tolleranza km/h</label>
-        <input id="speedTolerance" type="number">
+
+        <label>
+          Tolleranza km/h
+        </label>
+
+        <input
+          id="speedTolerance"
+          type="number"
+          min="0"
+          max="15"
+        >
+
       </div>
 
       <div class="field">
 
-        <label>Durata</label>
+        <label>
+          Durata
+        </label>
 
         <select id="alarmDuration">
-          <option value="10">10 secondi</option>
-          <option value="20">20 secondi</option>
-          <option value="30">30 secondi</option>
-          <option value="60">60 secondi</option>
-          <option value="continuous">Continuo</option>
+
+          <option value="10">
+            10 secondi
+          </option>
+
+          <option value="20">
+            20 secondi
+          </option>
+
+          <option value="30">
+            30 secondi
+          </option>
+
+          <option value="60">
+            60 secondi
+          </option>
+
+          <option value="continuous">
+            Continuo
+          </option>
+
         </select>
 
       </div>
 
       <div class="field">
-        <label>Volume</label>
+
+        <label>
+          Ripetizione
+        </label>
+
+        <select id="alarmRepeat">
+
+          <option value="0">
+            Non ripetere
+          </option>
+
+          <option value="5">
+            5 secondi
+          </option>
+
+          <option value="10">
+            10 secondi
+          </option>
+
+          <option value="20">
+            20 secondi
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="field full">
+
+        <label>
+          Volume
+        </label>
 
         <input
           id="alarmVolume"
@@ -1031,20 +1480,46 @@ textarea{
           max="1"
           step="0.05"
         >
+
       </div>
 
       <div class="field full">
 
         <div class="check">
-          <span>Voce “Rallenta”</span>
-          <input id="alarmVoice" type="checkbox">
+
+          <span>
+            Voce “Rallenta”
+          </span>
+
+          <input
+            id="alarmVoice"
+            type="checkbox"
+          >
+
+        </div>
+
+      </div>
+
+      <div class="field full">
+
+        <div class="check">
+
+          <span>
+            Vibrazione
+          </span>
+
+          <input
+            id="alarmVibration"
+            type="checkbox"
+          >
+
         </div>
 
       </div>
 
     </div>
 
-    <div class="row2">
+    <div class="row3">
 
       <button id="toggleSpeed" class="btn success">
         ATTIVA
@@ -1054,27 +1529,27 @@ textarea{
         TEST
       </button>
 
-    </div>
+      <button id="snoozeSpeed" class="btn blue">
+        SILENZIA 60 SEC
+      </button>
 
-    <button
-      id="snoozeSpeed"
-      class="btn"
-      style="width:100%;margin-top:8px"
-    >
-      SILENZIA 60 SEC
-    </button>
+    </div>
 
   </div>
 
   <div class="panel">
 
-    <h3>SUONI</h3>
+    <h3>
+      SUONI
+    </h3>
 
     <div id="soundGrid" class="soundgrid"></div>
 
     <div class="field" style="margin-top:9px">
 
-      <label>Audio personale</label>
+      <label>
+        Audio personale dal telefono
+      </label>
 
       <input
         id="customAudio"
@@ -1093,8 +1568,8 @@ textarea{
   <div class="hero">
 
     <div class="kicker">
-      <span>AUTOVELOX GUARD V6.1</span>
-      <b>RELIABILITY FILTER</b>
+      <span>AUTOVELOX PRO V7</span>
+      <b>APPROACH ENGINE</b>
     </div>
 
     <div class="meters">
@@ -1120,28 +1595,69 @@ textarea{
       CONTROLLO DISATTIVATO
     </div>
 
-    <div class="reliability">
+    <div class="velox-main">
 
-      <div>
-        <b id="veloxConfirm">0/3</b>
+      <div class="arrowbox">
+
+        <div id="veloxArrow" class="arrow">
+          ↑
+        </div>
+
+      </div>
+
+      <div class="velox-info">
+
+        <div class="info-row">
+          <span>NOME</span>
+          <b id="veloxNameLive">—</b>
+        </div>
+
+        <div class="info-row">
+          <span>TIPO</span>
+          <b id="veloxTypeLive">—</b>
+        </div>
+
+        <div class="info-row">
+          <span>STATO</span>
+          <b id="veloxApproachLive">—</b>
+        </div>
+
+        <div class="info-row">
+          <span>FONTE</span>
+          <b id="veloxSourceLive">—</b>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="diagnostics">
+
+      <div class="diag">
+        <b id="veloxTrend">0</b>
         <span>CONFERME</span>
       </div>
 
-      <div>
-        <b id="veloxHeading">—</b>
+      <div class="diag">
+        <b id="veloxHeadingLive">—</b>
         <span>DIREZIONE</span>
       </div>
 
-      <div>
-        <b id="veloxGps">—</b>
+      <div class="diag">
+        <b id="veloxGpsLive">—</b>
         <span>GPS</span>
+      </div>
+
+      <div class="diag">
+        <b id="veloxDbLive">0</b>
+        <span>PUNTI DB</span>
       </div>
 
     </div>
 
   </div>
 
-  <div class="row2">
+  <div class="row3">
 
     <button id="toggleVelox" class="btn success">
       ATTIVA VELOX
@@ -1151,59 +1667,153 @@ textarea{
       SEGNALA QUI
     </button>
 
+    <button id="testPoint" class="btn warn">
+      TEST 500 M DAVANTI
+    </button>
+
   </div>
 
   <div class="panel">
 
-    <h3>FILTRO AFFIDABILITÀ</h3>
+    <h3>
+      IMPOSTAZIONI AFFIDABILITÀ
+    </h3>
 
     <div class="fields">
 
       <div class="field">
-        <label>Precisione GPS max m</label>
-        <input id="veloxMaxAccuracy" type="number">
+
+        <label>
+          Avviso lontano m
+        </label>
+
+        <input
+          id="veloxFar"
+          type="number"
+          min="300"
+          max="5000"
+        >
+
       </div>
 
       <div class="field">
-        <label>Velocità minima km/h</label>
-        <input id="veloxMinSpeed" type="number">
+
+        <label>
+          Avviso medio m
+        </label>
+
+        <input
+          id="veloxMid"
+          type="number"
+          min="150"
+          max="3000"
+        >
+
       </div>
 
       <div class="field">
-        <label>Conferme consecutive</label>
-        <input id="veloxConfirmations" type="number">
+
+        <label>
+          Avviso vicino m
+        </label>
+
+        <input
+          id="veloxNear"
+          type="number"
+          min="50"
+          max="1000"
+        >
+
       </div>
 
       <div class="field">
-        <label>Cono davanti gradi</label>
-        <input id="veloxCone" type="number">
+
+        <label>
+          Raggio ricerca km
+        </label>
+
+        <input
+          id="veloxRadius"
+          type="number"
+          min="1"
+          max="50"
+        >
+
       </div>
 
       <div class="field">
-        <label>Avviso lontano m</label>
-        <input id="veloxFar" type="number">
+
+        <label>
+          Precisione GPS massima m
+        </label>
+
+        <input
+          id="veloxMaxAccuracy"
+          type="number"
+          min="10"
+          max="200"
+        >
+
       </div>
 
       <div class="field">
-        <label>Avviso medio m</label>
-        <input id="veloxMid" type="number">
+
+        <label>
+          Cono frontale gradi
+        </label>
+
+        <input
+          id="veloxCone"
+          type="number"
+          min="30"
+          max="180"
+        >
+
       </div>
 
       <div class="field">
-        <label>Avviso vicino m</label>
-        <input id="veloxNear" type="number">
+
+        <label>
+          Conferme avvicinamento
+        </label>
+
+        <input
+          id="veloxConfirmations"
+          type="number"
+          min="1"
+          max="5"
+        >
+
       </div>
 
       <div class="field">
-        <label>Raggio ricerca km</label>
-        <input id="veloxRadius" type="number">
+
+        <label>
+          Velocità minima km/h
+        </label>
+
+        <input
+          id="veloxMinSpeed"
+          type="number"
+          min="0"
+          max="30"
+        >
+
       </div>
 
       <div class="field full">
 
         <div class="check">
-          <span>Voce distanza e limite</span>
-          <input id="veloxVoice" type="checkbox">
+
+          <span>
+            Voce distanza e limite
+          </span>
+
+          <input
+            id="veloxVoice"
+            type="checkbox"
+          >
+
         </div>
 
       </div>
@@ -1211,8 +1821,16 @@ textarea{
       <div class="field full">
 
         <div class="check">
-          <span>Sincronizza Speed Guard</span>
-          <input id="veloxSync" type="checkbox">
+
+          <span>
+            Sincronizza Speed Guard solo dopo conferma
+          </span>
+
+          <input
+            id="veloxSync"
+            type="checkbox"
+          >
+
         </div>
 
       </div>
@@ -1220,26 +1838,28 @@ textarea{
     </div>
 
     <button
-      id="saveVelox"
+      id="saveVeloxSettings"
       class="btn primary"
-      style="width:100%;margin-top:8px"
+      style="width:100%;margin-top:9px"
     >
-      SALVA FILTRO
+      SALVA IMPOSTAZIONI
     </button>
 
-    <p style="font-size:8px;color:#8d98a4;line-height:1.5">
-      Avvisa solo con GPS preciso, direzione compatibile e distanza
-      in diminuzione. Riduce i falsi allarmi, ma non può riconoscere
-      perfettamente la carreggiata senza una mappa stradale.
+    <p class="note">
+      Il punto viene segnalato quando è davanti e la distanza scende.
+      Se la direzione GPS manca, l’app non blocca l’avviso:
+      usa la tendenza della distanza.
     </p>
 
   </div>
 
   <div class="panel">
 
-    <h3>DATABASE ONLINE</h3>
+    <h3>
+      DATABASE ONLINE E LOCALE
+    </h3>
 
-    <div class="row2">
+    <div class="row3">
 
       <button id="loadOnline" class="btn primary">
         AGGIORNA ONLINE
@@ -1249,78 +1869,158 @@ textarea{
         AZZERA CONTROLLO
       </button>
 
+      <button id="exportVelox" class="btn blue">
+        ESPORTA JSON
+      </button>
+
     </div>
 
-    <p id="onlineState" style="font-size:8px;color:#8d98a4">
-      Cerca il file autovelox.json nello stesso repository.
+    <button
+      id="testVeloxAlarm"
+      class="btn warn"
+      style="width:100%;margin-top:8px"
+    >
+      TEST ALLARME AUTOVELOX
+    </button>
+
+    <p id="onlineState" class="note">
+      Il database locale funziona anche senza autovelox.json.
     </p>
 
   </div>
 
   <div class="panel">
 
-    <h3>AGGIUNGI PUNTO</h3>
+    <h3>
+      AGGIUNGI RILEVATORE
+    </h3>
 
     <div class="fields">
 
       <div class="field">
-        <label>Nome</label>
-        <input id="veloxName">
+
+        <label>
+          Nome / strada
+        </label>
+
+        <input
+          id="veloxName"
+          placeholder="Es. SS67 Empoli Est"
+        >
+
       </div>
 
       <div class="field">
 
-        <label>Tipo</label>
+        <label>
+          Tipo
+        </label>
 
         <select id="veloxType">
-          <option>Fisso</option>
-          <option>Tutor</option>
-          <option>Semaforo</option>
-          <option>Mobile</option>
+
+          <option>
+            Fisso
+          </option>
+
+          <option>
+            Tutor
+          </option>
+
+          <option>
+            Semaforo
+          </option>
+
+          <option>
+            Mobile
+          </option>
+
+          <option>
+            Altro
+          </option>
+
         </select>
 
       </div>
 
       <div class="field">
-        <label>Limite</label>
-        <input id="veloxManualLimit" type="number" value="90">
+
+        <label>
+          Limite
+        </label>
+
+        <input
+          id="veloxManualLimit"
+          type="number"
+          value="90"
+        >
+
       </div>
 
       <div class="field">
 
-        <label>Affidabilità</label>
+        <label>
+          Fonte
+        </label>
 
         <select id="veloxSource">
-          <option value="manuale">Manuale</option>
-          <option value="verificato">Verificato</option>
-          <option value="non_verificato">Non verificato</option>
+
+          <option value="manuale">
+            Manuale
+          </option>
+
+          <option value="verificato">
+            Verificato
+          </option>
+
+          <option value="non_verificato">
+            Non verificato
+          </option>
+
         </select>
 
       </div>
 
       <div class="field">
-        <label>Direzione gradi</label>
-        <input id="veloxDirection" type="number">
+
+        <label>
+          Direzione gradi facoltativa
+        </label>
+
+        <input
+          id="veloxDirection"
+          type="number"
+          min="0"
+          max="359"
+        >
+
       </div>
 
       <div class="field">
-        <label>Latitudine</label>
+
+        <label>
+          Latitudine
+        </label>
 
         <input
           id="veloxLat"
           type="number"
           step="0.000001"
         >
+
       </div>
 
       <div class="field">
-        <label>Longitudine</label>
+
+        <label>
+          Longitudine
+        </label>
 
         <input
           id="veloxLon"
           type="number"
           step="0.000001"
         >
+
       </div>
 
     </div>
@@ -1341,30 +2041,35 @@ textarea{
 
   <div class="panel">
 
-    <h3>IMPORTA / ESPORTA</h3>
+    <h3>
+      IMPORTA JSON O CSV
+    </h3>
 
     <textarea
       id="veloxData"
-      placeholder="JSON oppure: nome;tipo;limite;latitudine;longitudine;direzione;fonte"
+      placeholder="nome;tipo;limite;latitudine;longitudine;direzione;fonte"
     ></textarea>
 
-    <div class="row2">
-
-      <button id="importVelox" class="btn primary">
-        IMPORTA
-      </button>
-
-      <button id="exportVelox" class="btn">
-        ESPORTA
-      </button>
-
-    </div>
+    <button
+      id="importVelox"
+      class="btn primary"
+      style="width:100%;margin-top:8px"
+    >
+      IMPORTA DATABASE
+    </button>
 
   </div>
 
   <div class="section">
-    <h2>DATABASE</h2>
-    <span id="veloxCount">0 punti</span>
+
+    <h2>
+      DATABASE
+    </h2>
+
+    <span id="veloxCount">
+      0 punti
+    </span>
+
   </div>
 
   <div id="veloxList" class="veloxlist"></div>
@@ -1383,83 +2088,192 @@ textarea{
 
   <div class="panel">
 
-    <h3>FORD EDGE E COSTI</h3>
+    <h3>
+      FORD EDGE E COSTI
+    </h3>
 
     <div class="fields">
 
       <div class="field full">
-        <label>Veicolo</label>
+
+        <label>
+          Veicolo
+        </label>
+
         <input id="vehicleName">
+
       </div>
 
       <div class="field">
-        <label>Prezzo acquisto €</label>
-        <input id="purchasePrice" type="number">
+
+        <label>
+          Prezzo acquisto €
+        </label>
+
+        <input
+          id="purchasePrice"
+          type="number"
+        >
+
       </div>
 
       <div class="field">
-        <label>Valore futuro €</label>
-        <input id="residualValue" type="number">
+
+        <label>
+          Valore futuro €
+        </label>
+
+        <input
+          id="residualValue"
+          type="number"
+        >
+
       </div>
 
       <div class="field">
-        <label>Km possesso</label>
-        <input id="ownershipKm" type="number">
+
+        <label>
+          Km possesso
+        </label>
+
+        <input
+          id="ownershipKm"
+          type="number"
+        >
+
       </div>
 
       <div class="field">
-        <label>Km annuali</label>
-        <input id="annualKm" type="number">
+
+        <label>
+          Km annuali
+        </label>
+
+        <input
+          id="annualKm"
+          type="number"
+        >
+
       </div>
 
       <div class="field">
-        <label>Gasolio €/L</label>
-        <input id="fuelPrice" type="number" step="0.001">
+
+        <label>
+          Gasolio €/L
+        </label>
+
+        <input
+          id="fuelPrice"
+          type="number"
+          step="0.001"
+        >
+
       </div>
 
       <div class="field">
-        <label>Consumo L/100</label>
-        <input id="consumption" type="number" step="0.1">
+
+        <label>
+          Consumo L/100
+        </label>
+
+        <input
+          id="consumption"
+          type="number"
+          step="0.1"
+        >
+
       </div>
 
       <div class="field">
-        <label>Costo gomme €</label>
-        <input id="tiresPrice" type="number">
+
+        <label>
+          Costo gomme €
+        </label>
+
+        <input
+          id="tiresPrice"
+          type="number"
+        >
+
       </div>
 
       <div class="field">
-        <label>Durata gomme km</label>
-        <input id="tiresLife" type="number">
+
+        <label>
+          Durata gomme km
+        </label>
+
+        <input
+          id="tiresLife"
+          type="number"
+        >
+
       </div>
 
       <div class="field">
-        <label>Manutenzione €/km</label>
+
+        <label>
+          Manutenzione €/km
+        </label>
 
         <input
           id="maintenancePerKm"
           type="number"
           step="0.001"
         >
+
       </div>
 
       <div class="field">
-        <label>Assicurazione €</label>
-        <input id="insurance" type="number">
+
+        <label>
+          Assicurazione €
+        </label>
+
+        <input
+          id="insurance"
+          type="number"
+        >
+
       </div>
 
       <div class="field">
-        <label>Bollo €</label>
-        <input id="tax" type="number">
+
+        <label>
+          Bollo €
+        </label>
+
+        <input
+          id="tax"
+          type="number"
+        >
+
       </div>
 
       <div class="field">
-        <label>Altri fissi €</label>
-        <input id="otherFixed" type="number">
+
+        <label>
+          Altri fissi €
+        </label>
+
+        <input
+          id="otherFixed"
+          type="number"
+        >
+
       </div>
 
       <div class="field">
-        <label>Precisione GPS road m</label>
-        <input id="roadMaxAccuracy" type="number">
+
+        <label>
+          Precisione GPS road m
+        </label>
+
+        <input
+          id="roadMaxAccuracy"
+          type="number"
+        >
+
       </div>
 
     </div>
@@ -1479,8 +2293,15 @@ textarea{
 <section id="page-trips" class="page">
 
   <div class="section">
-    <h2>VIAGGI</h2>
-    <span id="tripCount">0 viaggi</span>
+
+    <h2>
+      VIAGGI
+    </h2>
+
+    <span id="tripCount">
+      0 viaggi
+    </span>
+
   </div>
 
   <div id="tripList"></div>
@@ -1528,7 +2349,9 @@ textarea{
 
 <div class="overlay speedOverlay">
 
-  <b>⚠ VELOCITÀ SUPERATA</b>
+  <b>
+    ⚠ VELOCITÀ SUPERATA
+  </b>
 
   <span id="speedOverlayText">
     RALLENTA
@@ -1538,7 +2361,9 @@ textarea{
 
 <div class="overlay veloxOverlay">
 
-  <b>📷 CONTROLLO VELOCITÀ</b>
+  <b>
+    📷 CONTROLLO VELOCITÀ
+  </b>
 
   <span id="veloxOverlayText">
     AUTOVELOX
@@ -1552,7 +2377,10 @@ textarea{
 
 <script>
 (()=>{
-const $=id=>document.getElementById(id);
+"use strict";
+
+const $=id=>
+  document.getElementById(id);
 
 const clamp=(n,a,b)=>
   Math.min(
@@ -1587,7 +2415,9 @@ const save=(key,value)=>
   );
 
 const load=(key,fallback)=>{
+
   try{
+
     return{
       ...fallback,
       ...JSON.parse(
@@ -1595,7 +2425,9 @@ const load=(key,fallback)=>{
         "{}"
       )
     };
+
   }catch{
+
     return{
       ...fallback
     };
@@ -1603,23 +2435,29 @@ const load=(key,fallback)=>{
 };
 
 const loadArray=key=>{
+
   try{
-    const data=
+
+    const value=
       JSON.parse(
         localStorage.getItem(key)||
         "[]"
       );
 
-    return Array.isArray(data)
-      ? data
+    return Array.isArray(value)
+      ? value
       : [];
+
   }catch{
+
     return[];
   }
 };
 
 const DEFAULTS={
-  vehicleName:"Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD",
+
+  vehicleName:
+    "Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD",
 
   purchasePrice:23000,
   residualValue:12000,
@@ -1643,54 +2481,66 @@ const DEFAULTS={
   speedTolerance:3,
 
   alarmDuration:"30",
+  alarmRepeat:"10",
   alarmVolume:.75,
-  alarmVoice:true,
-  selectedSound:"country",
 
-  veloxMaxAccuracy:45,
-  veloxMinSpeed:8,
-  veloxConfirmations:3,
-  veloxCone:55,
+  alarmVoice:true,
+  alarmVibration:true,
+
+  selectedSound:"country",
 
   veloxFar:1500,
   veloxMid:800,
   veloxNear:300,
-  veloxRadius:10,
+  veloxRadius:12,
+
+  veloxMaxAccuracy:80,
+  veloxCone:105,
+  veloxConfirmations:2,
+  veloxMinSpeed:5,
 
   veloxVoice:true,
   veloxSync:false
 };
 
-const SETTINGS_KEY="xaRoadV61Settings";
-const TRIPS_KEY="xaRoadV61Trips";
-const VELOX_KEY="xaRoadV61Velox";
+const KSET=
+  "xaRoadV7Settings";
+
+const KTRIP=
+  "xaRoadV7Trips";
+
+const KVELOX=
+  "xaRoadV7Velox";
 
 let settings=
   load(
-    SETTINGS_KEY,
+    KSET,
     DEFAULTS
   );
 
 let trips=
   loadArray(
-    TRIPS_KEY
+    KTRIP
   );
 
 let veloxDb=
   loadArray(
-    VELOX_KEY
+    KVELOX
   );
 
 let watchId=null;
 let wakeLock=null;
 let timer=null;
+let watchdogTimer=null;
 
 let audioContext=null;
 let audioNodes=[];
 let audioLoop=null;
+let audioStopTimer=null;
 let customAudio=null;
 
 let state={
+
   running:false,
   paused:false,
 
@@ -1711,71 +2561,122 @@ let state={
 };
 
 let speedGuard={
+
   active:false,
   alarming:false,
-  snooze:0
+
+  snooze:0,
+  nextAlarmAt:0
 };
 
 let veloxGuard={
+
   active:false,
+
   heading:null,
   tracks:{},
-  nearest:null
+  nearest:null,
+
+  previousSyncedLimit:null,
+  syncedPointId:null
 };
 
 const sounds=[
+
   {
     id:"beep",
     name:"Double Beep",
+    desc:"Doppio segnale",
     type:"square",
     notes:[930,0,930],
     beat:.2
   },
+
   {
     id:"radar",
     name:"Radar Pulse",
+    desc:"Impulsi elettronici",
     type:"square",
     notes:[880,0,880,1040],
     beat:.16
   },
+
   {
     id:"siren",
     name:"Highway Siren",
+    desc:"Sirena alternata",
     type:"sawtooth",
     notes:[620,920,620,920],
     beat:.25
   },
+
   {
     id:"horn",
     name:"Truck Horn",
+    desc:"Clacson camion",
     type:"sawtooth",
     notes:[150,145,135],
     beat:.5
   },
+
   {
     id:"country",
     name:"Country Road",
+    desc:"Motivo country",
     type:"triangle",
     notes:[392,494,587,494,659,587,494,392],
     beat:.2
   },
+
   {
     id:"rock",
     name:"Highway Rock",
+    desc:"Riff rock",
     type:"square",
     notes:[220,220,330,392,330,440,392],
     beat:.18
   },
+
+  {
+    id:"blues",
+    name:"Blues Truck",
+    desc:"Motivo blues",
+    type:"triangle",
+    notes:[294,349,392,466,392,349,294],
+    beat:.27
+  },
+
+  {
+    id:"western",
+    name:"Western Ride",
+    desc:"Richiamo western",
+    type:"triangle",
+    notes:[330,392,494,587,494,392],
+    beat:.23
+  },
+
+  {
+    id:"electro",
+    name:"Electro Drive",
+    desc:"Sequenza elettronica",
+    type:"square",
+    notes:[440,554,659,880,659,554],
+    beat:.16
+  },
+
   {
     id:"xa",
     name:"XA Anthem",
+    desc:"Motivo XA",
     type:"triangle",
     notes:[523,659,784,1047,784,659,587,523],
     beat:.21
   },
+
   {
     id:"custom",
     name:"Audio personale",
+    desc:"File dal telefono",
     custom:true
   }
 ];
@@ -1794,8 +2695,42 @@ function toast(text){
         .classList
         .remove("show");
     },
-    1600
+    1700
   );
+}
+
+function fill(){
+
+  Object.keys(DEFAULTS)
+    .forEach(
+      key=>{
+
+        const element=$(key);
+
+        if(!element){
+          return;
+        }
+
+        if(
+          element.type===
+          "checkbox"
+        ){
+
+          element.checked=
+            !!settings[key];
+
+        }else{
+
+          element.value=
+            settings[key];
+        }
+      }
+    );
+
+  renderSounds();
+  renderVelox();
+  renderTrips();
+  updateAll();
 }
 
 function readSettings(){
@@ -1810,7 +2745,10 @@ function readSettings(){
           return;
         }
 
-        if(element.type==="checkbox"){
+        if(
+          element.type===
+          "checkbox"
+        ){
 
           settings[key]=
             element.checked;
@@ -1818,7 +2756,8 @@ function readSettings(){
         }else if(
           [
             "vehicleName",
-            "alarmDuration"
+            "alarmDuration",
+            "alarmRepeat"
           ].includes(key)
         ){
 
@@ -1837,39 +2776,9 @@ function readSettings(){
     );
 
   save(
-    SETTINGS_KEY,
+    KSET,
     settings
   );
-}
-
-function fill(){
-
-  Object.keys(DEFAULTS)
-    .forEach(
-      key=>{
-
-        const element=$(key);
-
-        if(!element){
-          return;
-        }
-
-        if(element.type==="checkbox"){
-
-          element.checked=
-            !!settings[key];
-
-        }else{
-
-          element.value=
-            settings[key];
-        }
-      }
-    );
-
-  renderSounds();
-  renderVelox();
-  updateAll();
 }
 
 function costs(){
@@ -1906,8 +2815,10 @@ function costs(){
       : 0;
 
   return{
+
     fuel,
     tires,
+
     maintenance:
       settings.maintenancePerKm,
 
@@ -1979,6 +2890,7 @@ function tripTotals(){
     100;
 
   return{
+
     liters,
 
     fuel:
@@ -2007,7 +2919,7 @@ function updateAll(){
   const totals=
     tripTotals();
 
-  const totalCost=
+  const total=
     totals.fuel+
     totals.tires+
     totals.maintenance+
@@ -2015,7 +2927,7 @@ function updateAll(){
 
   const costPerKm=
     state.distance
-      ? totalCost/
+      ? total/
         state.distance
       : costs().total;
 
@@ -2025,9 +2937,7 @@ function updateAll(){
     );
 
   $("roadCost").textContent=
-    num(
-      totalCost
-    );
+    num(total);
 
   $("roadKm").textContent=
     num(
@@ -2213,6 +3123,86 @@ function angleDifference(first,second){
   );
 }
 
+function destinationPoint(
+  latitude,
+  longitude,
+  bearingDegrees,
+  distanceKm
+){
+
+  const radius=6371;
+
+  const bearing=
+    radians(
+      bearingDegrees
+    );
+
+  const distance=
+    distanceKm/
+    radius;
+
+  const firstLatitude=
+    radians(latitude);
+
+  const firstLongitude=
+    radians(longitude);
+
+  const secondLatitude=
+    Math.asin(
+      Math.sin(
+        firstLatitude
+      )*
+      Math.cos(
+        distance
+      )+
+      Math.cos(
+        firstLatitude
+      )*
+      Math.sin(
+        distance
+      )*
+      Math.cos(
+        bearing
+      )
+    );
+
+  const secondLongitude=
+    firstLongitude+
+    Math.atan2(
+      Math.sin(
+        bearing
+      )*
+      Math.sin(
+        distance
+      )*
+      Math.cos(
+        firstLatitude
+      ),
+      Math.cos(
+        distance
+      )-
+      Math.sin(
+        firstLatitude
+      )*
+      Math.sin(
+        secondLatitude
+      )
+    );
+
+  return{
+
+    lat:
+      secondLatitude*
+      180/
+      Math.PI,
+
+    lon:
+      secondLongitude*
+      180/
+      Math.PI
+  };
+}
+
 function onPosition(position){
 
   const coordinates=
@@ -2226,6 +3216,7 @@ function onPosition(position){
     state.lastPoint;
 
   const point={
+
     lat:
       coordinates.latitude,
 
@@ -2241,9 +3232,14 @@ function onPosition(position){
       999
   };
 
-  state.lastPoint=point;
-  state.lastFix=Date.now();
-  state.accuracy=point.accuracy;
+  state.lastPoint=
+    point;
+
+  state.lastFix=
+    Date.now();
+
+  state.accuracy=
+    point.accuracy;
 
   $("gpsPill")
     .classList
@@ -2270,7 +3266,7 @@ function onPosition(position){
       speed??
       state.speed
     )>
-    4
+    3
   ){
 
     veloxGuard.heading=
@@ -2293,7 +3289,7 @@ function onPosition(position){
       1000;
 
     if(
-      movement>=7&&
+      movement>=5&&
       headingTime>0&&
       headingTime<20
     ){
@@ -2338,10 +3334,10 @@ function onPosition(position){
       270&&
       distance<
       Math.max(
-        .3,
+        .35,
         timeDifference*
         .075*
-        1.35
+        1.45
       );
 
     if(
@@ -2352,7 +3348,7 @@ function onPosition(position){
       if(
         state.running&&
         !state.paused&&
-        distance>=.003
+        distance>=.002
       ){
 
         state.distance+=
@@ -2426,6 +3422,11 @@ function startGps(){
   stopGps();
 
   if(!navigator.geolocation){
+
+    toast(
+      "GPS non disponibile"
+    );
+
     return;
   }
 
@@ -2436,7 +3437,7 @@ function startGps(){
       {
         enableHighAccuracy:true,
         maximumAge:0,
-        timeout:10000
+        timeout:12000
       }
     );
 
@@ -2448,7 +3449,7 @@ function startGps(){
         {
           enableHighAccuracy:true,
           maximumAge:0,
-          timeout:15000
+          timeout:18000
         }
       );
 }
@@ -2481,19 +3482,65 @@ async function keepAwake(){
       wakeLock=
         await navigator.wakeLock
           .request("screen");
+
+      $("wakePill")
+        .classList
+        .add("on");
+
+      wakeLock.addEventListener(
+        "release",
+        ()=>{
+          $("wakePill")
+            .classList
+            .remove("on");
+        }
+      );
     }
 
   }catch{}
 }
 
+async function releaseWake(){
+
+  try{
+    await wakeLock?.release();
+  }catch{}
+
+  wakeLock=null;
+
+  $("wakePill")
+    .classList
+    .remove("on");
+}
+
 function watchdog(){
 
-  if(
-    gpsNeeded()&&
+  if(!gpsNeeded()){
+    return;
+  }
+
+  const age=
     Date.now()-
-    state.lastFix>
-    18000
+    state.lastFix;
+
+  if(
+    !state.lastFix||
+    age>12000
   ){
+
+    navigator.geolocation
+      ?.getCurrentPosition(
+        onPosition,
+        gpsError,
+        {
+          enableHighAccuracy:true,
+          maximumAge:0,
+          timeout:10000
+        }
+      );
+  }
+
+  if(age>28000){
 
     startGps();
   }
@@ -2529,6 +3576,7 @@ function startTrip(){
   }else{
 
     state={
+
       running:true,
       paused:false,
 
@@ -2599,6 +3647,7 @@ function pauseTrip(){
     ){
 
       stopGps();
+      releaseWake();
     }
 
   }else{
@@ -2629,6 +3678,7 @@ function stopTrip(){
   }
 
   state.running=false;
+  state.paused=false;
 
   clearInterval(timer);
 
@@ -2638,18 +3688,21 @@ function stopTrip(){
   ){
 
     stopGps();
+    releaseWake();
+    state.speed=0;
   }
 
   const totals=
     tripTotals();
 
-  const totalCost=
+  const total=
     totals.fuel+
     totals.tires+
     totals.maintenance+
     totals.fixed;
 
   trips.unshift({
+
     date:
       new Date()
         .toISOString(),
@@ -2660,18 +3713,17 @@ function stopTrip(){
     duration:
       state.elapsed,
 
-    total:
-      totalCost,
+    total,
 
     costPerKm:
       state.distance
-        ? totalCost/
+        ? total/
           state.distance
         : 0
   });
 
   save(
-    TRIPS_KEY,
+    KTRIP,
     trips
   );
 
@@ -2684,6 +3736,10 @@ function stopTrip(){
   updateTripButtons();
   renderTrips();
   updateAll();
+
+  toast(
+    "Viaggio salvato"
+  );
 }
 
 function unlockAudio(){
@@ -2727,7 +3783,12 @@ function stopAudio(){
     audioLoop
   );
 
+  clearTimeout(
+    audioStopTimer
+  );
+
   audioLoop=null;
+  audioStopTimer=null;
 
   if(customAudio){
 
@@ -2756,7 +3817,11 @@ function playPattern(sound){
 
   unlockAudio();
 
-  if(!audioContext){
+  if(
+    !audioContext||
+    sound.custom
+  ){
+
     return;
   }
 
@@ -2839,10 +3904,18 @@ function playSelected(loop=true){
   const sound=
     selectedSound();
 
-  if(
-    sound.custom&&
-    customAudio
-  ){
+  if(sound.custom){
+
+    if(!customAudio){
+
+      toast(
+        "Seleziona prima un file audio"
+      );
+
+      return;
+    }
+
+    customAudio.currentTime=0;
 
     customAudio.volume=
       settings.alarmVolume;
@@ -2852,7 +3925,13 @@ function playSelected(loop=true){
 
     customAudio
       .play()
-      .catch(()=>{});
+      .catch(
+        ()=>{
+          toast(
+            "Tocca TEST per autorizzare l’audio"
+          );
+        }
+      );
 
     return;
   }
@@ -2902,7 +3981,9 @@ function speak(text,enabled=true){
     settings.alarmVolume;
 
   speechSynthesis.cancel();
-  speechSynthesis.speak(utterance);
+  speechSynthesis.speak(
+    utterance
+  );
 }
 
 function renderSounds(){
@@ -2920,11 +4001,7 @@ function renderSounds(){
           data-sound="${sound.id}"
         >
           <b>${sound.name}</b>
-          <span>${
-            sound.custom
-              ? "File dal telefono"
-              : "Suoneria incorporata"
-          }</span>
+          <span>${sound.desc}</span>
         </button>`
     ).join("");
 
@@ -2941,7 +4018,7 @@ function renderSounds(){
             button.dataset.sound;
 
           save(
-            SETTINGS_KEY,
+            KSET,
             settings
           );
 
@@ -2968,7 +4045,9 @@ function speedAlarm(){
   if(
     speedGuard.alarming||
     Date.now()<
-    speedGuard.snooze
+    speedGuard.snooze||
+    Date.now()<
+    speedGuard.nextAlarmAt
   ){
 
     return;
@@ -2994,6 +4073,22 @@ function speedAlarm(){
     settings.alarmVoice
   );
 
+  if(
+    settings.alarmVibration&&
+    navigator.vibrate
+  ){
+
+    navigator.vibrate(
+      [
+        500,
+        150,
+        500,
+        150,
+        800
+      ]
+    );
+  }
+
   const duration=
     settings.alarmDuration===
     "continuous"
@@ -3009,10 +4104,27 @@ function speedAlarm(){
     )
   ){
 
-    setTimeout(
-      clearSpeedAlarm,
-      duration
-    );
+    audioStopTimer=
+      setTimeout(
+        ()=>{
+
+          clearSpeedAlarm();
+
+          const repeat=
+            Number(
+              settings.alarmRepeat
+            )||
+            0;
+
+          speedGuard.nextAlarmAt=
+            repeat
+              ? Date.now()+
+                repeat*
+                1000
+              : Infinity;
+        },
+        duration
+      );
   }
 }
 
@@ -3093,6 +4205,7 @@ function updateSpeed(){
       2
     ){
 
+      speedGuard.nextAlarmAt=0;
       clearSpeedAlarm();
     }
   }
@@ -3169,6 +4282,7 @@ function cleanVelox(value){
   }
 
   return{
+
     id:
       String(
         value.id||
@@ -3302,7 +4416,7 @@ function mergeVelox(list){
   ];
 
   save(
-    VELOX_KEY,
+    KVELOX,
     veloxDb
   );
 
@@ -3311,7 +4425,7 @@ function mergeVelox(list){
   return added;
 }
 
-function qualityLabel(value){
+function sourceLabel(value){
 
   if(
     value.source===
@@ -3351,7 +4465,7 @@ function qualityLabel(value){
   return "NON VERIFICATO";
 }
 
-function qualityClass(value){
+function sourceClass(value){
 
   if(
     [
@@ -3361,6 +4475,7 @@ function qualityClass(value){
       value.source
     )
   ){
+
     return "ok";
   }
 
@@ -3372,6 +4487,7 @@ function qualityClass(value){
       value.source
     )
   ){
+
     return "warn";
   }
 
@@ -3399,11 +4515,15 @@ function renderVelox(){
     veloxDb.length+
     " punti";
 
+  $("veloxDbLive").textContent=
+    veloxDb.length;
+
   if(!veloxDb.length){
 
     $("veloxList").innerHTML=
       `<div class="empty">
-        Database vuoto. Aggiungi o importa punti.
+        Database vuoto. Premi SEGNALA QUI,
+        TEST 500 M DAVANTI oppure importa un elenco.
       </div>`;
 
     return;
@@ -3427,8 +4547,8 @@ function renderVelox(){
               ${value.lat.toFixed(6)},
               ${value.lon.toFixed(6)}
               <br>
-              <span class="badge ${qualityClass(value)}">
-                ${qualityLabel(value)}
+              <span class="source-badge ${sourceClass(value)}">
+                ${sourceLabel(value)}
               </span>
             </p>
 
@@ -3466,7 +4586,7 @@ function renderVelox(){
             ];
 
           save(
-            VELOX_KEY,
+            KVELOX,
             veloxDb
           );
 
@@ -3478,6 +4598,8 @@ function renderVelox(){
 
 function resetTracking(showMessage=true){
 
+  restoreSyncedLimit();
+
   veloxGuard.tracks={};
   veloxGuard.nearest=null;
 
@@ -3486,7 +4608,10 @@ function resetTracking(showMessage=true){
     .remove("show-velox");
 
   if(showMessage){
-    toast("Controllo azzerato");
+
+    toast(
+      "Controllo azzerato"
+    );
   }
 }
 
@@ -3501,13 +4626,19 @@ function getTrack(value){
     veloxGuard.tracks[
       value.id
     ]={
-      samples:[],
-      confirmations:0,
-      minimum:Infinity,
-      armed:true,
-      passedAt:0,
+
+      previousDistance:null,
+
+      approach:0,
+      away:0,
+
+      minimumDistance:Infinity,
+
       level:0,
-      lastPointTime:0
+      armed:true,
+
+      passedAt:0,
+      lastSampleTime:0
     };
   }
 
@@ -3534,36 +4665,17 @@ function evaluateVelox(value){
     )*
     1000;
 
-  const accuracy=
-    state.accuracy||
-    999;
-
-  const track=
-    getTrack(value);
-
   if(
     distance>
     settings.veloxRadius*
     1000
   ){
 
-    if(
-      !track.armed&&
-      distance>1200&&
-      Date.now()-
-      track.passedAt>
-      30000
-    ){
-
-      track.samples=[];
-      track.confirmations=0;
-      track.minimum=Infinity;
-      track.armed=true;
-      track.level=0;
-    }
-
     return null;
   }
+
+  const track=
+    getTrack(value);
 
   const targetBearing=
     bearingBetween(
@@ -3574,21 +4686,22 @@ function evaluateVelox(value){
       }
     );
 
-  const headingDifference=
+  const headingKnown=
     Number.isFinite(
       veloxGuard.heading
-    )
+    );
+
+  const frontAngle=
+    headingKnown
       ? angleDifference(
           veloxGuard.heading,
           targetBearing
         )
       : null;
 
-  const cameraDifference=
+  const directionAngle=
     value.direction!=null&&
-    Number.isFinite(
-      veloxGuard.heading
-    )
+    headingKnown
       ? angleDifference(
           veloxGuard.heading,
           value.direction
@@ -3596,8 +4709,10 @@ function evaluateVelox(value){
       : null;
 
   if(
-    headingDifference!=null&&
-    headingDifference>
+    headingKnown&&
+    state.speed>=
+    settings.veloxMinSpeed&&
+    frontAngle>
     settings.veloxCone
   ){
 
@@ -3605,166 +4720,170 @@ function evaluateVelox(value){
   }
 
   if(
-    cameraDifference!=null&&
-    cameraDifference>60
+    directionAngle!=null&&
+    directionAngle>85
   ){
 
     return null;
   }
 
   if(
-    track.lastPointTime!==
+    track.lastSampleTime!==
     state.lastPoint.timestamp
   ){
 
-    track.lastPointTime=
+    track.lastSampleTime=
       state.lastPoint.timestamp;
 
-    track.samples.push(
-      distance
-    );
+    const margin=
+      Math.max(
+        2,
+        (
+          state.accuracy||
+          30
+        )*
+        .06
+      );
 
-    track.samples=
-      track.samples.slice(-7);
-
-    const count=
-      track.samples.length;
-
-    if(count>=2){
-
-      const previousDistance=
-        track.samples[
-          count-
-          2
-        ];
+    if(
+      track.previousDistance!=null
+    ){
 
       const difference=
-        previousDistance-
+        track.previousDistance-
         distance;
-
-      const margin=
-        Math.max(
-          2,
-          accuracy*
-          .08
-        );
 
       if(difference>margin){
 
-        track.confirmations=
+        track.approach=
           Math.min(
             9,
-            track.confirmations+
+            track.approach+
             1
           );
+
+        track.away=0;
 
       }else if(
         difference<
         -margin
       ){
 
-        track.confirmations=
+        track.away=
+          Math.min(
+            9,
+            track.away+
+            1
+          );
+
+        track.approach=
           Math.max(
             0,
-            track.confirmations-
-            2
+            track.approach-
+            1
           );
 
       }else{
 
-        track.confirmations=
+        track.approach=
           Math.max(
             0,
-            track.confirmations-
+            track.approach-
             1
           );
       }
     }
 
-    track.minimum=
+    track.previousDistance=
+      distance;
+
+    track.minimumDistance=
       Math.min(
-        track.minimum,
+        track.minimumDistance,
         distance
       );
   }
 
-  const sampleCount=
-    track.samples.length;
-
-  const increasing=
-    sampleCount>=3&&
-    track.samples[
-      sampleCount-
-      1
-    ]>
-    track.samples[
-      sampleCount-
-      2
-    ]+
-    5&&
-    track.samples[
-      sampleCount-
-      2
-    ]>
-    track.samples[
-      sampleCount-
-      3
-    ]+
-    3;
-
   if(
     track.armed&&
-    track.minimum<
+    track.minimumDistance<
     Math.max(
       120,
       settings.veloxNear*
-      .65
+      .7
     )&&
-    increasing&&
+    track.away>=2&&
     distance>
-    track.minimum+
+    track.minimumDistance+
     Math.max(
       35,
-      accuracy*
-      1.2
+      state.accuracy||
+      20
     )
   ){
 
     track.armed=false;
     track.passedAt=Date.now();
     track.level=0;
+
+    if(
+      veloxGuard.syncedPointId===
+      value.id
+    ){
+
+      restoreSyncedLimit();
+    }
   }
 
   if(!track.armed){
-    return null;
+
+    if(
+      distance>
+      Math.max(
+        1500,
+        settings.veloxFar+
+        300
+      )&&
+      Date.now()-
+      track.passedAt>
+      30000
+    ){
+
+      track.armed=true;
+
+      track.previousDistance=null;
+      track.approach=0;
+      track.away=0;
+
+      track.minimumDistance=Infinity;
+
+    }else{
+
+      return null;
+    }
   }
 
   const confirmed=
-    track.confirmations>=
+    track.approach>=
     settings.veloxConfirmations||
     (
       distance<=
       settings.veloxNear&&
-      track.confirmations>=
-      Math.max(
-        2,
-        settings.veloxConfirmations-
-        1
-      )&&
-      headingDifference!=null&&
-      headingDifference<=25
+      (
+        !headingKnown||
+        frontAngle<=55
+      )
     );
 
   return{
+
     ...value,
 
     distance,
-    headingDifference,
+    targetBearing,
+    frontAngle,
+
     confirmed,
-
-    confirmations:
-      track.confirmations,
-
     track
   };
 }
@@ -3773,41 +4892,100 @@ function nearestVelox(){
 
   let best=null;
 
-  veloxDb.forEach(
-    value=>{
+  for(
+    const value
+    of veloxDb
+  ){
 
-      const candidate=
-        evaluateVelox(value);
+    const candidate=
+      evaluateVelox(value);
 
-      if(!candidate){
-        return;
-      }
-
-      const score=
-        candidate.distance+
-        (
-          candidate.headingDifference??
-          35
-        )*
-        4-
-        candidate.confirmations*
-        45;
-
-      if(
-        !best||
-        score<
-        best.score
-      ){
-
-        best={
-          ...candidate,
-          score
-        };
-      }
+    if(!candidate){
+      continue;
     }
-  );
+
+    const score=
+      candidate.distance+
+      (
+        candidate.frontAngle??
+        30
+      )*
+      2-
+      candidate.track.approach*
+      75;
+
+    if(
+      !best||
+      score<
+      best.score
+    ){
+
+      best={
+        ...candidate,
+        score
+      };
+    }
+  }
 
   return best;
+}
+
+function syncLimit(value){
+
+  if(
+    !settings.veloxSync||
+    veloxGuard.syncedPointId===
+    value.id
+  ){
+
+    return;
+  }
+
+  if(
+    veloxGuard.syncedPointId==
+    null
+  ){
+
+    veloxGuard.previousSyncedLimit=
+      settings.speedLimit;
+  }
+
+  settings.speedLimit=
+    value.limit;
+
+  veloxGuard.syncedPointId=
+    value.id;
+
+  $("speedLimit").value=
+    value.limit;
+
+  save(
+    KSET,
+    settings
+  );
+}
+
+function restoreSyncedLimit(){
+
+  if(
+    veloxGuard.syncedPointId!=null&&
+    veloxGuard.previousSyncedLimit!=null
+  ){
+
+    settings.speedLimit=
+      veloxGuard.previousSyncedLimit;
+
+    $("speedLimit").value=
+      settings.speedLimit;
+
+    save(
+      KSET,
+      settings
+    );
+  }
+
+  veloxGuard.syncedPointId=null;
+  veloxGuard.previousSyncedLimit=null;
 }
 
 function veloxAlert(value,level){
@@ -3858,6 +5036,22 @@ function veloxAlert(value,level){
     settings.veloxVoice
   );
 
+  if(
+    navigator.vibrate&&
+    level==="near"
+  ){
+
+    navigator.vibrate(
+      [
+        350,
+        120,
+        350,
+        120,
+        650
+      ]
+    );
+  }
+
   document.body
     .classList
     .add("show-velox");
@@ -3873,26 +5067,42 @@ function veloxAlert(value,level){
 
   setTimeout(
     ()=>{
+
       document.body
         .classList
         .remove("show-velox");
     },
-    4500
+    5000
   );
 
-  if(settings.veloxSync){
+  syncLimit(value);
+}
 
-    settings.speedLimit=
-      value.limit;
+function clearVeloxLive(){
 
-    $("speedLimit").value=
-      value.limit;
+  $("veloxDistance").textContent=
+    "—";
 
-    save(
-      SETTINGS_KEY,
-      settings
-    );
-  }
+  $("veloxLimit").textContent=
+    "—";
+
+  $("veloxNameLive").textContent=
+    "—";
+
+  $("veloxTypeLive").textContent=
+    "—";
+
+  $("veloxApproachLive").textContent=
+    "—";
+
+  $("veloxSourceLive").textContent=
+    "—";
+
+  $("veloxTrend").textContent=
+    "0";
+
+  $("veloxArrow").style.transform=
+    "rotate(0deg)";
 }
 
 function updateVelox(){
@@ -3902,7 +5112,7 @@ function updateVelox(){
       state.speed
     );
 
-  $("veloxGps").textContent=
+  $("veloxGpsLive").textContent=
     state.accuracy
       ? "±"+
         Math.round(
@@ -3911,7 +5121,7 @@ function updateVelox(){
         "m"
       : "—";
 
-  $("veloxHeading").textContent=
+  $("veloxHeadingLive").textContent=
     Number.isFinite(
       veloxGuard.heading
     )
@@ -3921,17 +5131,12 @@ function updateVelox(){
         "°"
       : "—";
 
+  $("veloxDbLive").textContent=
+    veloxDb.length;
+
   if(!veloxGuard.active){
 
-    $("veloxDistance").textContent=
-      "—";
-
-    $("veloxLimit").textContent=
-      "—";
-
-    $("veloxConfirm").textContent=
-      "0/"+
-      settings.veloxConfirmations;
+    clearVeloxLive();
 
     $("veloxMessage").textContent=
       "CONTROLLO DISATTIVATO";
@@ -3943,6 +5148,8 @@ function updateVelox(){
   }
 
   if(!state.lastPoint){
+
+    clearVeloxLive();
 
     $("veloxMessage").textContent=
       "RICERCA GPS";
@@ -3956,65 +5163,16 @@ function updateVelox(){
   if(
     Date.now()-
     state.lastFix>
-    12000
+    15000
   ){
 
-    $("veloxDistance").textContent=
-      "—";
-
-    $("veloxLimit").textContent=
-      "—";
+    clearVeloxLive();
 
     $("veloxMessage").textContent=
       "GPS NON AGGIORNATO";
 
     $("veloxMessage").className=
       "message warn";
-
-    return;
-  }
-
-  if(
-    state.accuracy>
-    settings.veloxMaxAccuracy
-  ){
-
-    $("veloxDistance").textContent=
-      "—";
-
-    $("veloxLimit").textContent=
-      "—";
-
-    $("veloxMessage").textContent=
-      "GPS TROPPO IMPRECISO · ±"+
-      Math.round(
-        state.accuracy
-      )+
-      " M";
-
-    $("veloxMessage").className=
-      "message warn";
-
-    return;
-  }
-
-  if(
-    state.speed<
-    settings.veloxMinSpeed
-  ){
-
-    $("veloxDistance").textContent=
-      "—";
-
-    $("veloxLimit").textContent=
-      "—";
-
-    $("veloxMessage").textContent=
-      "IN ATTESA · VELOCITÀ MINIMA "+
-      settings.veloxMinSpeed;
-
-    $("veloxMessage").className=
-      "message safe";
 
     return;
   }
@@ -4027,21 +5185,29 @@ function updateVelox(){
 
   if(!value){
 
-    $("veloxDistance").textContent=
-      "—";
+    clearVeloxLive();
 
-    $("veloxLimit").textContent=
-      "—";
+    if(
+      state.accuracy>
+      settings.veloxMaxAccuracy
+    ){
 
-    $("veloxConfirm").textContent=
-      "0/"+
-      settings.veloxConfirmations;
+      $("veloxMessage").textContent=
+        "GPS IMPRECISO · CONTINUA IL CONTROLLO";
 
-    $("veloxMessage").textContent=
-      "NESSUN RILEVATORE DAVANTI";
+      $("veloxMessage").className=
+        "message warn";
 
-    $("veloxMessage").className=
-      "message safe";
+    }else{
+
+      $("veloxMessage").textContent=
+        veloxDb.length
+          ? "NESSUN RILEVATORE DAVANTI"
+          : "DATABASE VUOTO";
+
+      $("veloxMessage").className=
+        "message safe";
+    }
 
     return;
   }
@@ -4062,19 +5228,54 @@ function updateVelox(){
   $("veloxLimit").textContent=
     value.limit;
 
-  $("veloxConfirm").textContent=
-    Math.min(
-      value.confirmations,
-      settings.veloxConfirmations
-    )+
+  $("veloxNameLive").textContent=
+    value.name;
+
+  $("veloxTypeLive").textContent=
+    value.type;
+
+  $("veloxSourceLive").innerHTML=
+    `<span class="source-badge ${sourceClass(value)}">
+      ${sourceLabel(value)}
+    </span>`;
+
+  $("veloxTrend").textContent=
+    value.track.approach+
     "/"+
     settings.veloxConfirmations;
 
-  if(!value.confirmed){
+  const relative=
+    Number.isFinite(
+      veloxGuard.heading
+    )
+      ? (
+          (
+            value.targetBearing-
+            veloxGuard.heading+
+            540
+          )%
+          360
+        )-
+        180
+      : 0;
+
+  $("veloxArrow").style.transform=
+    `rotate(${relative}deg)`;
+
+  if(
+    state.accuracy>
+    settings.veloxMaxAccuracy
+  ){
+
+    $("veloxApproachLive").textContent=
+      "GPS DA MIGLIORARE";
 
     $("veloxMessage").textContent=
-      "VERIFICA AVVICINAMENTO · "+
-      value.name;
+      "RILEVATORE TROVATO · GPS ±"+
+      Math.round(
+        state.accuracy
+      )+
+      " M";
 
     $("veloxMessage").className=
       "message warn";
@@ -4082,12 +5283,47 @@ function updateVelox(){
     return;
   }
 
+  if(
+    state.speed<
+    settings.veloxMinSpeed
+  ){
+
+    $("veloxApproachLive").textContent=
+      "FERMO / LENTO";
+
+    $("veloxMessage").textContent=
+      "RILEVATORE VICINO · IN ATTESA DI MOVIMENTO";
+
+    $("veloxMessage").className=
+      "message safe";
+
+    return;
+  }
+
+  if(!value.confirmed){
+
+    $("veloxApproachLive").textContent=
+      "VERIFICA AVVICINAMENTO";
+
+    $("veloxMessage").textContent=
+      "RILEVATORE DAVANTI · CONFERMA "+
+      value.track.approach+
+      "/"+
+      settings.veloxConfirmations;
+
+    $("veloxMessage").className=
+      "message warn";
+
+    return;
+  }
+
+  $("veloxApproachLive").textContent=
+    "IN AVVICINAMENTO";
+
   $("veloxMessage").textContent=
     value.type+
     " · "+
-    value.name+
-    " · "+
-    qualityLabel(value);
+    value.name;
 
   $("veloxMessage").className=
     "message "+
@@ -4138,7 +5374,10 @@ function useCurrentPosition(){
   if(!state.lastPoint){
 
     startGps();
-    toast("Attendo il GPS");
+
+    toast(
+      "Attendo il GPS"
+    );
 
     return false;
   }
@@ -4170,6 +5409,7 @@ function addVelox(source){
 
   const value=
     cleanVelox({
+
       name:
         $("veloxName").value||
         "Segnalazione",
@@ -4196,7 +5436,9 @@ function addVelox(source){
 
   if(!value){
 
-    toast("Coordinate non valide");
+    toast(
+      "Coordinate non valide"
+    );
 
     return;
   }
@@ -4210,6 +5452,70 @@ function addVelox(source){
     added
       ? "Rilevatore aggiunto"
       : "Punto già presente"
+  );
+}
+
+function addTestPoint(){
+
+  if(!state.lastPoint){
+
+    startGps();
+
+    toast(
+      "Attendo il GPS per creare il test"
+    );
+
+    return;
+  }
+
+  const heading=
+    Number.isFinite(
+      veloxGuard.heading
+    )
+      ? veloxGuard.heading
+      : 0;
+
+  const position=
+    destinationPoint(
+      state.lastPoint.lat,
+      state.lastPoint.lon,
+      heading,
+      .5
+    );
+
+  const value=
+    cleanVelox({
+
+      name:
+        "TEST 500 M DAVANTI",
+
+      type:
+        "Test",
+
+      limit:
+        settings.speedLimit,
+
+      source:
+        "manuale",
+
+      direction:
+        heading,
+
+      lat:
+        position.lat,
+
+      lon:
+        position.lon
+    });
+
+  mergeVelox(
+    [value]
+  );
+
+  resetTracking(false);
+
+  toast(
+    "Punto test creato a 500 metri"
   );
 }
 
@@ -4244,6 +5550,7 @@ function parseVelox(text){
         item=>
           cleanVelox({
             ...item,
+
             source:
               item.source||
               "importato"
@@ -4267,12 +5574,16 @@ function parseVelox(text){
             );
 
         return cleanVelox({
+
           name:fields[0],
           type:fields[1],
           limit:fields[2],
+
           lat:fields[3],
           lon:fields[4],
+
           direction:fields[5],
+
           source:
             fields[6]||
             "importato"
@@ -4319,6 +5630,7 @@ async function loadOnline(showMessage=true){
         list.map(
           value=>({
             ...value,
+
             source:
               value.source||
               "online"
@@ -4333,6 +5645,9 @@ async function loadOnline(showMessage=true){
       added+
       " nuovi";
 
+    $("onlineState").className=
+      "note online-ok";
+
     if(showMessage){
 
       toast(
@@ -4344,15 +5659,38 @@ async function loadOnline(showMessage=true){
   }catch{
 
     $("onlineState").textContent=
-      "autovelox.json non trovato. Resta attivo il database locale.";
+      "autovelox.json non trovato: il database locale resta attivo e funzionante.";
+
+    $("onlineState").className=
+      "note online-bad";
 
     if(showMessage){
 
       toast(
-        "Database online non disponibile"
+        "Online assente, uso database locale"
       );
     }
   }
+}
+
+function exportVelox(){
+
+  const text=
+    JSON.stringify(
+      veloxDb,
+      null,
+      2
+    );
+
+  $("veloxData").value=
+    text;
+
+  navigator.clipboard
+    ?.writeText(text);
+
+  toast(
+    "Database mostrato e copiato"
+  );
 }
 
 function renderTrips(){
@@ -4437,10 +5775,16 @@ function renderTrips(){
 function exportTrips(){
 
   if(!trips.length){
+
+    toast(
+      "Nessun viaggio"
+    );
+
     return;
   }
 
   const rows=[
+
     [
       "Data",
       "Km",
@@ -4488,7 +5832,7 @@ function exportTrips(){
   link.href=url;
 
   link.download=
-    "xa-road-v61-viaggi.csv";
+    "xa-road-v7-viaggi.csv";
 
   link.click();
 
@@ -4559,7 +5903,7 @@ document
           settings.speedLimit;
 
         save(
-          SETTINGS_KEY,
+          KSET,
           settings
         );
 
@@ -4586,6 +5930,10 @@ $("toggleSpeed").onclick=()=>{
     keepAwake();
     unlockAudio();
 
+    toast(
+      "Speed Guard attivo"
+    );
+
   }else{
 
     clearSpeedAlarm();
@@ -4596,7 +5944,12 @@ $("toggleSpeed").onclick=()=>{
     ){
 
       stopGps();
+      releaseWake();
     }
+
+    toast(
+      "Speed Guard disattivato"
+    );
   }
 
   updateAll();
@@ -4617,17 +5970,18 @@ $("testSpeed").onclick=()=>{
     .classList
     .add("show-speed");
 
-  setTimeout(
-    ()=>{
+  audioStopTimer=
+    setTimeout(
+      ()=>{
 
-      stopAudio();
+        stopAudio();
 
-      document.body
-        .classList
-        .remove("show-speed");
-    },
-    12000
-  );
+        document.body
+          .classList
+          .remove("show-speed");
+      },
+      12000
+    );
 };
 
 $("snoozeSpeed").onclick=()=>{
@@ -4661,11 +6015,15 @@ $("customAudio").onchange=event=>{
       "custom";
 
     save(
-      SETTINGS_KEY,
+      KSET,
       settings
     );
 
     renderSounds();
+
+    toast(
+      "Audio personale selezionato"
+    );
   }
 };
 
@@ -4688,12 +6046,17 @@ $("toggleVelox").onclick=()=>{
     startGps();
     keepAwake();
 
+    toast(
+      "Velox Guard attivo"
+    );
+
   }else if(
     !state.running&&
     !speedGuard.active
   ){
 
     stopGps();
+    releaseWake();
   }
 
   updateAll();
@@ -4721,6 +6084,9 @@ $("reportVelox").onclick=()=>{
   }
 };
 
+$("testPoint").onclick=
+  addTestPoint;
+
 $("usePosition").onclick=
   useCurrentPosition;
 
@@ -4728,12 +6094,13 @@ $("addVelox").onclick=()=>{
   addVelox();
 };
 
-$("saveVelox").onclick=()=>{
+$("saveVeloxSettings").onclick=()=>{
 
   readSettings();
+  resetTracking(false);
 
   toast(
-    "Filtro salvato"
+    "Impostazioni Autovelox salvate"
   );
 };
 
@@ -4743,6 +6110,49 @@ $("loadOnline").onclick=()=>{
 
 $("resetTracking").onclick=()=>{
   resetTracking(true);
+};
+
+$("exportVelox").onclick=
+  exportVelox;
+
+$("testVeloxAlarm").onclick=()=>{
+
+  readSettings();
+
+  const sound=
+    sounds.find(
+      item=>
+        item.id===
+        "siren"
+    );
+
+  stopAudio();
+  playPattern(sound);
+
+  speak(
+    "Autovelox test. Tra trecento metri. Limite "+
+    settings.speedLimit+
+    " chilometri orari.",
+    settings.veloxVoice
+  );
+
+  document.body
+    .classList
+    .add("show-velox");
+
+  $("veloxOverlayText").textContent=
+    "TEST AUTOVELOX · 300 M · LIMITE "+
+    settings.speedLimit;
+
+  setTimeout(
+    ()=>{
+
+      document.body
+        .classList
+        .remove("show-velox");
+    },
+    5000
+  );
 };
 
 $("importVelox").onclick=()=>{
@@ -4770,43 +6180,27 @@ $("importVelox").onclick=()=>{
   }
 };
 
-$("exportVelox").onclick=()=>{
-
-  $("veloxData").value=
-    JSON.stringify(
-      veloxDb,
-      null,
-      2
-    );
-
-  navigator.clipboard
-    ?.writeText(
-      $("veloxData").value
-    );
-
-  toast(
-    "Database copiato"
-  );
-};
-
 $("clearVelox").onclick=()=>{
 
   if(
     confirm(
-      "Cancellare il database?"
+      "Cancellare tutto il database autovelox?"
     )
   ){
 
     veloxDb=[];
 
-    resetTracking(false);
-
     save(
-      VELOX_KEY,
+      KVELOX,
       veloxDb
     );
 
+    resetTracking(false);
     renderVelox();
+
+    toast(
+      "Database cancellato"
+    );
   }
 };
 
@@ -4815,7 +6209,7 @@ $("saveCar").onclick=()=>{
   readSettings();
 
   toast(
-    "Dati salvati"
+    "Dati Ford salvati"
   );
 };
 
@@ -4833,7 +6227,7 @@ $("clearTrips").onclick=()=>{
     trips=[];
 
     save(
-      TRIPS_KEY,
+      KTRIP,
       trips
     );
 
@@ -4853,26 +6247,43 @@ document.addEventListener(
 
       startGps();
       keepAwake();
+      watchdog();
+    }
+  }
+);
+
+window.addEventListener(
+  "beforeunload",
+  ()=>{
+
+    if(state.running){
+
+      state.elapsed=
+        elapsedTime();
     }
   }
 );
 
 fill();
-renderTrips();
 updateTripButtons();
 loadOnline(false);
 
-setInterval(
-  ()=>{
-
-    if(gpsNeeded()){
-      updateAll();
-    }
-
-    watchdog();
-  },
-  1000
+clearInterval(
+  watchdogTimer
 );
+
+watchdogTimer=
+  setInterval(
+    ()=>{
+
+      if(gpsNeeded()){
+        updateAll();
+      }
+
+      watchdog();
+    },
+    1000
+  );
 
 })();
 </script>
