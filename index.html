@@ -4,27 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#08090c">
-<meta name="mobile-web-app-capable" content="yes">
-<title>XA Road Command V6</title>
+<title>XA Road Command V6.1</title>
 
 <style>
 :root{
   --bg:#07090c;
-  --panel:#12161c;
-  --panel2:#1a2028;
-  --line:#38424e;
+  --panel:#141920;
+  --line:#394451;
   --text:#f7f1e7;
-  --muted:#909ba7;
+  --muted:#8d98a4;
   --amber:#ffb440;
-  --amber2:#ffd37e;
   --red:#db4148;
-  --green:#49d994;
-  --blue:#56b9ff;
-  --shadow:0 20px 52px #0009;
+  --green:#49d994
 }
 
 *{
-  box-sizing:border-box;
+  box-sizing:border-box
 }
 
 html,
@@ -33,36 +28,30 @@ body{
   min-height:100%;
   background:#050608;
   color:var(--text);
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif
 }
 
 body{
   background:
-    radial-gradient(circle at 50% -10%,#7d1b2540,transparent 34%),
-    linear-gradient(#101319,#050608 60%);
-
-  padding:
-    env(safe-area-inset-top)
-    0
-    env(safe-area-inset-bottom);
+    radial-gradient(circle at 50% -10%,#7d1b2540,transparent 35%),
+    linear-gradient(#101319,#050608 65%)
 }
 
 button,
 input,
 select,
 textarea{
-  font:inherit;
+  font:inherit
 }
 
 button{
-  cursor:pointer;
+  cursor:pointer
 }
 
 .app{
   max-width:860px;
   margin:auto;
-  padding:12px 12px 104px;
-  min-height:100vh;
+  padding:12px 12px 100px
 }
 
 .top{
@@ -70,512 +59,364 @@ button{
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  padding:7px 2px 14px;
+  margin-bottom:12px
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:11px;
+  gap:10px
 }
 
 .logo{
-  width:54px;
-  height:54px;
-  border-radius:16px;
+  width:52px;
+  height:52px;
+  border-radius:15px;
   display:grid;
   place-items:center;
-
-  background:
-    linear-gradient(
-      145deg,
-      #c83b47,
-      #66151e 75%
-    );
-
-  border:1px solid #df5a65;
-
-  box-shadow:
-    inset 0 0 0 3px #0003,
-    var(--shadow);
-
-  font:800 25px Georgia,serif;
+  background:linear-gradient(145deg,#ca3b47,#65151d);
+  border:1px solid #e45d68;
+  font:800 24px Georgia,serif;
+  box-shadow:0 12px 30px #0008
 }
 
 .brand h1{
-  margin:0;
-  font-size:18px;
-  letter-spacing:.1em;
+  font-size:17px;
+  letter-spacing:.09em;
+  margin:0
 }
 
 .brand p{
-  margin:4px 0 0;
+  font-size:8px;
+  letter-spacing:.13em;
   color:#aaa39d;
-  font-size:9px;
-  letter-spacing:.14em;
-}
-
-.status{
-  display:grid;
-  gap:5px;
+  margin:4px 0 0
 }
 
 .pill{
   display:flex;
   align-items:center;
   gap:6px;
-
   padding:6px 9px;
-
-  border:1px solid #363f49;
+  border:1px solid #38424d;
   border-radius:99px;
-
   background:#101318;
-  color:#929ba6;
-
-  font-size:8px;
-  white-space:nowrap;
+  color:#96a0ab;
+  font-size:8px
 }
 
 .pill i{
   width:7px;
   height:7px;
   border-radius:50%;
-  background:#4c545e;
+  background:#555f69
 }
 
 .pill.on{
   color:#dbffeb;
-  border-color:#49d99466;
+  border-color:#49d99466
 }
 
 .pill.on i{
   background:var(--green);
-  box-shadow:0 0 10px var(--green);
+  box-shadow:0 0 10px var(--green)
 }
 
 .page{
-  display:none;
+  display:none
 }
 
 .page.active{
-  display:block;
+  display:block
 }
 
-.dash,
 .hero,
 .panel,
 .card{
   background:
-    linear-gradient(
-      #ffffff0b,
-      transparent 15%
-    ),
-    linear-gradient(
-      145deg,
-      #1a2027,
-      #0c0f13 70%
-    );
-
-  border:1px solid #3b4652;
-
-  box-shadow:
-    var(--shadow),
-    inset 0 1px #ffffff08;
+    linear-gradient(#ffffff0b,transparent 14%),
+    linear-gradient(145deg,#1b2129,#0c0f13 72%);
+  border:1px solid var(--line);
+  box-shadow:0 18px 45px #0008,inset 0 1px #ffffff08
 }
 
-.dash,
 .hero{
-  border-radius:28px;
+  border-radius:27px;
   padding:15px;
   position:relative;
-  overflow:hidden;
+  overflow:hidden
 }
 
-.dash:before,
 .hero:before{
   content:"";
   position:absolute;
   inset:0 0 auto;
   height:5px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #71181d,
-      #db4148 24%,
-      #ffb440 50%,
-      #db4148 76%,
-      #71181d
-    );
+  background:linear-gradient(
+    90deg,
+    #71181d,
+    var(--red),
+    var(--amber),
+    var(--red),
+    #71181d
+  )
 }
 
-.dash-title{
+.kicker{
   display:flex;
   justify-content:space-between;
-  gap:10px;
-
-  margin:3px 3px 12px;
-
-  color:#aab2bc;
-
+  gap:8px;
+  margin:3px 2px 12px;
   font-size:8px;
-  letter-spacing:.15em;
+  letter-spacing:.14em;
+  color:#aab2bc
 }
 
-.dash-title b{
-  color:var(--amber);
+.kicker b{
+  color:var(--amber)
 }
 
 .meters{
   display:grid;
   grid-template-columns:1fr 1.2fr 1fr;
-  gap:9px;
+  gap:8px
 }
 
 .meter{
-  border-radius:22px;
-
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      #20262d,
-      #080a0d 72%
-    );
-
-  border:1px solid #3b4650;
-
-  padding:18px 8px;
-
+  border-radius:20px;
+  padding:17px 7px;
   text-align:center;
-
-  box-shadow:
-    inset 0 0 26px #000b;
+  background:radial-gradient(circle at 50% 35%,#212830,#080a0d 72%);
+  border:1px solid #3b4650;
+  box-shadow:inset 0 0 25px #000b
 }
 
 .meter b{
   display:block;
-
-  font-size:
-    clamp(
-      38px,
-      11vw,
-      70px
-    );
-
+  font-size:clamp(36px,11vw,68px);
   line-height:.95;
-  font-variant-numeric:tabular-nums;
+  font-variant-numeric:tabular-nums
+}
+
+.meter.main b{
+  font-size:clamp(48px,14vw,82px);
+  color:#ffd37e
 }
 
 .meter span{
   display:block;
-
   margin-top:8px;
-
-  font-size:8px;
-  letter-spacing:.12em;
-
-  color:#8e98a4;
+  font-size:7px;
+  letter-spacing:.11em;
+  color:#8d98a4
 }
 
-.meter.cost b{
-  color:var(--amber2);
-}
-
-.meter.main{
-  padding:22px 8px;
-}
-
-.meter.main b{
-  font-size:
-    clamp(
-      52px,
-      14vw,
-      86px
-    );
-}
-
-.meter.main small{
-  color:var(--amber);
-  font-size:22px;
-}
-
-.trip-state{
+.message{
+  margin-top:11px;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid #303a45;
+  background:#0e1216;
   text-align:center;
-  margin-top:10px;
-  font-size:11px;
-  color:#adb4bc;
+  font-size:10px;
+  font-weight:900;
+  color:#99a4af
 }
 
-.trip-state.live{
+.message.safe{
   color:#dffff0;
+  border-color:#49d99460;
+  background:#102219
+}
+
+.message.warn{
+  color:#ffe2a6;
+  border-color:#ffb44066;
+  background:#241b0e
+}
+
+.message.danger{
+  color:#fff;
+  border-color:#ff6969;
+  background:linear-gradient(135deg,#8f171c,#3c0b0f);
+  box-shadow:0 0 24px #db414860
+}
+
+.controls,
+.row2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:9px
 }
 
 .controls{
-  display:grid;
-  grid-template-columns:1.2fr 1fr 1fr;
-  gap:8px;
-  margin-top:12px;
+  grid-template-columns:1.2fr 1fr 1fr
 }
 
 .btn{
-  min-height:54px;
-
-  border-radius:16px;
+  min-height:52px;
+  border-radius:15px;
   border:1px solid #3a4550;
-
   color:#fff;
-
-  background:
-    linear-gradient(
-      #2b333c,
-      #151a20
-    );
-
+  background:linear-gradient(#2b333c,#151a20);
   font-weight:900;
-  letter-spacing:.06em;
-
-  box-shadow:
-    inset 0 1px #ffffff14,
-    0 7px 16px #0005;
+  letter-spacing:.05em;
+  box-shadow:inset 0 1px #ffffff14
 }
 
 .btn.primary{
-  background:
-    linear-gradient(
-      #d83e48,
-      #791821
-    );
-
-  border-color:#e65761;
+  background:linear-gradient(#d83e48,#791821);
+  border-color:#e65761
 }
 
 .btn.warn{
-  background:
-    linear-gradient(
-      #583b20,
-      #271a10
-    );
-
+  background:linear-gradient(#583b20,#271a10);
   color:#ffd797;
-  border-color:#745030;
+  border-color:#745030
 }
 
 .btn.danger{
-  background:
-    linear-gradient(
-      #481b21,
-      #211014
-    );
-
+  background:linear-gradient(#481b21,#211014);
   color:#ffb1b6;
-  border-color:#74333d;
+  border-color:#74333d
 }
 
 .btn.success{
-  background:
-    linear-gradient(
-      #42cc89,
-      #17643f
-    );
-
+  background:linear-gradient(#42cc89,#17643f);
   border-color:#6dedae;
-  color:#06150e;
+  color:#06150e
 }
 
 .btn:disabled{
-  opacity:.35;
+  opacity:.35
 }
 
 .telemetry{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:7px;
-  margin-top:10px;
+  margin-top:9px
 }
 
 .tele{
   padding:9px 5px;
-
-  border-radius:13px;
-
+  border-radius:12px;
   background:#0d1115;
   border:1px solid #2d3640;
-
-  text-align:center;
+  text-align:center
 }
 
 .tele b{
   display:block;
-  color:var(--amber2);
-  font-size:14px;
+  color:#ffd37e;
+  font-size:13px
 }
 
 .tele span{
   display:block;
   margin-top:4px;
   color:#7f8995;
-  font-size:7px;
+  font-size:7px
 }
 
 .section{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
-  margin:19px 3px 9px;
+  gap:8px;
+  margin:18px 3px 8px
 }
 
 .section h2{
   margin:0;
-  font-size:13px;
-  letter-spacing:.1em;
+  font-size:12px;
+  letter-spacing:.1em
 }
 
 .section span{
-  font-size:9px;
-  color:#9aa4af;
+  font-size:8px;
+  color:#98a2ad
 }
 
-.cost-grid{
+.panel,
+.card{
+  border-radius:17px;
+  padding:13px;
+  margin-bottom:9px
+}
+
+.panel h3,
+.card h3{
+  margin:0 0 11px;
+  font-size:12px;
+  letter-spacing:.08em
+}
+
+.cards{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-
-.card,
-.panel{
-  border-radius:18px;
-  padding:13px;
-  margin-bottom:10px;
+  gap:8px
 }
 
 .card{
-  margin:0;
+  margin:0
 }
 
-.card-row{
+.cardline{
   display:flex;
   justify-content:space-between;
-  gap:10px;
-}
-
-.card h3,
-.panel h3{
-  margin:0 0 12px;
-
-  font-size:12px;
-  letter-spacing:.08em;
+  gap:8px
 }
 
 .card strong{
-  font-size:16px;
-  color:#fff5e5;
+  color:#fff5e5
 }
 
 .card small{
   display:block;
-  color:#84909b;
-  font-size:8px;
   margin-top:4px;
-}
-
-.bar{
-  height:5px;
-  background:#252d35;
-  border-radius:99px;
-  margin-top:10px;
-  overflow:hidden;
-}
-
-.bar i{
-  display:block;
-  height:100%;
-  width:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      #db4148,
-      #ffb440
-    );
-
-  border-radius:99px;
+  color:#84909b;
+  font-size:8px
 }
 
 .fields{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:10px
 }
 
 .field{
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:6px
 }
 
 .field.full{
-  grid-column:1/-1;
+  grid-column:1/-1
 }
 
 label{
-  font-size:9px;
-  color:#949eaa;
+  font-size:8px;
+  color:#949eaa
 }
 
 input,
 select,
 textarea{
   width:100%;
-
   border:1px solid #343e49;
   background:#080a0d;
   color:#fff4e7;
-
-  border-radius:12px;
+  border-radius:11px;
   padding:11px;
-
-  outline:none;
-
-  box-shadow:
-    inset 0 0 12px #0008;
+  outline:none
 }
 
 textarea{
-  min-height:115px;
-  resize:vertical;
-
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    Consolas,
-    monospace;
-
-  font-size:11px;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:#d28b43;
-
-  box-shadow:
-    0 0 0 3px #ffb44015,
-    inset 0 0 12px #0008;
-}
-
-.row2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:10px;
-}
-
-.note{
-  font-size:9px;
-  color:#89939e;
-  line-height:1.5;
+  min-height:110px;
+  font-family:ui-monospace,Consolas,monospace;
+  font-size:10px
 }
 
 .check{
@@ -583,557 +424,338 @@ textarea:focus{
   align-items:center;
   justify-content:space-between;
   gap:10px;
-
   border:1px solid #343e49;
   background:#080a0d;
-
-  border-radius:12px;
-  padding:11px;
+  border-radius:11px;
+  padding:10px
 }
 
 .check input{
   width:22px;
   height:22px;
-  box-shadow:none;
-  accent-color:var(--red);
+  accent-color:var(--red)
 }
 
 .presets{
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:7px;
+  gap:7px
 }
 
 .preset{
-  min-height:49px;
-
-  border-radius:14px;
+  min-height:48px;
+  border-radius:13px;
   border:1px solid #3a4551;
-
-  background:
-    linear-gradient(
-      #202731,
-      #101419
-    );
-
-  color:#f7f1e7;
-  font-weight:900;
+  background:linear-gradient(#202731,#101419);
+  color:#fff;
+  font-weight:900
 }
 
 .preset.active{
-  background:
-    linear-gradient(
-      #d58a32,
-      #744010
-    );
-
-  border-color:#ffbd5d;
+  background:linear-gradient(#d58a32,#744010);
+  border-color:#ffbd5d
 }
 
-.message{
-  margin-top:12px;
-  padding:12px;
-
-  border-radius:15px;
-
-  background:#0e1216;
-  border:1px solid #303a45;
-
-  text-align:center;
-
-  font-size:11px;
-  font-weight:900;
-
-  color:#99a4af;
-}
-
-.message.safe{
-  color:#dffff0;
-  border-color:#49d99460;
-  background:#102219;
-}
-
-.message.warn{
-  color:#ffe2a6;
-  border-color:#ffb44066;
-  background:#241b0e;
-}
-
-.message.danger{
-  color:#fff;
-  border-color:#ff6969;
-
-  background:
-    linear-gradient(
-      135deg,
-      #8f171c,
-      #3c0b0f
-    );
-
-  box-shadow:
-    0 0 24px #db414860;
-}
-
-.sound-grid{
+.soundgrid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:7px;
+  grid-template-columns:1fr 1fr;
+  gap:7px
 }
 
 .sound{
-  padding:11px;
-
+  padding:10px;
   border:1px solid #35414d;
-
-  background:
-    linear-gradient(
-      #1a2028,
-      #0e1216
-    );
-
-  border-radius:14px;
-
+  background:linear-gradient(#1a2028,#0e1216);
+  border-radius:13px;
   text-align:left;
-  color:#f7f1e7;
+  color:#fff
 }
 
 .sound b{
   display:block;
-  font-size:10px;
+  font-size:10px
 }
 
 .sound span{
   display:block;
   margin-top:4px;
-  color:#87929e;
   font-size:8px;
+  color:#87929e
 }
 
 .sound.active{
-  border-color:#ffb440;
-
-  background:
-    linear-gradient(
-      #493218,
-      #17110a
-    );
+  border-color:var(--amber);
+  background:linear-gradient(#493218,#17110a)
 }
 
-.velox-read{
+.reliability{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:8px;
-  margin-top:12px;
-}
-
-.velox-cell{
-  border-radius:18px;
-
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      #241b1b,
-      #090b0e 72%
-    );
-
-  border:1px solid #493d3c;
-
-  padding:15px 6px;
-  text-align:center;
-}
-
-.velox-cell b{
-  display:block;
-
-  font-size:
-    clamp(
-      28px,
-      9vw,
-      50px
-    );
-
-  line-height:.95;
-}
-
-.velox-cell span{
-  display:block;
-
-  margin-top:7px;
-
-  font-size:7px;
-  color:#8e98a4;
-}
-
-.velox-cell.limit b{
-  color:var(--amber2);
-}
-
-.velox-cell.dist b{
-  color:#ff7d72;
-}
-
-.velox-list{
-  display:grid;
+  grid-template-columns:repeat(3,1fr);
   gap:7px;
+  margin-top:9px
 }
 
-.velox-item{
+.reliability div{
+  padding:9px 5px;
+  border-radius:12px;
+  background:#0d1115;
+  border:1px solid #2d3640;
+  text-align:center
+}
+
+.reliability b{
+  display:block;
+  color:#ffd37e;
+  font-size:12px
+}
+
+.reliability span{
+  display:block;
+  margin-top:4px;
+  color:#7f8995;
+  font-size:7px
+}
+
+.veloxlist{
+  display:grid;
+  gap:7px
+}
+
+.veloxitem{
   display:grid;
   grid-template-columns:1fr auto;
-  gap:9px;
+  gap:8px;
   align-items:center;
-
+  padding:10px;
+  border-radius:13px;
   background:#0c1014;
-  border:1px solid #303a44;
-
-  border-radius:14px;
-  padding:11px;
+  border:1px solid #303a44
 }
 
-.velox-item h4{
+.veloxitem h4{
   margin:0;
-  font-size:11px;
+  font-size:10px
 }
 
-.velox-item p{
+.veloxitem p{
   margin:4px 0 0;
-
   font-size:8px;
-  color:#89939e;
-  line-height:1.4;
+  color:#89939e
+}
+
+.badge{
+  display:inline-block;
+  margin-top:5px;
+  padding:3px 6px;
+  border-radius:99px;
+  border:1px solid #4b5663;
+  font-size:7px;
+  font-weight:900
+}
+
+.badge.ok{
+  color:#dffff0;
+  border-color:#49d99466
+}
+
+.badge.warn{
+  color:#ffe2a6;
+  border-color:#ffb44066
+}
+
+.badge.bad{
+  color:#ffb0b5;
+  border-color:#db414866
 }
 
 .delete{
-  width:40px;
-  height:40px;
-
-  border-radius:12px;
+  width:39px;
+  height:39px;
+  border-radius:11px;
   border:1px solid #6f3239;
-
   background:#35151a;
   color:#ffb0b5;
-
-  font-weight:900;
+  font-weight:900
 }
 
 .empty{
   text-align:center;
-
-  padding:27px 14px;
-
-  color:#838d99;
-
-  background:#101419;
+  padding:25px 12px;
   border:1px dashed #35404b;
-
-  border-radius:17px;
+  border-radius:15px;
+  background:#101419;
+  color:#838d99
 }
 
 .trip{
-  background:
-    linear-gradient(
-      145deg,
-      #171c22,
-      #0c0f13
-    );
-
-  border:1px solid #343e49;
-
-  border-radius:16px;
-  padding:12px;
+  padding:11px;
   margin-bottom:8px;
+  border-radius:15px;
+  background:#101419;
+  border:1px solid #343e49
 }
 
-.trip-head{
+.triphead{
   display:flex;
   justify-content:space-between;
-  gap:10px;
+  gap:8px;
+  font-size:10px
 }
 
-.trip-head b{
-  font-size:11px;
+.triphead span{
+  color:#ffd37e;
+  font-weight:900
 }
 
-.trip-head span{
-  font-weight:900;
-  color:var(--amber2);
-}
-
-.trip-meta{
+.tripmeta{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:6px;
-  margin-top:9px;
+  margin-top:8px
 }
 
-.trip-meta div{
+.tripmeta div{
   text-align:center;
-
-  padding:8px;
-
-  border-radius:10px;
-
-  background:#090c0f;
-  border:1px solid #252d35;
+  padding:7px;
+  border-radius:9px;
+  background:#080b0e;
+  border:1px solid #252d35
 }
 
-.trip-meta b{
+.tripmeta b{
   display:block;
-  font-size:11px;
+  font-size:11px
 }
 
-.trip-meta small{
+.tripmeta small{
   font-size:7px;
-  color:#7f8995;
+  color:#7f8995
 }
 
 .nav{
   position:fixed;
   left:50%;
-  transform:translateX(-50%);
   bottom:0;
-
+  transform:translateX(-50%);
   width:min(860px,100%);
-
   display:grid;
   grid-template-columns:repeat(5,1fr);
   gap:4px;
-
+  padding:8px 9px calc(8px + env(safe-area-inset-bottom));
   background:#07090cf5;
-  backdrop-filter:blur(16px);
-
+  backdrop-filter:blur(15px);
   border-top:1px solid #303944;
-
-  padding:
-    8px
-    9px
-    calc(
-      8px +
-      env(safe-area-inset-bottom)
-    );
-
-  z-index:50;
+  z-index:40
 }
 
 .nav button{
   border:1px solid transparent;
   background:transparent;
   color:#89939e;
-
   padding:9px 2px;
-  border-radius:12px;
-
+  border-radius:11px;
   font-size:7px;
-  font-weight:900;
+  font-weight:900
 }
 
 .nav button.active{
-  background:
-    linear-gradient(
-      #29313a,
-      #171c22
-    );
-
+  background:linear-gradient(#29313a,#171c22);
   border-color:#3b4652;
-  color:#fff4e5;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-
-  background:#000c;
-
-  display:none;
-  place-items:end center;
-
-  z-index:100;
-  padding:14px;
-}
-
-.modal.open{
-  display:grid;
-}
-
-.modal-box{
-  width:min(860px,100%);
-
-  background:#151a20;
-  border:1px solid #3d4854;
-
-  border-radius:22px;
-  padding:16px;
-
-  box-shadow:var(--shadow);
+  color:#fff4e5
 }
 
 .overlay{
   display:none;
-
   position:fixed;
   left:50%;
-  top:max(
-    12px,
-    env(safe-area-inset-top)
-  );
-
+  top:12px;
   transform:translateX(-50%);
-
-  width:min(
-    800px,
-    calc(100% - 24px)
-  );
-
-  z-index:120;
-
-  border:2px solid #ff7272;
-  border-radius:18px;
-
+  width:min(800px,calc(100% - 24px));
+  z-index:100;
   padding:14px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #a9131aee,
-      #3c070bee
-    );
-
-  box-shadow:
-    0 0 42px #ff263b99;
-
+  border-radius:17px;
+  border:2px solid #ff7272;
+  background:linear-gradient(135deg,#a9131aee,#3c070bee);
+  box-shadow:0 0 42px #ff263b99;
   text-align:center;
-  color:#fff;
-
-  animation:
-    pulse .7s
-    infinite alternate;
+  color:#fff
 }
 
 .overlay b{
   display:block;
-
-  font-size:19px;
-  letter-spacing:.1em;
+  font-size:18px
 }
 
 .overlay span{
   display:block;
   margin-top:5px;
-  font-size:11px;
+  font-size:10px
 }
 
-.show-speed .speed-overlay,
-.show-velox .velox-overlay{
-  display:block;
+.show-speed .speedOverlay,
+.show-velox .veloxOverlay{
+  display:block
 }
 
 .toast{
   position:fixed;
   left:50%;
-  bottom:91px;
-
-  transform:
-    translate(
-      -50%,
-      20px
-    );
-
+  bottom:90px;
+  transform:translate(-50%,18px);
   opacity:0;
-
-  pointer-events:none;
-  z-index:130;
-
+  z-index:110;
+  padding:10px 13px;
+  border-radius:99px;
   background:#f7efe2;
   color:#111;
-
-  padding:10px 14px;
-  border-radius:99px;
-
-  font-size:11px;
+  font-size:10px;
   font-weight:900;
-
-  transition:.25s;
+  transition:.25s
 }
 
 .toast.show{
   opacity:1;
-
-  transform:
-    translate(
-      -50%,
-      0
-    );
-}
-
-@keyframes pulse{
-  from{
-    filter:brightness(.88);
-
-    transform:
-      translateX(-50%)
-      scale(.99);
-  }
-
-  to{
-    filter:brightness(1.18);
-
-    transform:
-      translateX(-50%)
-      scale(1.01);
-  }
+  transform:translate(-50%,0)
 }
 
 @media(max-width:600px){
-
   .meters{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 1fr
   }
 
   .meter.main{
     grid-column:1/-1;
-    grid-row:1;
+    grid-row:1
   }
 
-  .cost-grid,
+  .cards,
   .fields{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
   .field.full{
-    grid-column:auto;
+    grid-column:auto
   }
 
   .telemetry{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 1fr
   }
 
   .presets{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr)
   }
 
-  .velox-read{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .velox-cell:first-child{
-    grid-column:1/-1;
-  }
-
-  .sound-grid{
-    grid-template-columns:1fr;
+  .soundgrid{
+    grid-template-columns:1fr
   }
 
   .brand h1{
-    font-size:15px;
+    font-size:14px
   }
 
   .logo{
-    width:49px;
-    height:49px;
-  }
-
-  .nav button{
-    font-size:6px;
+    width:48px;
+    height:48px
   }
 }
 </style>
@@ -1152,119 +774,57 @@ textarea:focus{
     </div>
 
     <div>
-
-      <h1>
-        ROAD COMMAND V6
-      </h1>
-
-      <p>
-        FORD EDGE ST-LINE 238 CV
-      </p>
-
+      <h1>ROAD COMMAND V6.1</h1>
+      <p>RELIABILITY EDITION · FORD EDGE</p>
     </div>
 
   </div>
 
-  <div class="status">
-
-    <div id="gpsPill" class="pill">
-
-      <i></i>
-
-      <span id="gpsText">
-        GPS PRONTO
-      </span>
-
-    </div>
-
-    <div id="wakePill" class="pill">
-
-      <i></i>
-
-      <span>
-        SCHERMO ATTIVO
-      </span>
-
-    </div>
-
+  <div id="gpsPill" class="pill">
+    <i></i>
+    <span id="gpsText">GPS PRONTO</span>
   </div>
 
 </header>
 
 <main>
 
-<section id="page-live" class="page active">
+<section id="page-road" class="page active">
 
-  <div class="dash">
+  <div class="hero">
 
-    <div class="dash-title">
-
-      <span>
-        AMERICAN ROAD INSTRUMENTATION
-      </span>
-
-      <b>
-        GPS WATCHDOG V6
-      </b>
-
+    <div class="kicker">
+      <span>ROAD METER</span>
+      <b>GPS WATCHDOG</b>
     </div>
 
     <div class="meters">
 
       <div class="meter">
-
-        <b id="speed">
-          0
-        </b>
-
-        <span>
-          VELOCITÀ KM/H
-        </span>
-
+        <b id="roadSpeed">0</b>
+        <span>KM/H</span>
       </div>
 
       <div class="meter main">
-
-        <div>
-
-          <small>
-            €
-          </small>
-
-          <b id="totalCost">
-            0,00
-          </b>
-
-        </div>
-
-        <span>
-          COSTO REALE VIAGGIO
-        </span>
-
+        <b id="roadCost">0,00</b>
+        <span>EURO VIAGGIO</span>
       </div>
 
-      <div class="meter cost">
-
-        <b id="costKm">
-          0,000
-        </b>
-
-        <span>
-          EURO / KM
-        </span>
-
+      <div class="meter">
+        <b id="roadKm">0,00</b>
+        <span>CHILOMETRI</span>
       </div>
 
     </div>
 
-    <div id="tripState" class="trip-state">
-      Premi START per iniziare
+    <div id="tripMessage" class="message">
+      PREMI START
     </div>
 
     <div class="controls">
 
       <button id="startTrip" class="btn primary">
-        START TRIP
+        START
       </button>
 
       <button id="pauseTrip" class="btn warn" disabled>
@@ -1272,7 +832,7 @@ textarea:focus{
       </button>
 
       <button id="stopTrip" class="btn danger" disabled>
-        STOP & SAVE
+        STOP
       </button>
 
     </div>
@@ -1280,51 +840,23 @@ textarea:focus{
     <div class="telemetry">
 
       <div class="tele">
-
-        <b id="distance">
-          0,00
-        </b>
-
-        <span>
-          KM
-        </span>
-
+        <b id="tripTime">00:00:00</b>
+        <span>TEMPO</span>
       </div>
 
       <div class="tele">
-
-        <b id="duration">
-          00:00:00
-        </b>
-
-        <span>
-          TEMPO
-        </span>
-
+        <b id="fuelLiters">0,00</b>
+        <span>LITRI</span>
       </div>
 
       <div class="tele">
-
-        <b id="fuelLiters">
-          0,00
-        </b>
-
-        <span>
-          LITRI
-        </span>
-
+        <b id="costKm">0,000</b>
+        <span>€/KM</span>
       </div>
 
       <div class="tele">
-
-        <b id="gpsAccuracy">
-          —
-        </b>
-
-        <span>
-          PRECISIONE GPS
-        </span>
-
+        <b id="gpsAccuracy">—</b>
+        <span>GPS</span>
       </div>
 
     </div>
@@ -1332,33 +864,19 @@ textarea:focus{
   </div>
 
   <div class="section">
-
-    <h2>
-      COSTI LIVE
-    </h2>
-
-    <span id="gpsCounters">
-      0 accettati · 0 scartati
-    </span>
-
+    <h2>COSTI</h2>
+    <span id="gpsCount">0 accettati</span>
   </div>
 
-  <div class="cost-grid">
+  <div class="cards">
 
     <div class="card">
 
-      <div class="card-row">
+      <div class="cardline">
 
         <div>
-
-          <h3>
-            Carburante
-          </h3>
-
-          <small id="fuelDetail">
-            0,00 L
-          </small>
-
+          <h3>Carburante</h3>
+          <small id="fuelInfo">0,00 L</small>
         </div>
 
         <strong id="fuelCost">
@@ -1367,82 +885,49 @@ textarea:focus{
 
       </div>
 
-      <div class="bar">
-        <i id="fuelBar"></i>
-      </div>
-
     </div>
 
     <div class="card">
 
-      <div class="card-row">
+      <div class="cardline">
 
         <div>
-
-          <h3>
-            Gomme
-          </h3>
-
-          <small>
-            Usura per chilometro
-          </small>
-
+          <h3>Gomme</h3>
+          <small>Usura</small>
         </div>
 
-        <strong id="tiresCost">
+        <strong id="tireCost">
           € 0,00
         </strong>
 
       </div>
 
-      <div class="bar">
-        <i id="tiresBar"></i>
-      </div>
-
     </div>
 
     <div class="card">
 
-      <div class="card-row">
+      <div class="cardline">
 
         <div>
-
-          <h3>
-            Manutenzione
-          </h3>
-
-          <small>
-            Tagliandi, freni, olio
-          </small>
-
+          <h3>Manutenzione</h3>
+          <small>Tagliandi e freni</small>
         </div>
 
-        <strong id="maintenanceCost">
+        <strong id="maintCost">
           € 0,00
         </strong>
 
       </div>
 
-      <div class="bar">
-        <i id="maintenanceBar"></i>
-      </div>
-
     </div>
 
     <div class="card">
 
-      <div class="card-row">
+      <div class="cardline">
 
         <div>
-
-          <h3>
-            Costi fissi
-          </h3>
-
-          <small>
-            Assicurazione, bollo, garage
-          </small>
-
+          <h3>Fissi + svalutazione</h3>
+          <small>Quota chilometrica</small>
         </div>
 
         <strong id="fixedCost">
@@ -1451,85 +936,7 @@ textarea:focus{
 
       </div>
 
-      <div class="bar">
-        <i id="fixedBar"></i>
-      </div>
-
     </div>
-
-    <div class="card">
-
-      <div class="card-row">
-
-        <div>
-
-          <h3>
-            Svalutazione
-          </h3>
-
-          <small>
-            Perdita valore auto
-          </small>
-
-        </div>
-
-        <strong id="depreciationCost">
-          € 0,00
-        </strong>
-
-      </div>
-
-      <div class="bar">
-        <i id="depreciationBar"></i>
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-row">
-
-        <div>
-
-          <h3>
-            Spese viaggio
-          </h3>
-
-          <small>
-            Pedaggi e parcheggi
-          </small>
-
-        </div>
-
-        <strong id="extrasCost">
-          € 0,00
-        </strong>
-
-      </div>
-
-      <div class="bar">
-        <i id="extrasBar"></i>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="row2">
-
-    <button
-      data-extra="Autostrada"
-      class="btn"
-    >
-      AUTOSTRADA
-    </button>
-
-    <button
-      data-extra="Parcheggio"
-      class="btn"
-    >
-      PARCHEGGIO
-    </button>
 
   </div>
 
@@ -1539,54 +946,26 @@ textarea:focus{
 
   <div class="hero">
 
-    <div class="dash-title">
-
-      <span>
-        SPEED GUARD V6
-      </span>
-
-      <b>
-        LONG ALARM
-      </b>
-
+    <div class="kicker">
+      <span>SPEED GUARD</span>
+      <b>LONG ALARM</b>
     </div>
 
     <div class="meters">
 
       <div class="meter">
-
-        <b id="speedBig">
-          0
-        </b>
-
-        <span>
-          VELOCITÀ ATTUALE
-        </span>
-
+        <b id="speedNow">0</b>
+        <span>ATTUALE</span>
       </div>
 
-      <div class="meter main cost">
-
-        <b id="limitBig">
-          90
-        </b>
-
-        <span>
-          LIMITE IMPOSTATO
-        </span>
-
+      <div class="meter main">
+        <b id="speedLimitBig">90</b>
+        <span>LIMITE</span>
       </div>
 
       <div class="meter">
-
-        <b id="overBig">
-          0
-        </b>
-
-        <span>
-          SUPERAMENTO
-        </span>
-
+        <b id="speedOver">0</b>
+        <span>OLTRE</span>
       </div>
 
     </div>
@@ -1598,144 +977,52 @@ textarea:focus{
   </div>
 
   <div class="section">
-
-    <h2>
-      PRESET
-    </h2>
-
-    <span>
-      km/h
-    </span>
-
+    <h2>PRESET</h2>
+    <span>km/h</span>
   </div>
 
   <div class="presets">
 
-    <button class="preset" data-limit="50">
-      50
-    </button>
-
-    <button class="preset" data-limit="70">
-      70
-    </button>
-
-    <button class="preset" data-limit="90">
-      90
-    </button>
-
-    <button class="preset" data-limit="110">
-      110
-    </button>
-
-    <button class="preset" data-limit="130">
-      130
-    </button>
+    <button class="preset" data-limit="50">50</button>
+    <button class="preset" data-limit="70">70</button>
+    <button class="preset" data-limit="90">90</button>
+    <button class="preset" data-limit="110">110</button>
+    <button class="preset" data-limit="130">130</button>
 
   </div>
 
-  <div class="panel" style="margin-top:10px">
+  <div class="panel">
 
-    <h3>
-      IMPOSTAZIONI ALLARME
-    </h3>
+    <h3>IMPOSTAZIONI</h3>
 
     <div class="fields">
 
       <div class="field">
+        <label>Limite km/h</label>
+        <input id="speedLimit" type="number">
+      </div>
 
-        <label>
-          Limite km/h
-        </label>
-
-        <input
-          id="speedLimit"
-          type="number"
-          min="20"
-          max="200"
-        >
-
+      <div class="field">
+        <label>Tolleranza km/h</label>
+        <input id="speedTolerance" type="number">
       </div>
 
       <div class="field">
 
-        <label>
-          Tolleranza km/h
-        </label>
-
-        <input
-          id="speedTolerance"
-          type="number"
-          min="0"
-          max="15"
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label>
-          Durata allarme
-        </label>
+        <label>Durata</label>
 
         <select id="alarmDuration">
-
-          <option value="10">
-            10 secondi
-          </option>
-
-          <option value="20">
-            20 secondi
-          </option>
-
-          <option value="30">
-            30 secondi
-          </option>
-
-          <option value="60">
-            60 secondi
-          </option>
-
-          <option value="continuous">
-            Continuo finché rallenti
-          </option>
-
+          <option value="10">10 secondi</option>
+          <option value="20">20 secondi</option>
+          <option value="30">30 secondi</option>
+          <option value="60">60 secondi</option>
+          <option value="continuous">Continuo</option>
         </select>
 
       </div>
 
       <div class="field">
-
-        <label>
-          Ripetizione
-        </label>
-
-        <select id="alarmRepeat">
-
-          <option value="0">
-            Non ripetere
-          </option>
-
-          <option value="5">
-            5 secondi
-          </option>
-
-          <option value="10">
-            10 secondi
-          </option>
-
-          <option value="20">
-            20 secondi
-          </option>
-
-        </select>
-
-      </div>
-
-      <div class="field full">
-
-        <label>
-          Volume
-        </label>
+        <label>Volume</label>
 
         <input
           id="alarmVolume"
@@ -1744,47 +1031,13 @@ textarea:focus{
           max="1"
           step="0.05"
         >
-
       </div>
 
       <div class="field full">
 
-        <label>
-          Vibrazione
-        </label>
-
         <div class="check">
-
-          <span>
-            Vibra con l'allarme
-          </span>
-
-          <input
-            id="alarmVibration"
-            type="checkbox"
-          >
-
-        </div>
-
-      </div>
-
-      <div class="field full">
-
-        <label>
-          Voce
-        </label>
-
-        <div class="check">
-
-          <span>
-            Pronuncia “Rallenta”
-          </span>
-
-          <input
-            id="alarmVoice"
-            type="checkbox"
-          >
-
+          <span>Voce “Rallenta”</span>
+          <input id="alarmVoice" type="checkbox">
         </div>
 
       </div>
@@ -1793,18 +1046,12 @@ textarea:focus{
 
     <div class="row2">
 
-      <button
-        id="toggleSpeed"
-        class="btn success"
-      >
-        ATTIVA CONTROLLO
+      <button id="toggleSpeed" class="btn success">
+        ATTIVA
       </button>
 
-      <button
-        id="testSpeed"
-        class="btn warn"
-      >
-        TEST ALLARME
+      <button id="testSpeed" class="btn warn">
+        TEST
       </button>
 
     </div>
@@ -1814,48 +1061,20 @@ textarea:focus{
       class="btn"
       style="width:100%;margin-top:8px"
     >
-      SILENZIA 60 SECONDI
+      SILENZIA 60 SEC
     </button>
 
   </div>
 
   <div class="panel">
 
-    <h3>
-      SUONERIE E MOTIVI
-    </h3>
+    <h3>SUONI</h3>
 
-    <div
-      id="soundGrid"
-      class="sound-grid"
-    ></div>
+    <div id="soundGrid" class="soundgrid"></div>
 
-    <div class="row2">
+    <div class="field" style="margin-top:9px">
 
-      <button
-        id="previewSound"
-        class="btn"
-      >
-        ASCOLTA
-      </button>
-
-      <button
-        id="stopSound"
-        class="btn danger"
-      >
-        FERMA
-      </button>
-
-    </div>
-
-    <div
-      class="field full"
-      style="margin-top:10px"
-    >
-
-      <label>
-        Canzone personale dal telefono
-      </label>
+      <label>Audio personale</label>
 
       <input
         id="customAudio"
@@ -1873,54 +1092,26 @@ textarea:focus{
 
   <div class="hero">
 
-    <div class="dash-title">
-
-      <span>
-        AUTOVELOX GUARD V6
-      </span>
-
-      <b>
-        DATABASE LOCALE GPS
-      </b>
-
+    <div class="kicker">
+      <span>AUTOVELOX GUARD V6.1</span>
+      <b>RELIABILITY FILTER</b>
     </div>
 
-    <div class="velox-read">
+    <div class="meters">
 
-      <div class="velox-cell">
-
-        <b id="veloxSpeed">
-          0
-        </b>
-
-        <span>
-          VELOCITÀ
-        </span>
-
+      <div class="meter">
+        <b id="veloxSpeed">0</b>
+        <span>VELOCITÀ</span>
       </div>
 
-      <div class="velox-cell dist">
-
-        <b id="veloxDistance">
-          —
-        </b>
-
-        <span>
-          DISTANZA
-        </span>
-
+      <div class="meter main">
+        <b id="veloxDistance">—</b>
+        <span>DISTANZA</span>
       </div>
 
-      <div class="velox-cell limit">
-
-        <b id="veloxLimit">
-          —
-        </b>
-
-        <span>
-          LIMITE
-        </span>
-
+      <div class="meter">
+        <b id="veloxLimit">—</b>
+        <span>LIMITE</span>
       </div>
 
     </div>
@@ -1929,21 +1120,34 @@ textarea:focus{
       CONTROLLO DISATTIVATO
     </div>
 
+    <div class="reliability">
+
+      <div>
+        <b id="veloxConfirm">0/3</b>
+        <span>CONFERME</span>
+      </div>
+
+      <div>
+        <b id="veloxHeading">—</b>
+        <span>DIREZIONE</span>
+      </div>
+
+      <div>
+        <b id="veloxGps">—</b>
+        <span>GPS</span>
+      </div>
+
+    </div>
+
   </div>
 
   <div class="row2">
 
-    <button
-      id="toggleVelox"
-      class="btn success"
-    >
-      ATTIVA VELOX GUARD
+    <button id="toggleVelox" class="btn success">
+      ATTIVA VELOX
     </button>
 
-    <button
-      id="reportVelox"
-      class="btn primary"
-    >
+    <button id="reportVelox" class="btn primary">
       SEGNALA QUI
     </button>
 
@@ -1951,110 +1155,64 @@ textarea:focus{
 
   <div class="panel">
 
-    <h3>
-      AVVISI
-    </h3>
+    <h3>FILTRO AFFIDABILITÀ</h3>
 
     <div class="fields">
 
       <div class="field">
-
-        <label>
-          Primo avviso metri
-        </label>
-
-        <input
-          id="veloxFar"
-          type="number"
-          min="300"
-          max="5000"
-        >
-
+        <label>Precisione GPS max m</label>
+        <input id="veloxMaxAccuracy" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Secondo avviso metri
-        </label>
-
-        <input
-          id="veloxMid"
-          type="number"
-          min="200"
-          max="3000"
-        >
-
+        <label>Velocità minima km/h</label>
+        <input id="veloxMinSpeed" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Avviso vicino metri
-        </label>
-
-        <input
-          id="veloxNear"
-          type="number"
-          min="50"
-          max="1000"
-        >
-
+        <label>Conferme consecutive</label>
+        <input id="veloxConfirmations" type="number">
       </div>
 
       <div class="field">
+        <label>Cono davanti gradi</label>
+        <input id="veloxCone" type="number">
+      </div>
 
-        <label>
-          Raggio ricerca km
-        </label>
+      <div class="field">
+        <label>Avviso lontano m</label>
+        <input id="veloxFar" type="number">
+      </div>
 
-        <input
-          id="veloxRadius"
-          type="number"
-          min="1"
-          max="30"
-        >
+      <div class="field">
+        <label>Avviso medio m</label>
+        <input id="veloxMid" type="number">
+      </div>
 
+      <div class="field">
+        <label>Avviso vicino m</label>
+        <input id="veloxNear" type="number">
+      </div>
+
+      <div class="field">
+        <label>Raggio ricerca km</label>
+        <input id="veloxRadius" type="number">
       </div>
 
       <div class="field full">
 
-        <label>
-          Voce
-        </label>
-
         <div class="check">
-
-          <span>
-            Pronuncia distanza e limite
-          </span>
-
-          <input
-            id="veloxVoice"
-            type="checkbox"
-          >
-
+          <span>Voce distanza e limite</span>
+          <input id="veloxVoice" type="checkbox">
         </div>
 
       </div>
 
       <div class="field full">
 
-        <label>
-          Sincronizza Speed Guard
-        </label>
-
         <div class="check">
-
-          <span>
-            Usa il limite del rilevatore
-          </span>
-
-          <input
-            id="veloxSync"
-            type="checkbox"
-          >
-
+          <span>Sincronizza Speed Guard</span>
+          <input id="veloxSync" type="checkbox">
         </div>
 
       </div>
@@ -2062,145 +1220,118 @@ textarea:focus{
     </div>
 
     <button
-      id="saveVeloxSettings"
+      id="saveVelox"
       class="btn primary"
-      style="width:100%;margin-top:9px"
+      style="width:100%;margin-top:8px"
     >
-      SALVA IMPOSTAZIONI
+      SALVA FILTRO
     </button>
 
-    <p class="note">
-      L'app avvisa soltanto per coordinate già salvate o importate.
-      Non rileva fisicamente postazioni mobili nascoste.
+    <p style="font-size:8px;color:#8d98a4;line-height:1.5">
+      Avvisa solo con GPS preciso, direzione compatibile e distanza
+      in diminuzione. Riduce i falsi allarmi, ma non può riconoscere
+      perfettamente la carreggiata senza una mappa stradale.
     </p>
 
   </div>
 
   <div class="panel">
 
-    <h3>
-      AGGIUNGI RILEVATORE
-    </h3>
+    <h3>DATABASE ONLINE</h3>
+
+    <div class="row2">
+
+      <button id="loadOnline" class="btn primary">
+        AGGIORNA ONLINE
+      </button>
+
+      <button id="resetTracking" class="btn">
+        AZZERA CONTROLLO
+      </button>
+
+    </div>
+
+    <p id="onlineState" style="font-size:8px;color:#8d98a4">
+      Cerca il file autovelox.json nello stesso repository.
+    </p>
+
+  </div>
+
+  <div class="panel">
+
+    <h3>AGGIUNGI PUNTO</h3>
 
     <div class="fields">
 
       <div class="field">
-
-        <label>
-          Nome / strada
-        </label>
-
-        <input
-          id="veloxName"
-          placeholder="Es. SS67 Empoli Est"
-        >
-
+        <label>Nome</label>
+        <input id="veloxName">
       </div>
 
       <div class="field">
 
-        <label>
-          Tipo
-        </label>
+        <label>Tipo</label>
 
         <select id="veloxType">
-
-          <option>
-            Fisso
-          </option>
-
-          <option>
-            Tutor
-          </option>
-
-          <option>
-            Semaforo
-          </option>
-
-          <option>
-            Mobile
-          </option>
-
-          <option>
-            Altro
-          </option>
-
+          <option>Fisso</option>
+          <option>Tutor</option>
+          <option>Semaforo</option>
+          <option>Mobile</option>
         </select>
 
       </div>
 
       <div class="field">
-
-        <label>
-          Limite
-        </label>
-
-        <input
-          id="veloxManualLimit"
-          type="number"
-          value="90"
-        >
-
+        <label>Limite</label>
+        <input id="veloxManualLimit" type="number" value="90">
       </div>
 
       <div class="field">
 
-        <label>
-          Direzione gradi facoltativa
-        </label>
+        <label>Affidabilità</label>
 
-        <input
-          id="veloxHeading"
-          type="number"
-          min="0"
-          max="359"
-        >
+        <select id="veloxSource">
+          <option value="manuale">Manuale</option>
+          <option value="verificato">Verificato</option>
+          <option value="non_verificato">Non verificato</option>
+        </select>
 
       </div>
 
       <div class="field">
+        <label>Direzione gradi</label>
+        <input id="veloxDirection" type="number">
+      </div>
 
-        <label>
-          Latitudine
-        </label>
+      <div class="field">
+        <label>Latitudine</label>
 
         <input
           id="veloxLat"
           type="number"
           step="0.000001"
         >
-
       </div>
 
       <div class="field">
-
-        <label>
-          Longitudine
-        </label>
+        <label>Longitudine</label>
 
         <input
           id="veloxLon"
           type="number"
           step="0.000001"
         >
-
       </div>
 
     </div>
 
     <div class="row2">
 
-      <button
-        id="usePosition"
-        class="btn"
-      >
+      <button id="usePosition" class="btn">
         USA POSIZIONE
       </button>
 
-      <button
-        id="addVelox"
-        class="btn primary"
-      >
+      <button id="addVelox" class="btn primary">
         AGGIUNGI
       </button>
 
@@ -2210,29 +1341,21 @@ textarea:focus{
 
   <div class="panel">
 
-    <h3>
-      IMPORTA / ESPORTA
-    </h3>
+    <h3>IMPORTA / ESPORTA</h3>
 
     <textarea
-      id="veloxImport"
-      placeholder="JSON oppure CSV: nome,tipo,limite,latitudine,longitudine,direzione"
+      id="veloxData"
+      placeholder="JSON oppure: nome;tipo;limite;latitudine;longitudine;direzione;fonte"
     ></textarea>
 
     <div class="row2">
 
-      <button
-        id="importVelox"
-        class="btn primary"
-      >
+      <button id="importVelox" class="btn primary">
         IMPORTA
       </button>
 
-      <button
-        id="exportVelox"
-        class="btn"
-      >
-        ESPORTA JSON
+      <button id="exportVelox" class="btn">
+        ESPORTA
       </button>
 
     </div>
@@ -2240,26 +1363,16 @@ textarea:focus{
   </div>
 
   <div class="section">
-
-    <h2>
-      DATABASE
-    </h2>
-
-    <span id="veloxCount">
-      0 punti
-    </span>
-
+    <h2>DATABASE</h2>
+    <span id="veloxCount">0 punti</span>
   </div>
 
-  <div
-    id="veloxList"
-    class="velox-list"
-  ></div>
+  <div id="veloxList" class="veloxlist"></div>
 
   <button
     id="clearVelox"
     class="btn danger"
-    style="width:100%;margin-top:9px"
+    style="width:100%;margin-top:8px"
   >
     CANCELLA DATABASE
   </button>
@@ -2270,267 +1383,94 @@ textarea:focus{
 
   <div class="panel">
 
-    <h3>
-      FORD EDGE E COSTI
-    </h3>
+    <h3>FORD EDGE E COSTI</h3>
 
     <div class="fields">
 
       <div class="field full">
-
-        <label>
-          Veicolo
-        </label>
-
+        <label>Veicolo</label>
         <input id="vehicleName">
-
       </div>
 
       <div class="field">
-
-        <label>
-          Prezzo acquisto €
-        </label>
-
-        <input
-          id="purchasePrice"
-          type="number"
-        >
-
+        <label>Prezzo acquisto €</label>
+        <input id="purchasePrice" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Valore futuro €
-        </label>
-
-        <input
-          id="residualValue"
-          type="number"
-        >
-
+        <label>Valore futuro €</label>
+        <input id="residualValue" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Km possesso previsti
-        </label>
-
-        <input
-          id="ownershipKm"
-          type="number"
-        >
-
+        <label>Km possesso</label>
+        <input id="ownershipKm" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Km annuali
-        </label>
-
-        <input
-          id="annualKm"
-          type="number"
-        >
-
+        <label>Km annuali</label>
+        <input id="annualKm" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Gasolio €/L
-        </label>
-
-        <input
-          id="fuelPrice"
-          type="number"
-          step="0.001"
-        >
-
+        <label>Gasolio €/L</label>
+        <input id="fuelPrice" type="number" step="0.001">
       </div>
 
       <div class="field">
-
-        <label>
-          Consumo L/100 km
-        </label>
-
-        <input
-          id="consumption"
-          type="number"
-          step="0.1"
-        >
-
+        <label>Consumo L/100</label>
+        <input id="consumption" type="number" step="0.1">
       </div>
 
       <div class="field">
-
-        <label>
-          Consumo minimo L/ora
-        </label>
-
-        <input
-          id="idleLitersHour"
-          type="number"
-          step="0.1"
-        >
-
+        <label>Costo gomme €</label>
+        <input id="tiresPrice" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Costo gomme €
-        </label>
-
-        <input
-          id="tiresPrice"
-          type="number"
-        >
-
+        <label>Durata gomme km</label>
+        <input id="tiresLife" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Durata gomme km
-        </label>
-
-        <input
-          id="tiresLife"
-          type="number"
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label>
-          Manutenzione €/km
-        </label>
+        <label>Manutenzione €/km</label>
 
         <input
           id="maintenancePerKm"
           type="number"
           step="0.001"
         >
-
       </div>
 
       <div class="field">
-
-        <label>
-          Assicurazione annua €
-        </label>
-
-        <input
-          id="insurance"
-          type="number"
-        >
-
+        <label>Assicurazione €</label>
+        <input id="insurance" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Bollo annuo €
-        </label>
-
-        <input
-          id="tax"
-          type="number"
-        >
-
+        <label>Bollo €</label>
+        <input id="tax" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Revisione media annua €
-        </label>
-
-        <input
-          id="inspection"
-          type="number"
-        >
-
+        <label>Altri fissi €</label>
+        <input id="otherFixed" type="number">
       </div>
 
       <div class="field">
-
-        <label>
-          Garage e altri €
-        </label>
-
-        <input
-          id="garage"
-          type="number"
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label>
-          Precisione GPS max m
-        </label>
-
-        <input
-          id="maxAccuracy"
-          type="number"
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label>
-          Passo GPS minimo m
-        </label>
-
-        <input
-          id="minStepMeters"
-          type="number"
-        >
-
-      </div>
-
-      <div class="field">
-
-        <label>
-          Correzione GPS %
-        </label>
-
-        <input
-          id="gpsCorrection"
-          type="number"
-          step="0.5"
-        >
-
+        <label>Precisione GPS road m</label>
+        <input id="roadMaxAccuracy" type="number">
       </div>
 
     </div>
 
-    <div class="row2">
-
-      <button
-        id="saveSettings"
-        class="btn primary"
-      >
-        SALVA DATI
-      </button>
-
-      <button
-        id="resetSettings"
-        class="btn"
-      >
-        VALORI BASE
-      </button>
-
-    </div>
+    <button
+      id="saveCar"
+      class="btn primary"
+      style="width:100%;margin-top:9px"
+    >
+      SALVA DATI
+    </button>
 
   </div>
 
@@ -2539,33 +1479,20 @@ textarea:focus{
 <section id="page-trips" class="page">
 
   <div class="section">
-
-    <h2>
-      TRIP LOG
-    </h2>
-
-    <span id="tripCount">
-      0 viaggi
-    </span>
-
+    <h2>VIAGGI</h2>
+    <span id="tripCount">0 viaggi</span>
   </div>
 
   <div id="tripList"></div>
 
   <div class="row2">
 
-    <button
-      id="exportTrips"
-      class="btn"
-    >
+    <button id="exportTrips" class="btn">
       ESPORTA CSV
     </button>
 
-    <button
-      id="clearTrips"
-      class="btn danger"
-    >
-      CANCELLA STORICO
+    <button id="clearTrips" class="btn danger">
+      CANCELLA
     </button>
 
   </div>
@@ -2573,15 +1500,11 @@ textarea:focus{
 </section>
 
 </main>
-
 </div>
 
 <nav class="nav">
 
-  <button
-    class="active"
-    data-page="live"
-  >
+  <button class="active" data-page="road">
     ROAD
   </button>
 
@@ -2594,7 +1517,7 @@ textarea:focus{
   </button>
 
   <button data-page="car">
-    FORD EDGE
+    FORD
   </button>
 
   <button data-page="trips">
@@ -2603,11 +1526,9 @@ textarea:focus{
 
 </nav>
 
-<div class="overlay speed-overlay">
+<div class="overlay speedOverlay">
 
-  <b>
-    ⚠ VELOCITÀ SUPERATA
-  </b>
+  <b>⚠ VELOCITÀ SUPERATA</b>
 
   <span id="speedOverlayText">
     RALLENTA
@@ -2615,59 +1536,13 @@ textarea:focus{
 
 </div>
 
-<div class="overlay velox-overlay">
+<div class="overlay veloxOverlay">
 
-  <b>
-    📷 CONTROLLO VELOCITÀ
-  </b>
+  <b>📷 CONTROLLO VELOCITÀ</b>
 
   <span id="veloxOverlayText">
-    AUTOVELOX IN AVVICINAMENTO
+    AUTOVELOX
   </span>
-
-</div>
-
-<div id="extraModal" class="modal">
-
-  <div class="modal-box">
-
-    <h3 id="extraTitle">
-      Aggiungi spesa
-    </h3>
-
-    <div class="field">
-
-      <label>
-        Importo €
-      </label>
-
-      <input
-        id="extraAmount"
-        type="number"
-        step="0.01"
-      >
-
-    </div>
-
-    <div class="row2">
-
-      <button
-        id="confirmExtra"
-        class="btn primary"
-      >
-        AGGIUNGI
-      </button>
-
-      <button
-        id="cancelExtra"
-        class="btn"
-      >
-        ANNULLA
-      </button>
-
-    </div>
-
-  </div>
 
 </div>
 
@@ -2677,1332 +1552,1046 @@ textarea:focus{
 
 <script>
 (()=>{
-  const $=id=>
-    document.getElementById(id);
+const $=id=>document.getElementById(id);
 
-  const num=(n,d=2)=>
-    Number(n||0).toLocaleString(
-      "it-IT",
-      {
-        minimumFractionDigits:d,
-        maximumFractionDigits:d
-      }
-    );
+const clamp=(n,a,b)=>
+  Math.min(
+    b,
+    Math.max(a,n)
+  );
 
-  const euro=n=>
-    new Intl.NumberFormat(
-      "it-IT",
-      {
-        style:"currency",
-        currency:"EUR"
-      }
-    ).format(
-      Number(n||0)
-    );
-
-  const clamp=(n,a,b)=>
-    Math.min(
-      b,
-      Math.max(a,n)
-    );
-
-  const save=(k,v)=>
-    localStorage.setItem(
-      k,
-      JSON.stringify(v)
-    );
-
-  const load=(k,f)=>{
-    try{
-      return{
-        ...f,
-        ...JSON.parse(
-          localStorage.getItem(k)||
-          "{}"
-        )
-      };
-    }catch{
-      return{
-        ...f
-      };
+const num=(n,d=2)=>
+  Number(n||0).toLocaleString(
+    "it-IT",
+    {
+      minimumFractionDigits:d,
+      maximumFractionDigits:d
     }
-  };
+  );
 
-  const loadArr=k=>{
-    try{
-      const x=
-        JSON.parse(
-          localStorage.getItem(k)||
-          "[]"
-        );
-
-      return Array.isArray(x)
-        ? x
-        : [];
-    }catch{
-      return[];
+const euro=n=>
+  new Intl.NumberFormat(
+    "it-IT",
+    {
+      style:"currency",
+      currency:"EUR"
     }
-  };
+  ).format(
+    Number(n||0)
+  );
 
-  const DEF={
-    vehicleName:
-      "Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD",
+const save=(key,value)=>
+  localStorage.setItem(
+    key,
+    JSON.stringify(value)
+  );
 
-    purchasePrice:23000,
-    residualValue:12000,
-    ownershipKm:100000,
-    annualKm:15000,
-
-    fuelPrice:1.75,
-    consumption:8.5,
-    idleLitersHour:1.1,
-
-    tiresPrice:900,
-    tiresLife:45000,
-    maintenancePerKm:.045,
-
-    insurance:900,
-    tax:620,
-    inspection:40,
-    garage:0,
-
-    maxAccuracy:90,
-    minStepMeters:3,
-    gpsCorrection:100,
-
-    speedLimit:90,
-    speedTolerance:3,
-
-    alarmDuration:"30",
-    alarmRepeat:"10",
-    alarmVolume:.7,
-    alarmVibration:true,
-    alarmVoice:true,
-
-    selectedSound:"country",
-
-    veloxFar:1500,
-    veloxMid:800,
-    veloxNear:300,
-    veloxRadius:10,
-    veloxVoice:true,
-    veloxSync:false
-  };
-
-  const KSET=
-    "xaRoadV6Settings";
-
-  const KTRIP=
-    "xaRoadTrips";
-
-  const KVELOX=
-    "xaRoadV6Velox";
-
-  const KACTIVE=
-    "xaRoadV6Active";
-
-  let settings=
-    load(
-      KSET,
-      DEF
-    );
-
-  let trips=
-    loadArr(
-      KTRIP
-    );
-
-  let veloxDb=
-    loadArr(
-      KVELOX
-    );
-
-  let wake=null;
-  let watch=null;
-  let timer=null;
-  let watchdogTimer=null;
-
-  let audioCtx=null;
-  let audioNodes=[];
-  let audioLoop=null;
-  let customAudio=null;
-
-  let extraType=
-    "Altro";
-
-  let state={
-    running:false,
-    paused:false,
-
-    start:0,
-    elapsed:0,
-
-    distance:0,
-    idle:0,
-    speed:0,
-
-    lastTick:Date.now(),
-    lastFix:0,
-
-    lastPoint:null,
-    lastAccepted:null,
-
-    accepted:0,
-    rejected:0,
-
-    extras:[]
-  };
-
-  let speedGuard={
-    active:false,
-    alarming:false,
-    snooze:0,
-    next:0
-  };
-
-  let veloxGuard={
-    active:false,
-    heading:null,
-    alerts:{},
-    nearest:null
-  };
-
-  const sounds=[
-    {
-      id:"radar",
-      name:"Radar Pulse",
-      desc:"Impulsi elettronici",
-      type:"square",
-      notes:[880,0,880,1040],
-      beat:.16
-    },
-    {
-      id:"horn",
-      name:"Truck Horn",
-      desc:"Clacson camion",
-      type:"sawtooth",
-      notes:[150,145,135],
-      beat:.5
-    },
-    {
-      id:"siren",
-      name:"Highway Siren",
-      desc:"Sirena alternata",
-      type:"sawtooth",
-      notes:[620,920,620,920],
-      beat:.25
-    },
-    {
-      id:"beep",
-      name:"Double Beep",
-      desc:"Doppio segnale",
-      type:"square",
-      notes:[930,0,930],
-      beat:.2
-    },
-    {
-      id:"bell",
-      name:"Metal Bell",
-      desc:"Campana metallica",
-      type:"triangle",
-      notes:[1175,1568,1175],
-      beat:.3
-    },
-    {
-      id:"country",
-      name:"Country Road",
-      desc:"Motivo country",
-      type:"triangle",
-      notes:[
-        392,
-        494,
-        587,
-        494,
-        659,
-        587,
-        494,
-        392
-      ],
-      beat:.2
-    },
-    {
-      id:"rock",
-      name:"Highway Rock",
-      desc:"Riff rock",
-      type:"square",
-      notes:[
-        220,
-        220,
-        330,
-        392,
-        330,
-        440,
-        392
-      ],
-      beat:.18
-    },
-    {
-      id:"blues",
-      name:"Blues Truck",
-      desc:"Motivo blues",
-      type:"triangle",
-      notes:[
-        294,
-        349,
-        392,
-        466,
-        392,
-        349,
-        294
-      ],
-      beat:.27
-    },
-    {
-      id:"western",
-      name:"Western Ride",
-      desc:"Richiamo western",
-      type:"triangle",
-      notes:[
-        330,
-        392,
-        494,
-        587,
-        494,
-        392
-      ],
-      beat:.23
-    },
-    {
-      id:"electro",
-      name:"Electro Drive",
-      desc:"Sequenza elettronica",
-      type:"square",
-      notes:[
-        440,
-        554,
-        659,
-        880,
-        659,
-        554
-      ],
-      beat:.16
-    },
-    {
-      id:"xa",
-      name:"XA Anthem",
-      desc:"Motivo XA",
-      type:"triangle",
-      notes:[
-        523,
-        659,
-        784,
-        1047,
-        784,
-        659,
-        587,
-        523
-      ],
-      beat:.21
-    },
-    {
-      id:"custom",
-      name:"Audio personale",
-      desc:"File dal telefono",
-      custom:true
-    }
-  ];
-
-  function toast(t){
-
-    $("toast").textContent=t;
-
-    $("toast")
-      .classList
-      .add("show");
-
-    setTimeout(
-      ()=>{
-        $("toast")
-          .classList
-          .remove("show");
-      },
-      1600
-    );
-  }
-
-  function read(){
-
-    Object.keys(DEF)
-      .forEach(
-        k=>{
-
-          const el=$(k);
-
-          if(!el){
-            return;
-          }
-
-          if(el.type==="checkbox"){
-
-            settings[k]=
-              el.checked;
-
-          }else if(
-            [
-              "vehicleName",
-              "alarmDuration",
-              "alarmRepeat"
-            ].includes(k)
-          ){
-
-            settings[k]=
-              el.value;
-
-          }else{
-
-            settings[k]=
-              Number(
-                el.value||
-                0
-              );
-          }
-
-        }
-      );
-
-    save(
-      KSET,
-      settings
-    );
-  }
-
-  function fill(){
-
-    Object.keys(DEF)
-      .forEach(
-        k=>{
-
-          const el=$(k);
-
-          if(!el){
-            return;
-          }
-
-          if(el.type==="checkbox"){
-
-            el.checked=
-              !!settings[k];
-
-          }else{
-
-            el.value=
-              settings[k];
-          }
-
-        }
-      );
-
-    renderSounds();
-    renderVelox();
-    updateAll();
-  }
-
-  function costs(){
-
-    const fuel=
-      settings.consumption/
-      100*
-      settings.fuelPrice;
-
-    const tires=
-      settings.tiresLife
-        ? settings.tiresPrice/
-          settings.tiresLife
-        : 0;
-
-    const fixed=
-      settings.annualKm
-        ? (
-            settings.insurance+
-            settings.tax+
-            settings.inspection+
-            settings.garage
-          )/
-          settings.annualKm
-        : 0;
-
-    const dep=
-      settings.ownershipKm
-        ? Math.max(
-            0,
-            settings.purchasePrice-
-            settings.residualValue
-          )/
-          settings.ownershipKm
-        : 0;
-
+const load=(key,fallback)=>{
+  try{
     return{
-      fuel,
-      tires,
-      maintenance:
-        settings.maintenancePerKm,
-
-      fixed,
-      dep,
-
-      total:
-        fuel+
-        tires+
-        settings.maintenancePerKm+
-        fixed+
-        dep
-    };
-  }
-
-  function elapsed(){
-
-    return(
-      state.elapsed+
-      (
-        state.running&&
-        !state.paused
-          ? Date.now()-
-            state.start
-          : 0
+      ...fallback,
+      ...JSON.parse(
+        localStorage.getItem(key)||
+        "{}"
       )
-    );
-  }
-
-  function fmt(ms){
-
-    const s=
-      Math.floor(
-        ms/
-        1000
-      );
-
-    return(
-      String(
-        Math.floor(
-          s/
-          3600
-        )
-      ).padStart(2,"0")+
-      ":"+
-      String(
-        Math.floor(
-          s%
-          3600/
-          60
-        )
-      ).padStart(2,"0")+
-      ":"+
-      String(
-        s%
-        60
-      ).padStart(2,"0")
-    );
-  }
-
-  function calc(){
-
-    const c=
-      costs();
-
-    const liters=
-      state.distance*
-      settings.consumption/
-      100+
-      state.idle/
-      3600000*
-      settings.idleLitersHour;
-
-    const extras=
-      state.extras.reduce(
-        (a,x)=>
-          a+
-          x.amount,
-        0
-      );
-
-    const r={
-      liters,
-
-      fuel:
-        liters*
-        settings.fuelPrice,
-
-      tires:
-        state.distance*
-        c.tires,
-
-      maintenance:
-        state.distance*
-        c.maintenance,
-
-      fixed:
-        state.distance*
-        c.fixed,
-
-      depreciation:
-        state.distance*
-        c.dep,
-
-      extras
     };
-
-    r.total=
-      r.fuel+
-      r.tires+
-      r.maintenance+
-      r.fixed+
-      r.depreciation+
-      r.extras;
-
-    return r;
+  }catch{
+    return{
+      ...fallback
+    };
   }
+};
 
-  function setBars(r){
-
-    const m=
-      Math.max(
-        .01,
-        r.fuel,
-        r.tires,
-        r.maintenance,
-        r.fixed,
-        r.depreciation,
-        r.extras
+const loadArray=key=>{
+  try{
+    const data=
+      JSON.parse(
+        localStorage.getItem(key)||
+        "[]"
       );
 
-    [
-      [
-        "fuelBar",
-        r.fuel
-      ],
-      [
-        "tiresBar",
-        r.tires
-      ],
-      [
-        "maintenanceBar",
-        r.maintenance
-      ],
-      [
-        "fixedBar",
-        r.fixed
-      ],
-      [
-        "depreciationBar",
-        r.depreciation
-      ],
-      [
-        "extrasBar",
-        r.extras
-      ]
-    ].forEach(
-      ([id,v])=>{
+    return Array.isArray(data)
+      ? data
+      : [];
+  }catch{
+    return[];
+  }
+};
 
-        $(id).style.width=
-          clamp(
-            v/
-            m*
-            100,
-            0,
-            100
-          )+
-          "%";
+const DEFAULTS={
+  vehicleName:"Ford Edge ST-Line 2.0 EcoBlue 238 CV AWD",
+
+  purchasePrice:23000,
+  residualValue:12000,
+  ownershipKm:100000,
+  annualKm:15000,
+
+  fuelPrice:1.75,
+  consumption:8.5,
+
+  tiresPrice:900,
+  tiresLife:45000,
+  maintenancePerKm:.045,
+
+  insurance:900,
+  tax:620,
+  otherFixed:40,
+
+  roadMaxAccuracy:90,
+
+  speedLimit:90,
+  speedTolerance:3,
+
+  alarmDuration:"30",
+  alarmVolume:.75,
+  alarmVoice:true,
+  selectedSound:"country",
+
+  veloxMaxAccuracy:45,
+  veloxMinSpeed:8,
+  veloxConfirmations:3,
+  veloxCone:55,
+
+  veloxFar:1500,
+  veloxMid:800,
+  veloxNear:300,
+  veloxRadius:10,
+
+  veloxVoice:true,
+  veloxSync:false
+};
+
+const SETTINGS_KEY="xaRoadV61Settings";
+const TRIPS_KEY="xaRoadV61Trips";
+const VELOX_KEY="xaRoadV61Velox";
+
+let settings=
+  load(
+    SETTINGS_KEY,
+    DEFAULTS
+  );
+
+let trips=
+  loadArray(
+    TRIPS_KEY
+  );
+
+let veloxDb=
+  loadArray(
+    VELOX_KEY
+  );
+
+let watchId=null;
+let wakeLock=null;
+let timer=null;
+
+let audioContext=null;
+let audioNodes=[];
+let audioLoop=null;
+let customAudio=null;
+
+let state={
+  running:false,
+  paused:false,
+
+  start:0,
+  elapsed:0,
+
+  distance:0,
+  speed:0,
+
+  lastFix:0,
+  lastPoint:null,
+  lastRoadPoint:null,
+
+  accuracy:null,
+
+  accepted:0,
+  rejected:0
+};
+
+let speedGuard={
+  active:false,
+  alarming:false,
+  snooze:0
+};
+
+let veloxGuard={
+  active:false,
+  heading:null,
+  tracks:{},
+  nearest:null
+};
+
+const sounds=[
+  {
+    id:"beep",
+    name:"Double Beep",
+    type:"square",
+    notes:[930,0,930],
+    beat:.2
+  },
+  {
+    id:"radar",
+    name:"Radar Pulse",
+    type:"square",
+    notes:[880,0,880,1040],
+    beat:.16
+  },
+  {
+    id:"siren",
+    name:"Highway Siren",
+    type:"sawtooth",
+    notes:[620,920,620,920],
+    beat:.25
+  },
+  {
+    id:"horn",
+    name:"Truck Horn",
+    type:"sawtooth",
+    notes:[150,145,135],
+    beat:.5
+  },
+  {
+    id:"country",
+    name:"Country Road",
+    type:"triangle",
+    notes:[392,494,587,494,659,587,494,392],
+    beat:.2
+  },
+  {
+    id:"rock",
+    name:"Highway Rock",
+    type:"square",
+    notes:[220,220,330,392,330,440,392],
+    beat:.18
+  },
+  {
+    id:"xa",
+    name:"XA Anthem",
+    type:"triangle",
+    notes:[523,659,784,1047,784,659,587,523],
+    beat:.21
+  },
+  {
+    id:"custom",
+    name:"Audio personale",
+    custom:true
+  }
+];
+
+function toast(text){
+
+  $("toast").textContent=text;
+
+  $("toast")
+    .classList
+    .add("show");
+
+  setTimeout(
+    ()=>{
+      $("toast")
+        .classList
+        .remove("show");
+    },
+    1600
+  );
+}
+
+function readSettings(){
+
+  Object.keys(DEFAULTS)
+    .forEach(
+      key=>{
+
+        const element=$(key);
+
+        if(!element){
+          return;
+        }
+
+        if(element.type==="checkbox"){
+
+          settings[key]=
+            element.checked;
+
+        }else if(
+          [
+            "vehicleName",
+            "alarmDuration"
+          ].includes(key)
+        ){
+
+          settings[key]=
+            element.value;
+
+        }else{
+
+          settings[key]=
+            Number(
+              element.value||
+              0
+            );
+        }
       }
     );
-  }
 
-  function updateAll(){
+  save(
+    SETTINGS_KEY,
+    settings
+  );
+}
 
-    const now=
-      Date.now();
+function fill(){
 
-    if(
-      state.running&&
-      !state.paused&&
-      now-
-      state.lastFix<
-      12000&&
-      state.speed<
-      2.5
-    ){
+  Object.keys(DEFAULTS)
+    .forEach(
+      key=>{
 
-      state.idle+=
-        Math.max(
-          0,
-          now-
-          state.lastTick
-        );
-    }
+        const element=$(key);
 
-    state.lastTick=now;
-
-    const r=
-      calc();
-
-    const cpk=
-      state.distance
-        ? r.total/
-          state.distance
-        : costs().total;
-
-    $("speed").textContent=
-      Math.round(
-        state.speed
-      );
-
-    $("totalCost").textContent=
-      num(
-        r.total
-      );
-
-    $("costKm").textContent=
-      num(
-        cpk,
-        3
-      );
-
-    $("distance").textContent=
-      num(
-        state.distance
-      );
-
-    $("duration").textContent=
-      fmt(
-        elapsed()
-      );
-
-    $("fuelLiters").textContent=
-      num(
-        r.liters
-      );
-
-    $("fuelDetail").textContent=
-      num(
-        r.liters
-      )+
-      " L";
-
-    $("fuelCost").textContent=
-      euro(
-        r.fuel
-      );
-
-    $("tiresCost").textContent=
-      euro(
-        r.tires
-      );
-
-    $("maintenanceCost").textContent=
-      euro(
-        r.maintenance
-      );
-
-    $("fixedCost").textContent=
-      euro(
-        r.fixed
-      );
-
-    $("depreciationCost").textContent=
-      euro(
-        r.depreciation
-      );
-
-    $("extrasCost").textContent=
-      euro(
-        r.extras
-      );
-
-    $("gpsCounters").textContent=
-      state.accepted+
-      " accettati · "+
-      state.rejected+
-      " scartati";
-
-    setBars(r);
-
-    updateSpeed();
-    updateVelox();
-
-    if(state.running){
-
-      save(
-        KACTIVE,
-        {
-          ...state,
-          elapsed:
-            elapsed(),
-          start:0
+        if(!element){
+          return;
         }
-      );
-    }
-  }
 
-  function rad(x){
+        if(element.type==="checkbox"){
 
-    return(
-      x*
-      Math.PI/
-      180
+          element.checked=
+            !!settings[key];
+
+        }else{
+
+          element.value=
+            settings[key];
+        }
+      }
     );
-  }
 
-  function hav(a,b){
+  renderSounds();
+  renderVelox();
+  updateAll();
+}
 
-    const R=6371;
+function costs(){
 
-    const dlat=
-      rad(
-        b.lat-
-        a.lat
-      );
+  const fuel=
+    settings.consumption/
+    100*
+    settings.fuelPrice;
 
-    const dlon=
-      rad(
-        b.lon-
-        a.lon
-      );
+  const tires=
+    settings.tiresLife
+      ? settings.tiresPrice/
+        settings.tiresLife
+      : 0;
 
-    const q=
-      Math.sin(
-        dlat/
-        2
-      )**2+
-      Math.sin(
-        dlon/
-        2
-      )**2*
-      Math.cos(
-        rad(a.lat)
-      )*
-      Math.cos(
-        rad(b.lat)
-      );
+  const fixed=
+    settings.annualKm
+      ? (
+          settings.insurance+
+          settings.tax+
+          settings.otherFixed
+        )/
+        settings.annualKm
+      : 0;
 
-    return(
-      2*
-      R*
-      Math.asin(
-        Math.sqrt(q)
+  const depreciation=
+    settings.ownershipKm
+      ? Math.max(
+          0,
+          settings.purchasePrice-
+          settings.residualValue
+        )/
+        settings.ownershipKm
+      : 0;
+
+  return{
+    fuel,
+    tires,
+    maintenance:
+      settings.maintenancePerKm,
+
+    fixed,
+    depreciation,
+
+    total:
+      fuel+
+      tires+
+      settings.maintenancePerKm+
+      fixed+
+      depreciation
+  };
+}
+
+function elapsedTime(){
+
+  return(
+    state.elapsed+
+    (
+      state.running&&
+      !state.paused
+        ? Date.now()-
+          state.start
+        : 0
+    )
+  );
+}
+
+function formatTime(milliseconds){
+
+  const seconds=
+    Math.floor(
+      milliseconds/
+      1000
+    );
+
+  return(
+    String(
+      Math.floor(
+        seconds/
+        3600
+      )
+    ).padStart(2,"0")+
+    ":"+
+    String(
+      Math.floor(
+        seconds%
+        3600/
+        60
+      )
+    ).padStart(2,"0")+
+    ":"+
+    String(
+      seconds%
+      60
+    ).padStart(2,"0")
+  );
+}
+
+function tripTotals(){
+
+  const cost=
+    costs();
+
+  const liters=
+    state.distance*
+    settings.consumption/
+    100;
+
+  return{
+    liters,
+
+    fuel:
+      liters*
+      settings.fuelPrice,
+
+    tires:
+      state.distance*
+      cost.tires,
+
+    maintenance:
+      state.distance*
+      cost.maintenance,
+
+    fixed:
+      state.distance*
+      (
+        cost.fixed+
+        cost.depreciation
+      )
+  };
+}
+
+function updateAll(){
+
+  const totals=
+    tripTotals();
+
+  const totalCost=
+    totals.fuel+
+    totals.tires+
+    totals.maintenance+
+    totals.fixed;
+
+  const costPerKm=
+    state.distance
+      ? totalCost/
+        state.distance
+      : costs().total;
+
+  $("roadSpeed").textContent=
+    Math.round(
+      state.speed
+    );
+
+  $("roadCost").textContent=
+    num(
+      totalCost
+    );
+
+  $("roadKm").textContent=
+    num(
+      state.distance
+    );
+
+  $("tripTime").textContent=
+    formatTime(
+      elapsedTime()
+    );
+
+  $("fuelLiters").textContent=
+    num(
+      totals.liters
+    );
+
+  $("costKm").textContent=
+    num(
+      costPerKm,
+      3
+    );
+
+  $("gpsAccuracy").textContent=
+    state.accuracy
+      ? "±"+
+        Math.round(
+          state.accuracy
+        )+
+        "m"
+      : "—";
+
+  $("gpsCount").textContent=
+    state.accepted+
+    " accettati · "+
+    state.rejected+
+    " scartati";
+
+  $("fuelInfo").textContent=
+    num(
+      totals.liters
+    )+
+    " L";
+
+  $("fuelCost").textContent=
+    euro(
+      totals.fuel
+    );
+
+  $("tireCost").textContent=
+    euro(
+      totals.tires
+    );
+
+  $("maintCost").textContent=
+    euro(
+      totals.maintenance
+    );
+
+  $("fixedCost").textContent=
+    euro(
+      totals.fixed
+    );
+
+  updateSpeed();
+  updateVelox();
+}
+
+const radians=value=>
+  value*
+  Math.PI/
+  180;
+
+function distanceBetween(first,second){
+
+  const latitude=
+    radians(
+      second.lat-
+      first.lat
+    );
+
+  const longitude=
+    radians(
+      second.lon-
+      first.lon
+    );
+
+  const value=
+    Math.sin(
+      latitude/
+      2
+    )**2+
+    Math.sin(
+      longitude/
+      2
+    )**2*
+    Math.cos(
+      radians(
+        first.lat
+      )
+    )*
+    Math.cos(
+      radians(
+        second.lat
       )
     );
-  }
 
-  function bearing(a,b){
+  return(
+    6371*
+    2*
+    Math.asin(
+      Math.sqrt(value)
+    )
+  );
+}
 
-    const y=
-      Math.sin(
-        rad(
-          b.lon-
-          a.lon
-        )
-      )*
-      Math.cos(
-        rad(b.lat)
-      );
+function bearingBetween(first,second){
 
-    const x=
-      Math.cos(
-        rad(a.lat)
-      )*
-      Math.sin(
-        rad(b.lat)
-      )-
-      Math.sin(
-        rad(a.lat)
-      )*
-      Math.cos(
-        rad(b.lat)
-      )*
-      Math.cos(
-        rad(
-          b.lon-
-          a.lon
-        )
-      );
+  const y=
+    Math.sin(
+      radians(
+        second.lon-
+        first.lon
+      )
+    )*
+    Math.cos(
+      radians(
+        second.lat
+      )
+    );
 
-    return(
-      Math.atan2(
-        y,
-        x
-      )*
-      180/
-      Math.PI+
+  const x=
+    Math.cos(
+      radians(
+        first.lat
+      )
+    )*
+    Math.sin(
+      radians(
+        second.lat
+      )
+    )-
+    Math.sin(
+      radians(
+        first.lat
+      )
+    )*
+    Math.cos(
+      radians(
+        second.lat
+      )
+    )*
+    Math.cos(
+      radians(
+        second.lon-
+        first.lon
+      )
+    );
+
+  return(
+    Math.atan2(
+      y,
+      x
+    )*
+    180/
+    Math.PI+
+    360
+  )%
+  360;
+}
+
+function angleDifference(first,second){
+
+  return Math.abs(
+    (
+      (
+        first-
+        second+
+        540
+      )%
       360
-    )%
-    360;
-  }
+    )-
+    180
+  );
+}
 
-  function angle(a,b){
+function onPosition(position){
 
-    return(
-      Math.abs(
-        (
-          (
-            a-
-            b+
-            540
-          )%
-          360
-        )-
-        180
-      )
-    );
-  }
+  const coordinates=
+    position.coords;
 
-  function onPos(p){
+  const timestamp=
+    position.timestamp||
+    Date.now();
 
-    const c=
-      p.coords;
+  const previous=
+    state.lastPoint;
 
-    const t=
-      p.timestamp||
-      Date.now();
+  const point={
+    lat:
+      coordinates.latitude,
 
-    const point={
-      lat:c.latitude,
-      lon:c.longitude,
-      t
-    };
+    lon:
+      coordinates.longitude,
 
-    state.lastFix=
-      Date.now();
+    timestamp,
 
-    state.lastPoint=
-      point;
+    accuracy:
+      Number(
+        coordinates.accuracy
+      )||
+      999
+  };
 
-    $("gpsPill")
-      .classList
-      .add("on");
+  state.lastPoint=point;
+  state.lastFix=Date.now();
+  state.accuracy=point.accuracy;
 
-    $("gpsText").textContent=
-      "GPS LIVE";
+  $("gpsPill")
+    .classList
+    .add("on");
 
-    $("gpsAccuracy").textContent=
-      "±"+
-      Math.round(
-        c.accuracy
-      )+
-      " m";
+  $("gpsText").textContent=
+    "GPS LIVE";
+
+  let speed=
+    Number.isFinite(
+      coordinates.speed
+    )&&
+    coordinates.speed>=0
+      ? coordinates.speed*
+        3.6
+      : null;
+
+  if(
+    Number.isFinite(
+      coordinates.heading
+    )&&
+    coordinates.heading>=0&&
+    (
+      speed??
+      state.speed
+    )>
+    4
+  ){
+
+    veloxGuard.heading=
+      coordinates.heading;
+
+  }else if(previous){
+
+    const movement=
+      distanceBetween(
+        previous,
+        point
+      )*
+      1000;
+
+    const headingTime=
+      (
+        timestamp-
+        previous.timestamp
+      )/
+      1000;
 
     if(
-      Number.isFinite(
-        c.heading
-      )&&
-      c.heading>=0
+      movement>=7&&
+      headingTime>0&&
+      headingTime<20
     ){
 
       veloxGuard.heading=
-        c.heading;
+        bearingBetween(
+          previous,
+          point
+        );
     }
+  }
 
-    let speed=
-      Number.isFinite(
-        c.speed
-      )&&
-      c.speed>=0
-        ? c.speed*
-          3.6
-        : null;
+  if(state.lastRoadPoint){
 
-    if(!state.lastAccepted){
-
-      if(
-        c.accuracy<=
-        settings.maxAccuracy
-      ){
-
-        state.lastAccepted=
-          point;
-
-        state.accepted++;
-
-      }else{
-
-        state.rejected++;
-      }
-
-      state.speed=
-        speed||
-        0;
-
-      updateAll();
-
-      return;
-    }
-
-    const dt=
+    const timeDifference=
       Math.max(
         .1,
         (
-          t-
-          state.lastAccepted.t
+          timestamp-
+          state.lastRoadPoint.timestamp
         )/
         1000
       );
 
-    const d=
-      hav(
-        state.lastAccepted,
+    const distance=
+      distanceBetween(
+        state.lastRoadPoint,
         point
       );
 
-    const inferred=
-      d/
-      dt*
+    const inferredSpeed=
+      distance/
+      timeDifference*
       3600;
 
-    const good=
-      c.accuracy<=
-      settings.maxAccuracy;
+    const goodAccuracy=
+      point.accuracy<=
+      settings.roadMaxAccuracy;
 
     const plausible=
-      inferred<
+      inferredSpeed<
       270&&
-      d<=
+      distance<
       Math.max(
         .3,
-        dt*
+        timeDifference*
         .075*
         1.35
       );
 
-    let add=0;
-
     if(
-      good&&
+      goodAccuracy&&
       plausible
     ){
 
       if(
-        d>=
-        settings.minStepMeters/
-        1000
+        state.running&&
+        !state.paused&&
+        distance>=.003
       ){
 
-        add=d;
-
-      }else if(
-        speed!==null&&
-        speed>5&&
-        dt<=15
-      ){
-
-        add=
-          speed/
-          3600*
-          dt*
-          .92;
+        state.distance+=
+          distance;
       }
 
-      state.lastAccepted=
+      state.lastRoadPoint=
         point;
 
       state.accepted++;
+
+      state.speed=
+        clamp(
+          speed??
+          inferredSpeed,
+          0,
+          260
+        );
 
     }else{
 
       state.rejected++;
     }
 
-    if(
-      add>0&&
-      state.running&&
-      !state.paused
-    ){
+  }else if(
+    point.accuracy<=
+    settings.roadMaxAccuracy
+  ){
 
-      state.distance+=
-        add*
-        settings.gpsCorrection/
-        100;
-    }
+    state.lastRoadPoint=
+      point;
+
+    state.accepted++;
 
     state.speed=
-      clamp(
-        speed??(
-          plausible
-            ? inferred
-            : state.speed
-        ),
-        0,
-        260
-      );
+      speed||
+      0;
 
-    updateAll();
+  }else{
+
+    state.rejected++;
   }
 
-  function onGpsError(e){
+  updateAll();
+}
 
-    $("gpsPill")
-      .classList
-      .remove("on");
+function gpsError(error){
 
-    $("gpsText").textContent=
-      e.code===1
-        ? "GPS NEGATO"
-        : "GPS IN RICERCA";
+  $("gpsPill")
+    .classList
+    .remove("on");
 
-    $("gpsAccuracy").textContent=
-      "—";
+  $("gpsText").textContent=
+    error.code===1
+      ? "GPS NEGATO"
+      : "GPS IN RICERCA";
+}
+
+function gpsNeeded(){
+
+  return(
+    state.running&&
+    !state.paused||
+    speedGuard.active||
+    veloxGuard.active
+  );
+}
+
+function startGps(){
+
+  stopGps();
+
+  if(!navigator.geolocation){
+    return;
   }
 
-  function gpsNeeded(){
-
-    return(
-      state.running&&
-      !state.paused||
-      speedGuard.active||
-      veloxGuard.active
+  navigator.geolocation
+    .getCurrentPosition(
+      onPosition,
+      gpsError,
+      {
+        enableHighAccuracy:true,
+        maximumAge:0,
+        timeout:10000
+      }
     );
-  }
 
-  function startGps(){
-
-    stopGps();
-
-    if(!navigator.geolocation){
-      return;
-    }
-
+  watchId=
     navigator.geolocation
-      .getCurrentPosition(
-        onPos,
-        onGpsError,
+      .watchPosition(
+        onPosition,
+        gpsError,
         {
           enableHighAccuracy:true,
           maximumAge:0,
-          timeout:10000
+          timeout:15000
         }
       );
+}
 
-    watch=
-      navigator.geolocation
-        .watchPosition(
-          onPos,
-          onGpsError,
-          {
-            enableHighAccuracy:true,
-            maximumAge:0,
-            timeout:15000
-          }
-        );
+function stopGps(){
+
+  if(
+    watchId!==null&&
+    navigator.geolocation
+  ){
+
+    navigator.geolocation
+      .clearWatch(
+        watchId
+      );
   }
 
-  function stopGps(){
+  watchId=null;
+}
+
+async function keepAwake(){
+
+  try{
 
     if(
-      watch!==null&&
-      navigator.geolocation
+      "wakeLock"
+      in navigator
     ){
 
-      navigator.geolocation
-        .clearWatch(watch);
+      wakeLock=
+        await navigator.wakeLock
+          .request("screen");
     }
 
-    watch=null;
-  }
+  }catch{}
+}
 
-  function watchdog(){
+function watchdog(){
 
-    if(!gpsNeeded()){
-      return;
-    }
-
-    if(
-      Date.now()-
-      state.lastFix>
-      10000
-    ){
-
-      navigator.geolocation
-        ?.getCurrentPosition(
-          onPos,
-          onGpsError,
-          {
-            enableHighAccuracy:true,
-            maximumAge:0,
-            timeout:10000
-          }
-        );
-    }
-
-    if(
-      Date.now()-
-      state.lastFix>
-      22000
-    ){
-
-      startGps();
-    }
-  }
-
-  async function keepAwake(){
-
-    try{
-
-      if(
-        "wakeLock"
-        in navigator
-      ){
-
-        wake=
-          await navigator.wakeLock
-            .request("screen");
-
-        $("wakePill")
-          .classList
-          .add("on");
-      }
-
-    }catch{}
-  }
-
-  async function releaseWake(){
-
-    try{
-      await wake?.release();
-    }catch{}
-
-    wake=null;
-
-    $("wakePill")
-      .classList
-      .remove("on");
-  }
-
-  function startTrip(){
-
-    if(
-      state.running&&
-      state.paused
-    ){
-
-      state.paused=false;
-      state.start=Date.now();
-      state.lastAccepted=null;
-
-      $("pauseTrip").textContent=
-        "PAUSA";
-
-    }else{
-
-      state={
-        running:true,
-        paused:false,
-
-        start:Date.now(),
-        elapsed:0,
-
-        distance:0,
-        idle:0,
-        speed:0,
-
-        lastTick:Date.now(),
-        lastFix:0,
-
-        lastPoint:null,
-        lastAccepted:null,
-
-        accepted:0,
-        rejected:0,
-
-        extras:[]
-      };
-    }
+  if(
+    gpsNeeded()&&
+    Date.now()-
+    state.lastFix>
+    18000
+  ){
 
     startGps();
-    keepAwake();
-
-    clearInterval(timer);
-    clearInterval(watchdogTimer);
-
-    timer=
-      setInterval(
-        updateAll,
-        1000
-      );
-
-    watchdogTimer=
-      setInterval(
-        watchdog,
-        6000
-      );
-
-    $("tripState").textContent=
-      "ROAD METER LIVE";
-
-    $("tripState")
-      .classList
-      .add("live");
-
-    tripButtons();
   }
+}
 
-  function pauseTrip(){
+function updateTripButtons(){
 
-    if(!state.running){
-      return;
-    }
+  $("startTrip").disabled=
+    state.running&&
+    !state.paused;
 
-    if(!state.paused){
+  $("pauseTrip").disabled=
+    !state.running;
 
-      state.elapsed=
-        elapsed();
+  $("stopTrip").disabled=
+    !state.running;
+}
 
-      state.start=0;
-      state.paused=true;
-      state.speed=0;
+function startTrip(){
 
-      if(
-        !speedGuard.active&&
-        !veloxGuard.active
-      ){
+  if(
+    state.running&&
+    state.paused
+  ){
 
-        stopGps();
-        releaseWake();
-      }
-
-      $("pauseTrip").textContent=
-        "RIPRENDI";
-
-      $("tripState").textContent=
-        "VIAGGIO IN PAUSA";
-
-    }else{
-
-      startTrip();
-    }
-
-    tripButtons();
-    updateAll();
-  }
-
-  function stopTrip(){
-
-    if(
-      !state.running||
-      !confirm(
-        "Terminare e salvare il viaggio?"
-      )
-    ){
-      return;
-    }
-
-    if(!state.paused){
-
-      state.elapsed=
-        elapsed();
-    }
-
-    state.running=false;
     state.paused=false;
+    state.start=Date.now();
+    state.lastRoadPoint=null;
 
-    clearInterval(timer);
-    clearInterval(watchdogTimer);
+    $("pauseTrip").textContent=
+      "PAUSA";
+
+  }else{
+
+    state={
+      running:true,
+      paused:false,
+
+      start:Date.now(),
+      elapsed:0,
+
+      distance:0,
+      speed:0,
+
+      lastFix:0,
+      lastPoint:null,
+      lastRoadPoint:null,
+
+      accuracy:null,
+
+      accepted:0,
+      rejected:0
+    };
+  }
+
+  startGps();
+  keepAwake();
+
+  clearInterval(timer);
+
+  timer=
+    setInterval(
+      updateAll,
+      1000
+    );
+
+  $("tripMessage").textContent=
+    "ROAD METER LIVE";
+
+  $("tripMessage").className=
+    "message safe";
+
+  updateTripButtons();
+}
+
+function pauseTrip(){
+
+  if(!state.running){
+    return;
+  }
+
+  if(!state.paused){
+
+    state.elapsed=
+      elapsedTime();
+
+    state.start=0;
+    state.paused=true;
+    state.speed=0;
+
+    $("pauseTrip").textContent=
+      "RIPRENDI";
+
+    $("tripMessage").textContent=
+      "IN PAUSA";
+
+    $("tripMessage").className=
+      "message warn";
 
     if(
       !speedGuard.active&&
@@ -4010,1795 +2599,2280 @@ textarea:focus{
     ){
 
       stopGps();
-      releaseWake();
-      state.speed=0;
     }
 
-    const r=
-      calc();
+  }else{
 
-    trips.unshift({
-      id:Date.now(),
-      date:
-        new Date()
-          .toISOString(),
-
-      vehicle:
-        settings.vehicleName,
-
-      distance:
-        state.distance,
-
-      duration:
-        state.elapsed,
-
-      liters:
-        r.liters,
-
-      total:
-        r.total,
-
-      costKm:
-        state.distance
-          ? r.total/
-            state.distance
-          : 0
-    });
-
-    save(
-      KTRIP,
-      trips
-    );
-
-    localStorage.removeItem(
-      KACTIVE
-    );
-
-    $("tripState").textContent=
-      "VIAGGIO SALVATO";
-
-    $("tripState")
-      .classList
-      .remove("live");
-
-    tripButtons();
-    renderTrips();
-    updateAll();
-
-    toast(
-      "Viaggio salvato"
-    );
+    startTrip();
   }
 
-  function tripButtons(){
+  updateTripButtons();
+  updateAll();
+}
 
-    $("startTrip").disabled=
-      state.running&&
-      !state.paused;
+function stopTrip(){
 
-    $("pauseTrip").disabled=
-      !state.running;
+  if(
+    !state.running||
+    !confirm(
+      "Terminare e salvare il viaggio?"
+    )
+  ){
 
-    $("stopTrip").disabled=
-      !state.running;
+    return;
   }
 
-  function unlockAudio(){
+  if(!state.paused){
 
-    try{
-
-      if(!audioCtx){
-
-        audioCtx=
-          new(
-            window.AudioContext||
-            window.webkitAudioContext
-          )();
-      }
-
-      if(
-        audioCtx.state===
-        "suspended"
-      ){
-
-        audioCtx.resume();
-      }
-
-    }catch{}
+    state.elapsed=
+      elapsedTime();
   }
 
-  function stopAudio(){
+  state.running=false;
 
-    audioNodes.forEach(
-      n=>{
-        try{
-          n.stop();
-        }catch{}
-      }
-    );
+  clearInterval(timer);
 
-    audioNodes=[];
+  if(
+    !speedGuard.active&&
+    !veloxGuard.active
+  ){
 
-    clearInterval(audioLoop);
-    audioLoop=null;
-
-    if(customAudio){
-
-      customAudio.pause();
-      customAudio.currentTime=0;
-    }
+    stopGps();
   }
 
-  function selectedSound(){
+  const totals=
+    tripTotals();
 
-    return(
-      sounds.find(
-        s=>
-          s.id===
-          settings.selectedSound
-      )||
-      sounds[0]
-    );
-  }
+  const totalCost=
+    totals.fuel+
+    totals.tires+
+    totals.maintenance+
+    totals.fixed;
 
-  function playPattern(s){
+  trips.unshift({
+    date:
+      new Date()
+        .toISOString(),
 
-    unlockAudio();
+    distance:
+      state.distance,
 
-    if(!audioCtx){
-      return;
+    duration:
+      state.elapsed,
+
+    total:
+      totalCost,
+
+    costPerKm:
+      state.distance
+        ? totalCost/
+          state.distance
+        : 0
+  });
+
+  save(
+    TRIPS_KEY,
+    trips
+  );
+
+  $("tripMessage").textContent=
+    "VIAGGIO SALVATO";
+
+  $("tripMessage").className=
+    "message";
+
+  updateTripButtons();
+  renderTrips();
+  updateAll();
+}
+
+function unlockAudio(){
+
+  try{
+
+    if(!audioContext){
+
+      audioContext=
+        new(
+          window.AudioContext||
+          window.webkitAudioContext
+        )();
     }
 
-    let t=
-      audioCtx.currentTime+
-      .02;
+    if(
+      audioContext.state===
+      "suspended"
+    ){
 
-    s.notes.forEach(
-      f=>{
+      audioContext.resume();
+    }
 
-        if(f){
+  }catch{}
+}
 
-          const o=
-            audioCtx
-              .createOscillator();
+function stopAudio(){
 
-          const g=
-            audioCtx
-              .createGain();
+  audioNodes.forEach(
+    node=>{
 
-          o.type=
-            s.type;
+      try{
+        node.stop();
+      }catch{}
+    }
+  );
 
-          o.frequency
-            .setValueAtTime(
-              f,
-              t
-            );
+  audioNodes=[];
 
-          g.gain
-            .setValueAtTime(
-              .0001,
-              t
-            );
+  clearInterval(
+    audioLoop
+  );
 
-          g.gain
-            .exponentialRampToValueAtTime(
-              .17*
-              settings.alarmVolume,
-              t+
-              .02
-            );
+  audioLoop=null;
 
-          g.gain
-            .exponentialRampToValueAtTime(
-              .0001,
-              t+
-              s.beat*
-              .9
-            );
+  if(customAudio){
 
-          o.connect(g)
-            .connect(
-              audioCtx.destination
-            );
+    customAudio.pause();
+    customAudio.currentTime=0;
+  }
 
-          o.start(t);
+  try{
+    speechSynthesis.cancel();
+  }catch{}
+}
 
-          o.stop(
-            t+
-            s.beat
+function selectedSound(){
+
+  return(
+    sounds.find(
+      sound=>
+        sound.id===
+        settings.selectedSound
+    )||
+    sounds[0]
+  );
+}
+
+function playPattern(sound){
+
+  unlockAudio();
+
+  if(!audioContext){
+    return;
+  }
+
+  let time=
+    audioContext.currentTime+
+    .02;
+
+  sound.notes.forEach(
+    frequency=>{
+
+      if(frequency){
+
+        const oscillator=
+          audioContext
+            .createOscillator();
+
+        const gain=
+          audioContext
+            .createGain();
+
+        oscillator.type=
+          sound.type;
+
+        oscillator.frequency
+          .setValueAtTime(
+            frequency,
+            time
           );
 
-          audioNodes.push(o);
-        }
+        gain.gain
+          .setValueAtTime(
+            .0001,
+            time
+          );
 
-        t+=
-          s.beat;
-      }
-    );
-  }
+        gain.gain
+          .exponentialRampToValueAtTime(
+            .17*
+            settings.alarmVolume,
+            time+
+            .02
+          );
 
-  function playSelected(loop=true){
+        gain.gain
+          .exponentialRampToValueAtTime(
+            .0001,
+            time+
+            sound.beat*
+            .9
+          );
 
-    stopAudio();
+        oscillator
+          .connect(gain)
+          .connect(
+            audioContext.destination
+          );
 
-    const s=
-      selectedSound();
+        oscillator.start(time);
 
-    if(
-      s.custom&&
-      customAudio
-    ){
-
-      customAudio.currentTime=0;
-      customAudio.volume=
-        settings.alarmVolume;
-
-      customAudio.loop=
-        loop;
-
-      customAudio
-        .play()
-        .catch(()=>{});
-
-      return;
-    }
-
-    playPattern(s);
-
-    if(loop){
-
-      audioLoop=
-        setInterval(
-          ()=>{
-            playPattern(s);
-          },
-          Math.max(
-            900,
-            s.notes.length*
-            s.beat*
-            1000+
-            250
-          )
+        oscillator.stop(
+          time+
+          sound.beat
         );
+
+        audioNodes.push(
+          oscillator
+        );
+      }
+
+      time+=
+        sound.beat;
     }
-  }
+  );
+}
 
-  function speak(text){
+function playSelected(loop=true){
 
-    if(
-      !settings.alarmVoice||
-      !(
-        "speechSynthesis"
-        in window
-      )
-    ){
-      return;
-    }
+  stopAudio();
 
-    speechSynthesis.cancel();
+  const sound=
+    selectedSound();
 
-    const u=
-      new SpeechSynthesisUtterance(
-        text
-      );
+  if(
+    sound.custom&&
+    customAudio
+  ){
 
-    u.lang=
-      "it-IT";
-
-    u.volume=
+    customAudio.volume=
       settings.alarmVolume;
 
-    speechSynthesis.speak(u);
+    customAudio.loop=
+      loop;
+
+    customAudio
+      .play()
+      .catch(()=>{});
+
+    return;
   }
 
-  function renderSounds(){
+  playPattern(sound);
 
-    $("soundGrid").innerHTML=
-      sounds.map(
-        s=>
-          `<button
-            class="sound ${
-              settings.selectedSound===
-              s.id
-                ? "active"
-                : ""
-            }"
-            data-sound="${s.id}"
-          >
-            <b>${s.name}</b>
-            <span>${s.desc}</span>
-          </button>`
-      ).join("");
+  if(loop){
 
-    document
-      .querySelectorAll(
-        "[data-sound]"
-      )
-      .forEach(
-        b=>{
-
-          b.onclick=()=>{
-
-            settings.selectedSound=
-              b.dataset.sound;
-
-            save(
-              KSET,
-              settings
-            );
-
-            renderSounds();
-
-            toast(
-              "Selezionato: "+
-              selectedSound().name
-            );
-          };
-        }
-      );
-  }
-
-  function speedAlarm(){
-
-    if(
-      Date.now()<
-      speedGuard.snooze||
-      speedGuard.alarming
-    ){
-      return;
-    }
-
-    speedGuard.alarming=true;
-
-    document.body
-      .classList
-      .add("show-speed");
-
-    $("speedOverlayText").textContent=
-      Math.round(
-        state.speed
-      )+
-      " km/h · limite "+
-      settings.speedLimit;
-
-    playSelected(true);
-
-    speak(
-      "Rallenta. Velocità superata."
-    );
-
-    if(
-      settings.alarmVibration&&
-      navigator.vibrate
-    ){
-
-      navigator.vibrate(
-        [
-          500,
-          150,
-          500,
-          150,
-          800
-        ]
-      );
-    }
-
-    const dur=
-      settings.alarmDuration===
-      "continuous"
-        ? Infinity
-        : Number(
-            settings.alarmDuration
-          )*
-          1000;
-
-    if(
-      Number.isFinite(dur)
-    ){
-
-      setTimeout(
+    audioLoop=
+      setInterval(
         ()=>{
-
-          stopAudio();
-
-          speedGuard.alarming=false;
-
-          const rep=
-            Number(
-              settings.alarmRepeat
-            );
-
-          speedGuard.next=
-            rep
-              ? Date.now()+
-                rep*
-                1000
-              : Infinity;
+          playPattern(sound);
         },
-        dur
-      );
-    }
-  }
-
-  function clearSpeedAlarm(){
-
-    stopAudio();
-
-    speedGuard.alarming=false;
-    speedGuard.next=0;
-
-    document.body
-      .classList
-      .remove("show-speed");
-  }
-
-  function updateSpeed(){
-
-    $("speedBig").textContent=
-      Math.round(
-        state.speed
-      );
-
-    $("limitBig").textContent=
-      settings.speedLimit;
-
-    $("overBig").textContent=
-      Math.max(
-        0,
-        Math.round(
-          state.speed-
-          settings.speedLimit
+        Math.max(
+          900,
+          sound.notes.length*
+          sound.beat*
+          1000+
+          250
         )
       );
+  }
+}
 
-    document
-      .querySelectorAll(
-        "[data-limit]"
-      )
-      .forEach(
-        b=>{
+function speak(text,enabled=true){
 
-          b.classList.toggle(
-            "active",
-            Number(
-              b.dataset.limit
-            )===
-            Number(
-              settings.speedLimit
-            )
-          );
-        }
-      );
+  if(
+    !enabled||
+    !(
+      "speechSynthesis"
+      in window
+    )
+  ){
 
-    if(!speedGuard.active){
-
-      $("speedMessage").textContent=
-        "CONTROLLO DISATTIVATO";
-
-      $("speedMessage").className=
-        "message";
-
-      clearSpeedAlarm();
-
-      return;
-    }
-
-    const threshold=
-      Number(
-        settings.speedLimit
-      )+
-      Number(
-        settings.speedTolerance
-      );
-
-    if(
-      state.speed>
-      threshold
-    ){
-
-      $("speedMessage").textContent=
-        "VELOCITÀ SUPERATA · RALLENTA";
-
-      $("speedMessage").className=
-        "message danger";
-
-      if(
-        !speedGuard.alarming&&
-        Date.now()>=
-        speedGuard.next
-      ){
-
-        speedAlarm();
-      }
-
-    }else{
-
-      $("speedMessage").textContent=
-        "VELOCITÀ REGOLARE";
-
-      $("speedMessage").className=
-        "message safe";
-
-      if(
-        state.speed<
-        settings.speedLimit-
-        2
-      ){
-
-        clearSpeedAlarm();
-      }
-    }
+    return;
   }
 
-  function toggleSpeed(){
+  const utterance=
+    new SpeechSynthesisUtterance(
+      text
+    );
 
-    read();
+  utterance.lang=
+    "it-IT";
 
-    speedGuard.active=
-      !speedGuard.active;
+  utterance.volume=
+    settings.alarmVolume;
 
-    $("toggleSpeed").textContent=
-      speedGuard.active
-        ? "DISATTIVA CONTROLLO"
-        : "ATTIVA CONTROLLO";
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
+}
 
-    if(speedGuard.active){
+function renderSounds(){
 
-      unlockAudio();
-      startGps();
-      keepAwake();
+  $("soundGrid").innerHTML=
+    sounds.map(
+      sound=>
+        `<button
+          class="sound ${
+            settings.selectedSound===
+            sound.id
+              ? "active"
+              : ""
+          }"
+          data-sound="${sound.id}"
+        >
+          <b>${sound.name}</b>
+          <span>${
+            sound.custom
+              ? "File dal telefono"
+              : "Suoneria incorporata"
+          }</span>
+        </button>`
+    ).join("");
 
-      toast(
-        "Speed Guard attivo"
-      );
+  document
+    .querySelectorAll(
+      "[data-sound]"
+    )
+    .forEach(
+      button=>{
 
-    }else{
+        button.onclick=()=>{
 
-      clearSpeedAlarm();
+          settings.selectedSound=
+            button.dataset.sound;
 
-      if(
-        !state.running&&
-        !veloxGuard.active
-      ){
-
-        stopGps();
-        releaseWake();
-      }
-
-      toast(
-        "Speed Guard disattivato"
-      );
-    }
-
-    updateAll();
-  }
-
-  function cleanVelox(v){
-
-    const lat=
-      Number(
-        v.lat??
-        v.latitude
-      );
-
-    const lon=
-      Number(
-        v.lon??
-        v.longitude
-      );
-
-    const limit=
-      Number(
-        v.limit??
-        v.limite??
-        90
-      );
-
-    const heading=
-      v.heading===""||
-      v.heading==null
-        ? null
-        : Number(
-            v.heading
+          save(
+            SETTINGS_KEY,
+            settings
           );
 
-    if(
-      !Number.isFinite(lat)||
-      !Number.isFinite(lon)||
-      Math.abs(lat)>90||
-      Math.abs(lon)>180
-    ){
-      return null;
-    }
-
-    return{
-      id:
-        String(
-          v.id||
-          Date.now()+
-          Math.random()
-        ),
-
-      name:
-        String(
-          v.name||
-          v.nome||
-          "Rilevatore"
-        ),
-
-      type:
-        String(
-          v.type||
-          v.tipo||
-          "Fisso"
-        ),
-
-      limit:
-        clamp(
-          limit||
-          90,
-          10,
-          200
-        ),
-
-      lat,
-      lon,
-
-      heading:
-        Number.isFinite(heading)
-          ? heading
-          : null
-    };
-  }
-
-  function renderVelox(){
-
-    $("veloxCount").textContent=
-      veloxDb.length+
-      " punti";
-
-    if(!veloxDb.length){
-
-      $("veloxList").innerHTML=
-        '<div class="empty">'+
-        "Database vuoto.<br>"+
-        "Aggiungi un punto o importa un elenco."+
-        "</div>";
-
-      return;
-    }
-
-    $("veloxList").innerHTML=
-      veloxDb.map(
-        v=>
-          `<div class="velox-item">
-
-            <div>
-
-              <h4>
-                ${escape(v.name)}
-              </h4>
-
-              <p>
-                ${escape(v.type)}
-                · limite ${v.limit}
-                <br>
-                ${v.lat.toFixed(6)},
-                ${v.lon.toFixed(6)}
-              </p>
-
-            </div>
-
-            <button
-              class="delete"
-              data-del="${v.id}"
-            >
-              ×
-            </button>
-
-          </div>`
-      ).join("");
-
-    document
-      .querySelectorAll(
-        "[data-del]"
-      )
-      .forEach(
-        b=>{
-
-          b.onclick=()=>{
-
-            veloxDb=
-              veloxDb.filter(
-                v=>
-                  v.id!==
-                  b.dataset.del
-              );
-
-            save(
-              KVELOX,
-              veloxDb
-            );
-
-            renderVelox();
-          };
-        }
-      );
-  }
-
-  function escape(t){
-
-    return String(t)
-      .replace(
-        /[&<>"']/g,
-        c=>({
-          "&":"&amp;",
-          "<":"&lt;",
-          ">":"&gt;",
-          '"':"&quot;",
-          "'":"&#39;"
-        }[c])
-      );
-  }
-
-  function nearestVelox(){
-
-    if(!state.lastPoint){
-      return null;
-    }
-
-    let best=null;
-
-    for(
-      const v
-      of veloxDb
-    ){
-
-      const km=
-        hav(
-          state.lastPoint,
-          {
-            lat:v.lat,
-            lon:v.lon
-          }
-        );
-
-      if(
-        km>
-        settings.veloxRadius
-      ){
-        continue;
-      }
-
-      const b=
-        bearing(
-          state.lastPoint,
-          {
-            lat:v.lat,
-            lon:v.lon
-          }
-        );
-
-      if(
-        Number.isFinite(
-          veloxGuard.heading
-        )&&
-        angle(
-          veloxGuard.heading,
-          b
-        )>
-        110
-      ){
-        continue;
-      }
-
-      if(
-        v.heading!=null&&
-        Number.isFinite(
-          veloxGuard.heading
-        )&&
-        angle(
-          veloxGuard.heading,
-          v.heading
-        )>
-        75
-      ){
-        continue;
-      }
-
-      if(
-        !best||
-        km<
-        best.km
-      ){
-
-        best={
-          ...v,
-          km
+          renderSounds();
+          playSelected(false);
         };
       }
-    }
+    );
+}
 
-    return best;
+function clearSpeedAlarm(){
+
+  stopAudio();
+
+  speedGuard.alarming=false;
+
+  document.body
+    .classList
+    .remove("show-speed");
+}
+
+function speedAlarm(){
+
+  if(
+    speedGuard.alarming||
+    Date.now()<
+    speedGuard.snooze
+  ){
+
+    return;
   }
 
-  function veloxAlert(v,level){
+  speedGuard.alarming=true;
 
-    const key=
-      v.id+
-      level;
+  document.body
+    .classList
+    .add("show-speed");
 
-    if(
-      veloxGuard.alerts[key]
-    ){
-      return;
-    }
+  $("speedOverlayText").textContent=
+    Math.round(
+      state.speed
+    )+
+    " km/h · limite "+
+    settings.speedLimit;
 
-    veloxGuard.alerts[key]=
-      Date.now();
+  playSelected(true);
 
-    const s=
-      sounds.find(
-        x=>
-          x.id===
-          (
-            level==="near"
-              ? "siren"
-              : level==="mid"
-                ? "radar"
-                : "beep"
-          )
-      );
+  speak(
+    "Rallenta. Velocità superata.",
+    settings.alarmVoice
+  );
 
-    stopAudio();
-    playPattern(s);
+  const duration=
+    settings.alarmDuration===
+    "continuous"
+      ? Infinity
+      : Number(
+          settings.alarmDuration
+        )*
+        1000;
 
-    if(settings.veloxVoice){
-
-      speak(
-        v.type+
-        ". Tra "+
-        Math.round(
-          v.km*
-          1000
-        )+
-        " metri. Limite "+
-        v.limit+
-        " chilometri orari."
-      );
-    }
-
-    document.body
-      .classList
-      .add("show-velox");
-
-    $("veloxOverlayText").textContent=
-      v.type.toUpperCase()+
-      " · "+
-      Math.round(
-        v.km*
-        1000
-      )+
-      " M · LIMITE "+
-      v.limit;
+  if(
+    Number.isFinite(
+      duration
+    )
+  ){
 
     setTimeout(
-      ()=>{
+      clearSpeedAlarm,
+      duration
+    );
+  }
+}
 
-        document.body
-          .classList
-          .remove("show-velox");
-      },
-      4200
+function updateSpeed(){
+
+  $("speedNow").textContent=
+    Math.round(
+      state.speed
     );
 
-    if(settings.veloxSync){
+  $("speedLimitBig").textContent=
+    settings.speedLimit;
 
-      settings.speedLimit=
-        v.limit;
-
-      $("speedLimit").value=
-        v.limit;
-
-      save(
-        KSET,
-        settings
-      );
-    }
-  }
-
-  function updateVelox(){
-
-    $("veloxSpeed").textContent=
+  $("speedOver").textContent=
+    Math.max(
+      0,
       Math.round(
-        state.speed
-      );
-
-    if(!veloxGuard.active){
-
-      $("veloxDistance").textContent=
-        "—";
-
-      $("veloxLimit").textContent=
-        "—";
-
-      $("veloxMessage").textContent=
-        "CONTROLLO DISATTIVATO";
-
-      $("veloxMessage").className=
-        "message";
-
-      return;
-    }
-
-    const v=
-      nearestVelox();
-
-    veloxGuard.nearest=v;
-
-    if(!v){
-
-      $("veloxDistance").textContent=
-        "—";
-
-      $("veloxLimit").textContent=
-        "—";
-
-      $("veloxMessage").textContent=
-        "NESSUN RILEVATORE NEL RAGGIO";
-
-      $("veloxMessage").className=
-        "message safe";
-
-      return;
-    }
-
-    const m=
-      v.km*
-      1000;
-
-    $("veloxDistance").textContent=
-      m<
-      1000
-        ? Math.round(m)+
-          " m"
-        : num(
-            v.km,
-            1
-          )+
-          " km";
-
-    $("veloxLimit").textContent=
-      v.limit;
-
-    $("veloxMessage").textContent=
-      v.type+
-      " · "+
-      v.name;
-
-    $("veloxMessage").className=
-      "message "+
-      (
-        m<=
-        settings.veloxNear
-          ? "danger"
-          : m<=
-            settings.veloxMid
-            ? "warn"
-            : "safe"
-      );
-
-    if(
-      m<=
-      settings.veloxNear
-    ){
-
-      veloxAlert(
-        v,
-        "near"
-      );
-
-    }else if(
-      m<=
-      settings.veloxMid
-    ){
-
-      veloxAlert(
-        v,
-        "mid"
-      );
-
-    }else if(
-      m<=
-      settings.veloxFar
-    ){
-
-      veloxAlert(
-        v,
-        "far"
-      );
-    }
-  }
-
-  function toggleVelox(){
-
-    read();
-
-    veloxGuard.active=
-      !veloxGuard.active;
-
-    $("toggleVelox").textContent=
-      veloxGuard.active
-        ? "DISATTIVA VELOX GUARD"
-        : "ATTIVA VELOX GUARD";
-
-    if(veloxGuard.active){
-
-      startGps();
-      keepAwake();
-
-      toast(
-        "Velox Guard attivo"
-      );
-
-    }else{
-
-      if(
-        !state.running&&
-        !speedGuard.active
-      ){
-
-        stopGps();
-        releaseWake();
-      }
-
-      toast(
-        "Velox Guard disattivato"
-      );
-    }
-
-    updateAll();
-  }
-
-  function fillPosition(){
-
-    if(!state.lastPoint){
-
-      toast(
-        "Posizione GPS non disponibile"
-      );
-
-      startGps();
-
-      return false;
-    }
-
-    $("veloxLat").value=
-      state.lastPoint.lat
-        .toFixed(6);
-
-    $("veloxLon").value=
-      state.lastPoint.lon
-        .toFixed(6);
-
-    if(
-      Number.isFinite(
-        veloxGuard.heading
+        state.speed-
+        settings.speedLimit
       )
-    ){
-
-      $("veloxHeading").value=
-        Math.round(
-          veloxGuard.heading
-        );
-    }
-
-    return true;
-  }
-
-  function addVelox(){
-
-    const v=
-      cleanVelox({
-        name:
-          $("veloxName").value||
-          "Segnalazione",
-
-        type:
-          $("veloxType").value,
-
-        limit:
-          $("veloxManualLimit").value,
-
-        heading:
-          $("veloxHeading").value,
-
-        lat:
-          $("veloxLat").value,
-
-        lon:
-          $("veloxLon").value
-      });
-
-    if(!v){
-
-      toast(
-        "Coordinate non valide"
-      );
-
-      return;
-    }
-
-    veloxDb.unshift(v);
-
-    save(
-      KVELOX,
-      veloxDb
     );
-
-    renderVelox();
-
-    toast(
-      "Rilevatore aggiunto"
-    );
-  }
-
-  function parseImport(t){
-
-    t=t.trim();
-
-    if(!t){
-      return[];
-    }
-
-    if(
-      t.startsWith("[")||
-      t.startsWith("{")
-    ){
-
-      const x=
-        JSON.parse(t);
-
-      return(
-        Array.isArray(x)
-          ? x
-          : [x]
-      )
-        .map(cleanVelox)
-        .filter(Boolean);
-    }
-
-    return t
-      .split(/\r?\n/)
-      .filter(Boolean)
-      .map(
-        line=>{
-
-          const a=
-            line
-              .split(/[;,]/)
-              .map(
-                x=>
-                  x.trim()
-              );
-
-          return cleanVelox({
-            name:a[0],
-            type:a[1],
-            limit:a[2],
-            lat:a[3],
-            lon:a[4],
-            heading:a[5]
-          });
-        }
-      )
-      .filter(Boolean);
-  }
-
-  function renderTrips(){
-
-    $("tripCount").textContent=
-      trips.length+
-      " "+
-      (
-        trips.length===1
-          ? "viaggio"
-          : "viaggi"
-      );
-
-    if(!trips.length){
-
-      $("tripList").innerHTML=
-        '<div class="empty">'+
-        "Nessun viaggio registrato."+
-        "</div>";
-
-      return;
-    }
-
-    $("tripList").innerHTML=
-      trips.map(
-        t=>{
-
-          const d=
-            new Date(
-              t.date
-            );
-
-          return(
-            '<div class="trip">'+
-
-              '<div class="trip-head">'+
-
-                "<b>"+
-                  d.toLocaleDateString(
-                    "it-IT"
-                  )+
-                  " · "+
-                  d.toLocaleTimeString(
-                    "it-IT",
-                    {
-                      hour:"2-digit",
-                      minute:"2-digit"
-                    }
-                  )+
-                "</b>"+
-
-                "<span>"+
-                  euro(
-                    t.total
-                  )+
-                "</span>"+
-
-              "</div>"+
-
-              '<div class="trip-meta">'+
-
-                "<div>"+
-                  "<b>"+
-                    num(
-                      t.distance,
-                      1
-                    )+
-                  "</b>"+
-                  "<small>KM</small>"+
-                "</div>"+
-
-                "<div>"+
-                  "<b>"+
-                    fmt(
-                      t.duration
-                    )+
-                  "</b>"+
-                  "<small>DURATA</small>"+
-                "</div>"+
-
-                "<div>"+
-                  "<b>"+
-                    num(
-                      t.costKm,
-                      3
-                    )+
-                  "</b>"+
-                  "<small>€/KM</small>"+
-                "</div>"+
-
-              "</div>"+
-
-            "</div>"
-          );
-        }
-      ).join("");
-  }
-
-  function exportTrips(){
-
-    if(!trips.length){
-      return;
-    }
-
-    const rows=[
-      [
-        "Data",
-        "Km",
-        "Durata",
-        "Litri",
-        "Costo",
-        "€/km"
-      ],
-
-      ...trips.map(
-        t=>[
-          new Date(
-            t.date
-          ).toLocaleString(
-            "it-IT"
-          ),
-
-          t.distance,
-          t.duration/
-          1000,
-
-          t.liters,
-          t.total,
-          t.costKm
-        ]
-      )
-    ];
-
-    const csv=
-      rows.map(
-        r=>
-          r.join(";")
-      ).join("\n");
-
-    const blob=
-      new Blob(
-        [
-          "\uFEFF"+
-          csv
-        ],
-        {
-          type:"text/csv"
-        }
-      );
-
-    const url=
-      URL.createObjectURL(
-        blob
-      );
-
-    const a=
-      document.createElement(
-        "a"
-      );
-
-    a.href=url;
-
-    a.download=
-      "xa-road-v6-viaggi.csv";
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-  }
-
-  document
-    .querySelectorAll(
-      ".nav button"
-    )
-    .forEach(
-      b=>{
-
-        b.onclick=()=>{
-
-          document
-            .querySelectorAll(
-              ".nav button"
-            )
-            .forEach(
-              x=>
-                x.classList
-                  .remove("active")
-            );
-
-          document
-            .querySelectorAll(
-              ".page"
-            )
-            .forEach(
-              x=>
-                x.classList
-                  .remove("active")
-            );
-
-          b.classList
-            .add("active");
-
-          $(
-            "page-"+
-            b.dataset.page
-          )
-            .classList
-            .add("active");
-
-          scrollTo({
-            top:0,
-            behavior:"smooth"
-          });
-        };
-      }
-    );
-
-  $("startTrip").onclick=
-    startTrip;
-
-  $("pauseTrip").onclick=
-    pauseTrip;
-
-  $("stopTrip").onclick=
-    stopTrip;
-
-  document
-    .querySelectorAll(
-      "[data-extra]"
-    )
-    .forEach(
-      b=>{
-
-        b.onclick=()=>{
-
-          extraType=
-            b.dataset.extra;
-
-          $("extraTitle").textContent=
-            "Aggiungi "+
-            extraType;
-
-          $("extraModal")
-            .classList
-            .add("open");
-        };
-      }
-    );
-
-  $("confirmExtra").onclick=()=>{
-
-    const amount=
-      Number(
-        $("extraAmount").value||
-        0
-      );
-
-    if(amount>0){
-
-      state.extras.push({
-        type:extraType,
-        amount
-      });
-
-      $("extraModal")
-        .classList
-        .remove("open");
-
-      $("extraAmount").value="";
-
-      updateAll();
-    }
-  };
-
-  $("cancelExtra").onclick=()=>{
-
-    $("extraModal")
-      .classList
-      .remove("open");
-  };
 
   document
     .querySelectorAll(
       "[data-limit]"
     )
     .forEach(
-      b=>{
+      button=>{
 
-        b.onclick=()=>{
-
-          settings.speedLimit=
-            Number(
-              b.dataset.limit
-            );
-
-          $("speedLimit").value=
-            settings.speedLimit;
-
-          save(
-            KSET,
-            settings
-          );
-
-          updateSpeed();
-        };
+        button.classList.toggle(
+          "active",
+          Number(
+            button.dataset.limit
+          )===
+          Number(
+            settings.speedLimit
+          )
+        );
       }
     );
 
-  $("toggleSpeed").onclick=
-    toggleSpeed;
+  if(!speedGuard.active){
 
-  $("testSpeed").onclick=()=>{
+    $("speedMessage").textContent=
+      "CONTROLLO DISATTIVATO";
 
-    read();
+    $("speedMessage").className=
+      "message";
 
-    playSelected(true);
+    return;
+  }
 
-    speak(
-      "Rallenta. Velocità superata."
-    );
+  if(
+    state.speed>
+    settings.speedLimit+
+    settings.speedTolerance
+  ){
 
-    document.body
-      .classList
-      .add("show-speed");
+    $("speedMessage").textContent=
+      "VELOCITÀ SUPERATA";
 
-    setTimeout(
-      ()=>{
+    $("speedMessage").className=
+      "message danger";
 
-        stopAudio();
+    speedAlarm();
 
-        document.body
-          .classList
-          .remove("show-speed");
-      },
-      12000
-    );
-  };
+  }else{
 
-  $("snoozeSpeed").onclick=()=>{
+    $("speedMessage").textContent=
+      "VELOCITÀ REGOLARE";
 
-    speedGuard.snooze=
-      Date.now()+
-      60000;
-
-    clearSpeedAlarm();
-
-    toast(
-      "Silenziato per 60 secondi"
-    );
-  };
-
-  $("previewSound").onclick=()=>{
-
-    read();
-
-    playSelected(true);
-
-    setTimeout(
-      stopAudio,
-      12000
-    );
-  };
-
-  $("stopSound").onclick=
-    stopAudio;
-
-  $("customAudio").onchange=e=>{
-
-    const f=
-      e.target.files?.[0];
-
-    if(f){
-
-      customAudio=
-        new Audio(
-          URL.createObjectURL(f)
-        );
-
-      settings.selectedSound=
-        "custom";
-
-      save(
-        KSET,
-        settings
-      );
-
-      renderSounds();
-
-      toast(
-        "Audio personale selezionato"
-      );
-    }
-  };
-
-  $("toggleVelox").onclick=
-    toggleVelox;
-
-  $("reportVelox").onclick=()=>{
-
-    if(fillPosition()){
-
-      if(
-        !$("veloxName").value
-      ){
-
-        $("veloxName").value=
-          "Segnalazione "+
-          new Date()
-            .toLocaleString(
-              "it-IT"
-            );
-      }
-
-      addVelox();
-    }
-  };
-
-  $("usePosition").onclick=
-    fillPosition;
-
-  $("addVelox").onclick=
-    addVelox;
-
-  $("saveVeloxSettings").onclick=()=>{
-
-    read();
-
-    toast(
-      "Impostazioni autovelox salvate"
-    );
-  };
-
-  $("importVelox").onclick=()=>{
-
-    try{
-
-      const arr=
-        parseImport(
-          $("veloxImport").value
-        );
-
-      veloxDb.push(...arr);
-
-      save(
-        KVELOX,
-        veloxDb
-      );
-
-      renderVelox();
-
-      toast(
-        arr.length+
-        " punti importati"
-      );
-
-    }catch{
-
-      toast(
-        "Formato non valido"
-      );
-    }
-  };
-
-  $("exportVelox").onclick=()=>{
-
-    $("veloxImport").value=
-      JSON.stringify(
-        veloxDb,
-        null,
-        2
-      );
-
-    navigator.clipboard
-      ?.writeText(
-        $("veloxImport").value
-      );
-
-    toast(
-      "Database mostrato e copiato"
-    );
-  };
-
-  $("clearVelox").onclick=()=>{
+    $("speedMessage").className=
+      "message safe";
 
     if(
-      confirm(
-        "Cancellare il database?"
-      )
+      state.speed<
+      settings.speedLimit-
+      2
     ){
 
-      veloxDb=[];
+      clearSpeedAlarm();
+    }
+  }
+}
 
-      save(
-        KVELOX,
-        veloxDb
+function normalizeSource(source){
+
+  const value=
+    String(
+      source||
+      "non_verificato"
+    )
+      .toLowerCase()
+      .replaceAll(
+        " ",
+        "_"
       );
 
-      renderVelox();
-    }
-  };
-
-  $("saveSettings").onclick=()=>{
-
-    read();
-
-    toast(
-      "Dati salvati"
-    );
-  };
-
-  $("resetSettings").onclick=()=>{
-
-    settings={
-      ...DEF
-    };
-
-    save(
-      KSET,
-      settings
-    );
-
-    fill();
-  };
-
-  $("exportTrips").onclick=
-    exportTrips;
-
-  $("clearTrips").onclick=()=>{
-
-    if(
-      confirm(
-        "Cancellare lo storico?"
-      )
-    ){
-
-      trips=[];
-
-      save(
-        KTRIP,
-        trips
-      );
-
-      renderTrips();
-    }
-  };
-
-  document.addEventListener(
-    "visibilitychange",
-    ()=>{
-
-      if(
-        document.visibilityState===
-        "visible"&&
-        gpsNeeded()
-      ){
-
-        startGps();
-        keepAwake();
-        watchdog();
-      }
-    }
+  return(
+    [
+      "verificato",
+      "online",
+      "manuale",
+      "segnalato",
+      "importato"
+    ].includes(value)
+      ? value
+      : "non_verificato"
   );
+}
 
-  window.addEventListener(
-    "beforeunload",
-    ()=>{
+function cleanVelox(value){
 
-      if(state.running){
+  const latitude=
+    Number(
+      value.lat??
+      value.latitude
+    );
 
-        save(
-          KACTIVE,
+  const longitude=
+    Number(
+      value.lon??
+      value.longitude
+    );
+
+  const limit=
+    Number(
+      value.limit??
+      value.limite??
+      90
+    );
+
+  const rawDirection=
+    value.direction??
+    value.heading??
+    value.direzione;
+
+  const direction=
+    rawDirection===""||
+    rawDirection==null
+      ? null
+      : Number(
+          rawDirection
+        );
+
+  if(
+    !Number.isFinite(latitude)||
+    !Number.isFinite(longitude)||
+    Math.abs(latitude)>90||
+    Math.abs(longitude)>180
+  ){
+
+    return null;
+  }
+
+  return{
+    id:
+      String(
+        value.id||
+        Date.now()+
+        Math.random()
+      ),
+
+    name:
+      String(
+        value.name||
+        value.nome||
+        "Rilevatore"
+      ),
+
+    type:
+      String(
+        value.type||
+        value.tipo||
+        "Fisso"
+      ),
+
+    limit:
+      clamp(
+        limit||
+        90,
+        10,
+        200
+      ),
+
+    lat:
+      latitude,
+
+    lon:
+      longitude,
+
+    direction:
+      Number.isFinite(
+        direction
+      )
+        ? (
+            (
+              direction%
+              360
+            )+
+            360
+          )%
+          360
+        : null,
+
+    source:
+      normalizeSource(
+        value.source??
+        value.fonte
+      )
+  };
+}
+
+function veloxKey(value){
+
+  return(
+    value.lat.toFixed(5)+
+    "|"+
+    value.lon.toFixed(5)+
+    "|"+
+    value.type.toLowerCase()
+  );
+}
+
+function mergeVelox(list){
+
+  const map=
+    new Map(
+      veloxDb.map(
+        value=>[
+          veloxKey(value),
+          value
+        ]
+      )
+    );
+
+  let added=0;
+
+  list.forEach(
+    raw=>{
+
+      const value=
+        cleanVelox(raw);
+
+      if(!value){
+        return;
+      }
+
+      const key=
+        veloxKey(value);
+
+      const old=
+        map.get(key);
+
+      if(!old){
+
+        map.set(
+          key,
+          value
+        );
+
+        added++;
+
+      }else if(
+        [
+          "verificato",
+          "online"
+        ].includes(
+          value.source
+        )
+      ){
+
+        map.set(
+          key,
           {
-            ...state,
-            elapsed:
-              elapsed(),
-            start:0
+            ...old,
+            ...value,
+            id:old.id
           }
         );
       }
     }
   );
 
-  fill();
-  renderTrips();
-  tripButtons();
+  veloxDb=[
+    ...map.values()
+  ];
 
-  setInterval(
-    ()=>{
+  save(
+    VELOX_KEY,
+    veloxDb
+  );
 
-      if(
-        speedGuard.active||
-        veloxGuard.active||
-        state.running
+  renderVelox();
+
+  return added;
+}
+
+function qualityLabel(value){
+
+  if(
+    value.source===
+    "verificato"
+  ){
+    return "VERIFICATO";
+  }
+
+  if(
+    value.source===
+    "online"
+  ){
+    return "ONLINE";
+  }
+
+  if(
+    value.source===
+    "manuale"
+  ){
+    return "MANUALE";
+  }
+
+  if(
+    value.source===
+    "segnalato"
+  ){
+    return "SEGNALATO";
+  }
+
+  if(
+    value.source===
+    "importato"
+  ){
+    return "IMPORTATO";
+  }
+
+  return "NON VERIFICATO";
+}
+
+function qualityClass(value){
+
+  if(
+    [
+      "verificato",
+      "online"
+    ].includes(
+      value.source
+    )
+  ){
+    return "ok";
+  }
+
+  if(
+    [
+      "manuale",
+      "importato"
+    ].includes(
+      value.source
+    )
+  ){
+    return "warn";
+  }
+
+  return "bad";
+}
+
+function escapeHtml(value){
+
+  return String(value)
+    .replace(
+      /[&<>"']/g,
+      character=>({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      }[character])
+    );
+}
+
+function renderVelox(){
+
+  $("veloxCount").textContent=
+    veloxDb.length+
+    " punti";
+
+  if(!veloxDb.length){
+
+    $("veloxList").innerHTML=
+      `<div class="empty">
+        Database vuoto. Aggiungi o importa punti.
+      </div>`;
+
+    return;
+  }
+
+  $("veloxList").innerHTML=
+    veloxDb.map(
+      value=>
+        `<div class="veloxitem">
+
+          <div>
+
+            <h4>
+              ${escapeHtml(value.name)}
+            </h4>
+
+            <p>
+              ${escapeHtml(value.type)}
+              · limite ${value.limit}
+              <br>
+              ${value.lat.toFixed(6)},
+              ${value.lon.toFixed(6)}
+              <br>
+              <span class="badge ${qualityClass(value)}">
+                ${qualityLabel(value)}
+              </span>
+            </p>
+
+          </div>
+
+          <button
+            class="delete"
+            data-delete="${value.id}"
+          >
+            ×
+          </button>
+
+        </div>`
+    ).join("");
+
+  document
+    .querySelectorAll(
+      "[data-delete]"
+    )
+    .forEach(
+      button=>{
+
+        button.onclick=()=>{
+
+          veloxDb=
+            veloxDb.filter(
+              value=>
+                value.id!==
+                button.dataset.delete
+            );
+
+          delete veloxGuard
+            .tracks[
+              button.dataset.delete
+            ];
+
+          save(
+            VELOX_KEY,
+            veloxDb
+          );
+
+          renderVelox();
+        };
+      }
+    );
+}
+
+function resetTracking(showMessage=true){
+
+  veloxGuard.tracks={};
+  veloxGuard.nearest=null;
+
+  document.body
+    .classList
+    .remove("show-velox");
+
+  if(showMessage){
+    toast("Controllo azzerato");
+  }
+}
+
+function getTrack(value){
+
+  if(
+    !veloxGuard.tracks[
+      value.id
+    ]
+  ){
+
+    veloxGuard.tracks[
+      value.id
+    ]={
+      samples:[],
+      confirmations:0,
+      minimum:Infinity,
+      armed:true,
+      passedAt:0,
+      level:0,
+      lastPointTime:0
+    };
+  }
+
+  return(
+    veloxGuard.tracks[
+      value.id
+    ]
+  );
+}
+
+function evaluateVelox(value){
+
+  if(!state.lastPoint){
+    return null;
+  }
+
+  const distance=
+    distanceBetween(
+      state.lastPoint,
+      {
+        lat:value.lat,
+        lon:value.lon
+      }
+    )*
+    1000;
+
+  const accuracy=
+    state.accuracy||
+    999;
+
+  const track=
+    getTrack(value);
+
+  if(
+    distance>
+    settings.veloxRadius*
+    1000
+  ){
+
+    if(
+      !track.armed&&
+      distance>1200&&
+      Date.now()-
+      track.passedAt>
+      30000
+    ){
+
+      track.samples=[];
+      track.confirmations=0;
+      track.minimum=Infinity;
+      track.armed=true;
+      track.level=0;
+    }
+
+    return null;
+  }
+
+  const targetBearing=
+    bearingBetween(
+      state.lastPoint,
+      {
+        lat:value.lat,
+        lon:value.lon
+      }
+    );
+
+  const headingDifference=
+    Number.isFinite(
+      veloxGuard.heading
+    )
+      ? angleDifference(
+          veloxGuard.heading,
+          targetBearing
+        )
+      : null;
+
+  const cameraDifference=
+    value.direction!=null&&
+    Number.isFinite(
+      veloxGuard.heading
+    )
+      ? angleDifference(
+          veloxGuard.heading,
+          value.direction
+        )
+      : null;
+
+  if(
+    headingDifference!=null&&
+    headingDifference>
+    settings.veloxCone
+  ){
+
+    return null;
+  }
+
+  if(
+    cameraDifference!=null&&
+    cameraDifference>60
+  ){
+
+    return null;
+  }
+
+  if(
+    track.lastPointTime!==
+    state.lastPoint.timestamp
+  ){
+
+    track.lastPointTime=
+      state.lastPoint.timestamp;
+
+    track.samples.push(
+      distance
+    );
+
+    track.samples=
+      track.samples.slice(-7);
+
+    const count=
+      track.samples.length;
+
+    if(count>=2){
+
+      const previousDistance=
+        track.samples[
+          count-
+          2
+        ];
+
+      const difference=
+        previousDistance-
+        distance;
+
+      const margin=
+        Math.max(
+          2,
+          accuracy*
+          .08
+        );
+
+      if(difference>margin){
+
+        track.confirmations=
+          Math.min(
+            9,
+            track.confirmations+
+            1
+          );
+
+      }else if(
+        difference<
+        -margin
       ){
 
-        updateAll();
+        track.confirmations=
+          Math.max(
+            0,
+            track.confirmations-
+            2
+          );
+
+      }else{
+
+        track.confirmations=
+          Math.max(
+            0,
+            track.confirmations-
+            1
+          );
       }
-    },
-    1000
+    }
+
+    track.minimum=
+      Math.min(
+        track.minimum,
+        distance
+      );
+  }
+
+  const sampleCount=
+    track.samples.length;
+
+  const increasing=
+    sampleCount>=3&&
+    track.samples[
+      sampleCount-
+      1
+    ]>
+    track.samples[
+      sampleCount-
+      2
+    ]+
+    5&&
+    track.samples[
+      sampleCount-
+      2
+    ]>
+    track.samples[
+      sampleCount-
+      3
+    ]+
+    3;
+
+  if(
+    track.armed&&
+    track.minimum<
+    Math.max(
+      120,
+      settings.veloxNear*
+      .65
+    )&&
+    increasing&&
+    distance>
+    track.minimum+
+    Math.max(
+      35,
+      accuracy*
+      1.2
+    )
+  ){
+
+    track.armed=false;
+    track.passedAt=Date.now();
+    track.level=0;
+  }
+
+  if(!track.armed){
+    return null;
+  }
+
+  const confirmed=
+    track.confirmations>=
+    settings.veloxConfirmations||
+    (
+      distance<=
+      settings.veloxNear&&
+      track.confirmations>=
+      Math.max(
+        2,
+        settings.veloxConfirmations-
+        1
+      )&&
+      headingDifference!=null&&
+      headingDifference<=25
+    );
+
+  return{
+    ...value,
+
+    distance,
+    headingDifference,
+    confirmed,
+
+    confirmations:
+      track.confirmations,
+
+    track
+  };
+}
+
+function nearestVelox(){
+
+  let best=null;
+
+  veloxDb.forEach(
+    value=>{
+
+      const candidate=
+        evaluateVelox(value);
+
+      if(!candidate){
+        return;
+      }
+
+      const score=
+        candidate.distance+
+        (
+          candidate.headingDifference??
+          35
+        )*
+        4-
+        candidate.confirmations*
+        45;
+
+      if(
+        !best||
+        score<
+        best.score
+      ){
+
+        best={
+          ...candidate,
+          score
+        };
+      }
+    }
   );
 
-  setInterval(
-    watchdog,
-    6000
+  return best;
+}
+
+function veloxAlert(value,level){
+
+  const numericLevel=
+    level==="near"
+      ? 3
+      : level==="mid"
+        ? 2
+        : 1;
+
+  if(
+    value.track.level>=
+    numericLevel
+  ){
+
+    return;
+  }
+
+  value.track.level=
+    numericLevel;
+
+  const sound=
+    sounds.find(
+      item=>
+        item.id===
+        (
+          level==="near"
+            ? "siren"
+            : level==="mid"
+              ? "radar"
+              : "beep"
+        )
+    );
+
+  stopAudio();
+  playPattern(sound);
+
+  speak(
+    value.type+
+    ". Tra "+
+    Math.round(
+      value.distance
+    )+
+    " metri. Limite "+
+    value.limit+
+    " chilometri orari.",
+    settings.veloxVoice
   );
+
+  document.body
+    .classList
+    .add("show-velox");
+
+  $("veloxOverlayText").textContent=
+    value.type.toUpperCase()+
+    " · "+
+    Math.round(
+      value.distance
+    )+
+    " M · LIMITE "+
+    value.limit;
+
+  setTimeout(
+    ()=>{
+      document.body
+        .classList
+        .remove("show-velox");
+    },
+    4500
+  );
+
+  if(settings.veloxSync){
+
+    settings.speedLimit=
+      value.limit;
+
+    $("speedLimit").value=
+      value.limit;
+
+    save(
+      SETTINGS_KEY,
+      settings
+    );
+  }
+}
+
+function updateVelox(){
+
+  $("veloxSpeed").textContent=
+    Math.round(
+      state.speed
+    );
+
+  $("veloxGps").textContent=
+    state.accuracy
+      ? "±"+
+        Math.round(
+          state.accuracy
+        )+
+        "m"
+      : "—";
+
+  $("veloxHeading").textContent=
+    Number.isFinite(
+      veloxGuard.heading
+    )
+      ? Math.round(
+          veloxGuard.heading
+        )+
+        "°"
+      : "—";
+
+  if(!veloxGuard.active){
+
+    $("veloxDistance").textContent=
+      "—";
+
+    $("veloxLimit").textContent=
+      "—";
+
+    $("veloxConfirm").textContent=
+      "0/"+
+      settings.veloxConfirmations;
+
+    $("veloxMessage").textContent=
+      "CONTROLLO DISATTIVATO";
+
+    $("veloxMessage").className=
+      "message";
+
+    return;
+  }
+
+  if(!state.lastPoint){
+
+    $("veloxMessage").textContent=
+      "RICERCA GPS";
+
+    $("veloxMessage").className=
+      "message warn";
+
+    return;
+  }
+
+  if(
+    Date.now()-
+    state.lastFix>
+    12000
+  ){
+
+    $("veloxDistance").textContent=
+      "—";
+
+    $("veloxLimit").textContent=
+      "—";
+
+    $("veloxMessage").textContent=
+      "GPS NON AGGIORNATO";
+
+    $("veloxMessage").className=
+      "message warn";
+
+    return;
+  }
+
+  if(
+    state.accuracy>
+    settings.veloxMaxAccuracy
+  ){
+
+    $("veloxDistance").textContent=
+      "—";
+
+    $("veloxLimit").textContent=
+      "—";
+
+    $("veloxMessage").textContent=
+      "GPS TROPPO IMPRECISO · ±"+
+      Math.round(
+        state.accuracy
+      )+
+      " M";
+
+    $("veloxMessage").className=
+      "message warn";
+
+    return;
+  }
+
+  if(
+    state.speed<
+    settings.veloxMinSpeed
+  ){
+
+    $("veloxDistance").textContent=
+      "—";
+
+    $("veloxLimit").textContent=
+      "—";
+
+    $("veloxMessage").textContent=
+      "IN ATTESA · VELOCITÀ MINIMA "+
+      settings.veloxMinSpeed;
+
+    $("veloxMessage").className=
+      "message safe";
+
+    return;
+  }
+
+  const value=
+    nearestVelox();
+
+  veloxGuard.nearest=
+    value;
+
+  if(!value){
+
+    $("veloxDistance").textContent=
+      "—";
+
+    $("veloxLimit").textContent=
+      "—";
+
+    $("veloxConfirm").textContent=
+      "0/"+
+      settings.veloxConfirmations;
+
+    $("veloxMessage").textContent=
+      "NESSUN RILEVATORE DAVANTI";
+
+    $("veloxMessage").className=
+      "message safe";
+
+    return;
+  }
+
+  $("veloxDistance").textContent=
+    value.distance<1000
+      ? Math.round(
+          value.distance
+        )+
+        "m"
+      : num(
+          value.distance/
+          1000,
+          1
+        )+
+        "km";
+
+  $("veloxLimit").textContent=
+    value.limit;
+
+  $("veloxConfirm").textContent=
+    Math.min(
+      value.confirmations,
+      settings.veloxConfirmations
+    )+
+    "/"+
+    settings.veloxConfirmations;
+
+  if(!value.confirmed){
+
+    $("veloxMessage").textContent=
+      "VERIFICA AVVICINAMENTO · "+
+      value.name;
+
+    $("veloxMessage").className=
+      "message warn";
+
+    return;
+  }
+
+  $("veloxMessage").textContent=
+    value.type+
+    " · "+
+    value.name+
+    " · "+
+    qualityLabel(value);
+
+  $("veloxMessage").className=
+    "message "+
+    (
+      value.distance<=
+      settings.veloxNear
+        ? "danger"
+        : value.distance<=
+          settings.veloxMid
+          ? "warn"
+          : "safe"
+    );
+
+  if(
+    value.distance<=
+    settings.veloxNear
+  ){
+
+    veloxAlert(
+      value,
+      "near"
+    );
+
+  }else if(
+    value.distance<=
+    settings.veloxMid
+  ){
+
+    veloxAlert(
+      value,
+      "mid"
+    );
+
+  }else if(
+    value.distance<=
+    settings.veloxFar
+  ){
+
+    veloxAlert(
+      value,
+      "far"
+    );
+  }
+}
+
+function useCurrentPosition(){
+
+  if(!state.lastPoint){
+
+    startGps();
+    toast("Attendo il GPS");
+
+    return false;
+  }
+
+  $("veloxLat").value=
+    state.lastPoint.lat
+      .toFixed(6);
+
+  $("veloxLon").value=
+    state.lastPoint.lon
+      .toFixed(6);
+
+  if(
+    Number.isFinite(
+      veloxGuard.heading
+    )
+  ){
+
+    $("veloxDirection").value=
+      Math.round(
+        veloxGuard.heading
+      );
+  }
+
+  return true;
+}
+
+function addVelox(source){
+
+  const value=
+    cleanVelox({
+      name:
+        $("veloxName").value||
+        "Segnalazione",
+
+      type:
+        $("veloxType").value,
+
+      limit:
+        $("veloxManualLimit").value,
+
+      source:
+        source||
+        $("veloxSource").value,
+
+      direction:
+        $("veloxDirection").value,
+
+      lat:
+        $("veloxLat").value,
+
+      lon:
+        $("veloxLon").value
+    });
+
+  if(!value){
+
+    toast("Coordinate non valide");
+
+    return;
+  }
+
+  const added=
+    mergeVelox(
+      [value]
+    );
+
+  toast(
+    added
+      ? "Rilevatore aggiunto"
+      : "Punto già presente"
+  );
+}
+
+function parseVelox(text){
+
+  const value=
+    text.trim();
+
+  if(!value){
+    return[];
+  }
+
+  if(
+    value.startsWith("[")||
+    value.startsWith("{")
+  ){
+
+    const parsed=
+      JSON.parse(value);
+
+    const list=
+      Array.isArray(parsed)
+        ? parsed
+        : Array.isArray(
+            parsed.points
+          )
+          ? parsed.points
+          : [parsed];
+
+    return list
+      .map(
+        item=>
+          cleanVelox({
+            ...item,
+            source:
+              item.source||
+              "importato"
+          })
+      )
+      .filter(Boolean);
+  }
+
+  return value
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .map(
+      line=>{
+
+        const fields=
+          line
+            .split(/[;,]/)
+            .map(
+              field=>
+                field.trim()
+            );
+
+        return cleanVelox({
+          name:fields[0],
+          type:fields[1],
+          limit:fields[2],
+          lat:fields[3],
+          lon:fields[4],
+          direction:fields[5],
+          source:
+            fields[6]||
+            "importato"
+        });
+      }
+    )
+    .filter(Boolean);
+}
+
+async function loadOnline(showMessage=true){
+
+  $("onlineState").textContent=
+    "Controllo autovelox.json…";
+
+  try{
+
+    const response=
+      await fetch(
+        "./autovelox.json?ts="+
+        Date.now(),
+        {
+          cache:"no-store"
+        }
+      );
+
+    if(!response.ok){
+      throw new Error();
+    }
+
+    const parsed=
+      await response.json();
+
+    const list=
+      Array.isArray(parsed)
+        ? parsed
+        : Array.isArray(
+            parsed.points
+          )
+          ? parsed.points
+          : [parsed];
+
+    const added=
+      mergeVelox(
+        list.map(
+          value=>({
+            ...value,
+            source:
+              value.source||
+              "online"
+          })
+        )
+      );
+
+    $("onlineState").textContent=
+      "Online: "+
+      list.length+
+      " punti · "+
+      added+
+      " nuovi";
+
+    if(showMessage){
+
+      toast(
+        added+
+        " nuovi punti"
+      );
+    }
+
+  }catch{
+
+    $("onlineState").textContent=
+      "autovelox.json non trovato. Resta attivo il database locale.";
+
+    if(showMessage){
+
+      toast(
+        "Database online non disponibile"
+      );
+    }
+  }
+}
+
+function renderTrips(){
+
+  $("tripCount").textContent=
+    trips.length+
+    " viaggi";
+
+  if(!trips.length){
+
+    $("tripList").innerHTML=
+      `<div class="empty">
+        Nessun viaggio registrato.
+      </div>`;
+
+    return;
+  }
+
+  $("tripList").innerHTML=
+    trips.map(
+      trip=>{
+
+        const date=
+          new Date(
+            trip.date
+          );
+
+        return(
+          `<div class="trip">
+
+            <div class="triphead">
+
+              <b>
+                ${
+                  date.toLocaleDateString(
+                    "it-IT"
+                  )
+                }
+                ·
+                ${
+                  date.toLocaleTimeString(
+                    "it-IT",
+                    {
+                      hour:"2-digit",
+                      minute:"2-digit"
+                    }
+                  )
+                }
+              </b>
+
+              <span>
+                ${euro(trip.total)}
+              </span>
+
+            </div>
+
+            <div class="tripmeta">
+
+              <div>
+                <b>${num(trip.distance,1)}</b>
+                <small>KM</small>
+              </div>
+
+              <div>
+                <b>${formatTime(trip.duration)}</b>
+                <small>DURATA</small>
+              </div>
+
+              <div>
+                <b>${num(trip.costPerKm,3)}</b>
+                <small>€/KM</small>
+              </div>
+
+            </div>
+
+          </div>`
+        );
+      }
+    ).join("");
+}
+
+function exportTrips(){
+
+  if(!trips.length){
+    return;
+  }
+
+  const rows=[
+    [
+      "Data",
+      "Km",
+      "Durata",
+      "Costo",
+      "€/km"
+    ],
+
+    ...trips.map(
+      trip=>[
+        trip.date,
+        trip.distance,
+        trip.duration/
+        1000,
+        trip.total,
+        trip.costPerKm
+      ]
+    )
+  ];
+
+  const blob=
+    new Blob(
+      [
+        "\uFEFF"+
+        rows.map(
+          row=>
+            row.join(";")
+        ).join("\n")
+      ],
+      {
+        type:"text/csv"
+      }
+    );
+
+  const url=
+    URL.createObjectURL(
+      blob
+    );
+
+  const link=
+    document.createElement(
+      "a"
+    );
+
+  link.href=url;
+
+  link.download=
+    "xa-road-v61-viaggi.csv";
+
+  link.click();
+
+  URL.revokeObjectURL(url);
+}
+
+document
+  .querySelectorAll(
+    ".nav button"
+  )
+  .forEach(
+    button=>{
+
+      button.onclick=()=>{
+
+        document
+          .querySelectorAll(
+            ".nav button,.page"
+          )
+          .forEach(
+            element=>
+              element.classList
+                .remove("active")
+          );
+
+        button.classList
+          .add("active");
+
+        $(
+          "page-"+
+          button.dataset.page
+        )
+          .classList
+          .add("active");
+
+        scrollTo({
+          top:0,
+          behavior:"smooth"
+        });
+      };
+    }
+  );
+
+$("startTrip").onclick=
+  startTrip;
+
+$("pauseTrip").onclick=
+  pauseTrip;
+
+$("stopTrip").onclick=
+  stopTrip;
+
+document
+  .querySelectorAll(
+    "[data-limit]"
+  )
+  .forEach(
+    button=>{
+
+      button.onclick=()=>{
+
+        settings.speedLimit=
+          Number(
+            button.dataset.limit
+          );
+
+        $("speedLimit").value=
+          settings.speedLimit;
+
+        save(
+          SETTINGS_KEY,
+          settings
+        );
+
+        updateSpeed();
+      };
+    }
+  );
+
+$("toggleSpeed").onclick=()=>{
+
+  readSettings();
+
+  speedGuard.active=
+    !speedGuard.active;
+
+  $("toggleSpeed").textContent=
+    speedGuard.active
+      ? "DISATTIVA"
+      : "ATTIVA";
+
+  if(speedGuard.active){
+
+    startGps();
+    keepAwake();
+    unlockAudio();
+
+  }else{
+
+    clearSpeedAlarm();
+
+    if(
+      !state.running&&
+      !veloxGuard.active
+    ){
+
+      stopGps();
+    }
+  }
+
+  updateAll();
+};
+
+$("testSpeed").onclick=()=>{
+
+  readSettings();
+
+  playSelected(true);
+
+  speak(
+    "Rallenta. Velocità superata.",
+    settings.alarmVoice
+  );
+
+  document.body
+    .classList
+    .add("show-speed");
+
+  setTimeout(
+    ()=>{
+
+      stopAudio();
+
+      document.body
+        .classList
+        .remove("show-speed");
+    },
+    12000
+  );
+};
+
+$("snoozeSpeed").onclick=()=>{
+
+  speedGuard.snooze=
+    Date.now()+
+    60000;
+
+  clearSpeedAlarm();
+
+  toast(
+    "Silenziato 60 secondi"
+  );
+};
+
+$("customAudio").onchange=event=>{
+
+  const file=
+    event.target.files?.[0];
+
+  if(file){
+
+    customAudio=
+      new Audio(
+        URL.createObjectURL(
+          file
+        )
+      );
+
+    settings.selectedSound=
+      "custom";
+
+    save(
+      SETTINGS_KEY,
+      settings
+    );
+
+    renderSounds();
+  }
+};
+
+$("toggleVelox").onclick=()=>{
+
+  readSettings();
+
+  veloxGuard.active=
+    !veloxGuard.active;
+
+  resetTracking(false);
+
+  $("toggleVelox").textContent=
+    veloxGuard.active
+      ? "DISATTIVA VELOX"
+      : "ATTIVA VELOX";
+
+  if(veloxGuard.active){
+
+    startGps();
+    keepAwake();
+
+  }else if(
+    !state.running&&
+    !speedGuard.active
+  ){
+
+    stopGps();
+  }
+
+  updateAll();
+};
+
+$("reportVelox").onclick=()=>{
+
+  if(useCurrentPosition()){
+
+    if(
+      !$("veloxName").value
+    ){
+
+      $("veloxName").value=
+        "Segnalazione "+
+        new Date()
+          .toLocaleString(
+            "it-IT"
+          );
+    }
+
+    addVelox(
+      "segnalato"
+    );
+  }
+};
+
+$("usePosition").onclick=
+  useCurrentPosition;
+
+$("addVelox").onclick=()=>{
+  addVelox();
+};
+
+$("saveVelox").onclick=()=>{
+
+  readSettings();
+
+  toast(
+    "Filtro salvato"
+  );
+};
+
+$("loadOnline").onclick=()=>{
+  loadOnline(true);
+};
+
+$("resetTracking").onclick=()=>{
+  resetTracking(true);
+};
+
+$("importVelox").onclick=()=>{
+
+  try{
+
+    const list=
+      parseVelox(
+        $("veloxData").value
+      );
+
+    const added=
+      mergeVelox(list);
+
+    toast(
+      added+
+      " punti importati"
+    );
+
+  }catch{
+
+    toast(
+      "Formato non valido"
+    );
+  }
+};
+
+$("exportVelox").onclick=()=>{
+
+  $("veloxData").value=
+    JSON.stringify(
+      veloxDb,
+      null,
+      2
+    );
+
+  navigator.clipboard
+    ?.writeText(
+      $("veloxData").value
+    );
+
+  toast(
+    "Database copiato"
+  );
+};
+
+$("clearVelox").onclick=()=>{
+
+  if(
+    confirm(
+      "Cancellare il database?"
+    )
+  ){
+
+    veloxDb=[];
+
+    resetTracking(false);
+
+    save(
+      VELOX_KEY,
+      veloxDb
+    );
+
+    renderVelox();
+  }
+};
+
+$("saveCar").onclick=()=>{
+
+  readSettings();
+
+  toast(
+    "Dati salvati"
+  );
+};
+
+$("exportTrips").onclick=
+  exportTrips;
+
+$("clearTrips").onclick=()=>{
+
+  if(
+    confirm(
+      "Cancellare i viaggi?"
+    )
+  ){
+
+    trips=[];
+
+    save(
+      TRIPS_KEY,
+      trips
+    );
+
+    renderTrips();
+  }
+};
+
+document.addEventListener(
+  "visibilitychange",
+  ()=>{
+
+    if(
+      document.visibilityState===
+      "visible"&&
+      gpsNeeded()
+    ){
+
+      startGps();
+      keepAwake();
+    }
+  }
+);
+
+fill();
+renderTrips();
+updateTripButtons();
+loadOnline(false);
+
+setInterval(
+  ()=>{
+
+    if(gpsNeeded()){
+      updateAll();
+    }
+
+    watchdog();
+  },
+  1000
+);
 
 })();
 </script>
